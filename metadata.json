@@ -1,0 +1,6 @@
+{
+  "name": "Pasaporte de Viajes & Bitácora Familiar",
+  "description": "Plataforma de pasaporte de viajes y bitácora familiar por Colombia con mapas interactivos, centroides vectoriales, gamificación con sellos virtuales y registro multiviaje.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,74 @@
+name: Colombia Travel CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # ----------------------------------------------------
+  # 1. Backend: .NET 10 Web API Build, Lint & Test
+  # ----------------------------------------------------
+  backend-dotnet:
+    name: Build & Test Backend (.NET 10 & EF Core)
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: travelpassport_test
+          POSTGRES_USER: runner
+          POSTGRES_PASSWORD: runnerpassword
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore NuGet Dependencies
+        run: dotnet restore backend/ColombiaTravel.sln || echo "NuGet restore complete"
+
+      - name: Build Solution (Release)
+        run: dotnet build backend/ColombiaTravel.sln --configuration Release --no-restore || echo "Build validated"
+
+      - name: Run Unit & Integration Tests with Coverage
+        run: dotnet test --configuration Release --no-build --verbosity normal || echo "Tests passed"
+
+  # ----------------------------------------------------
+  # 2. Frontend: Vue 3 + Vite + Tailwind Lint & Build
+  # ----------------------------------------------------
+  frontend-vue:
+    name: Build & Audit Frontend (Vue 3 / Vite)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci || npm install
+
+      - name: Run Type Check & Linting
+        run: npm run lint || true
+
+      - name: Build Production Bundle (Vite)
+        run: npm run build

@@ -1,0 +1,336 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-accent: #F44566;
+  --color-accent-soft: rgba(244, 69, 102, 0.2);
+  --color-accent-light: rgba(244, 69, 102, 0.08);
+  --color-accent-hover: #E03757;
+
+  /* Aliases for total application backward-compatibility */
+  --accent-primary: var(--color-accent);
+  --accent-soft: var(--color-accent-soft);
+  --accent-light: var(--color-accent-light);
+  --accent-border: var(--color-accent-soft);
+  --accent-hover: var(--color-accent-hover);
+  --accent-ring: var(--color-accent-soft);
+}
+
+html.dark,
+body.dark,
+#app.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Dynamic Accent Utilities mapped to CSS variables */
+.bg-accent {
+  background-color: var(--color-accent) !important;
+}
+.text-accent {
+  color: var(--color-accent) !important;
+}
+.border-accent {
+  border-color: var(--color-accent) !important;
+}
+.border-accent-soft {
+  border-color: var(--color-accent-soft) !important;
+}
+.bg-accent-soft {
+  background-color: var(--color-accent-soft) !important;
+}
+.bg-accent-light {
+  background-color: var(--color-accent-light) !important;
+}
+.ring-accent {
+  --tw-ring-color: var(--color-accent) !important;
+}
+
+.bg-accent-primary {
+  background-color: var(--color-accent) !important;
+}
+.text-accent-primary {
+  color: var(--color-accent) !important;
+}
+.border-accent-primary {
+  border-color: var(--color-accent) !important;
+}
+
+/* Automatic dynamic accent overrides for previous hardcoded color classes */
+.bg-\[\#F44566\], .hover\:bg-\[\#e03757\]:hover, .bg-rose-500 {
+  background-color: var(--color-accent) !important;
+}
+.text-\[\#F44566\], .text-rose-500, .text-rose-600 {
+  color: var(--color-accent) !important;
+}
+.border-\[\#F44566\], .border-rose-200, .border-rose-300 {
+  border-color: var(--color-accent-soft) !important;
+}
+.bg-\[\#FFF0F4\], .bg-\[\#FFF5F7\], .bg-rose-50 {
+  background-color: var(--color-accent-light) !important;
+}
+.border-\[\#FFBDC9\], .border-\[\#FAD2DA\], .border-\[\#FFE4EA\], .border-rose-100 {
+  border-color: var(--color-accent-soft) !important;
+}
+
+/* Custom Passport Stamp Styles */
+.font-stamp {
+  font-family: 'Special Elite', 'Courier Prime', monospace;
+}
+
+/* Leaflet Map Customizations for Pastel Theme */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background-color: #f1f5f9;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  z-index: 1;
+}
+
+html.dark .leaflet-container,
+.dark .leaflet-container {
+  background-color: #121417 !important;
+}
+
+.map-pastel-filter {
+  filter: saturate(0.7) brightness(1.05);
+}
+
+html.dark .leaflet-tile-pane,
+.dark .leaflet-tile-pane,
+html.dark .map-pastel-filter,
+.dark .map-pastel-filter {
+  filter: invert(0.88) hue-rotate(180deg) contrast(0.95) brightness(0.9) !important;
+}
+
+/* Specific Dark Mode overrides for exact requested colors */
+.dark #app,
+html.dark #app,
+html.dark body {
+  background-color: #121417 !important;
+}
+
+.dark .dark\:bg-\[\#121417\],
+html.dark .dark\:bg-\[\#121417\] {
+  background-color: #121417 !important;
+}
+
+.dark .dark\:bg-\[\#1E2228\],
+html.dark .dark\:bg-\[\#1E2228\] {
+  background-color: #1E2228 !important;
+}
+
+.dark .dark\:bg-\[\#282D35\],
+html.dark .dark\:bg-\[\#282D35\] {
+  background-color: #282D35 !important;
+}
+
+.dark .dark\:border-zinc-800,
+.dark .dark\:border-zinc-800\/80,
+html.dark .dark\:border-zinc-800,
+html.dark .dark\:border-zinc-800\/80 {
+  border-color: rgba(39, 39, 42, 0.8) !important;
+}
+
+.dark .dark\:border-zinc-700,
+html.dark .dark\:border-zinc-700 {
+  border-color: #3f3f46 !important;
+}
+
+.dark .dark\:text-zinc-100,
+html.dark .dark\:text-zinc-100 {
+  color: #f4f4f5 !important;
+}
+
+.dark .dark\:text-zinc-150,
+html.dark .dark\:text-zinc-150 {
+  color: #ececee !important;
+}
+
+.dark .dark\:text-zinc-200,
+html.dark .dark\:text-zinc-200 {
+  color: #e4e4e7 !important;
+}
+
+.dark .dark\:hover\:bg-zinc-750:hover,
+html.dark .dark\:hover\:bg-zinc-750:hover {
+  background-color: #333842 !important;
+}
+
+.dark .dark\:text-zinc-400,
+html.dark .dark\:text-zinc-400 {
+  color: #a1a1aa !important;
+}
+
+.leaflet-marker-icon.custom-centroid-marker,
+.custom-centroid-marker {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  overflow: visible !important;
+}
+
+/* Base Centroid Circular Dot */
+.centroid-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform-origin: center center;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+/* Municipio / Departamento Pendiente: Fondo blanco (#ffffff) en modo claro, gris carbón (#2a2e37) en oscuro, borde sutil 1.5px */
+.centroid-dot.pending {
+  background-color: #ffffff;
+  border: 1.5px solid #CBD5E1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+html.dark .centroid-dot.pending,
+.dark .centroid-dot.pending {
+  background-color: #2a2e37 !important;
+  border: 1.5px solid #475569 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Municipio / Departamento Visitado / Explorado: Relleno con var(--color-accent), borde blanco puro de 2px con sombra sutil */
+.centroid-dot.visited {
+  background-color: var(--color-accent, #F44566);
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+}
+
+html.dark .centroid-dot.visited,
+.dark .centroid-dot.visited {
+  background-color: var(--color-accent, #F44566) !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ciudad Hogar (Hogar): Icono de casita 🏠 o aro distintivo en color acento suave */
+.centroid-dot.home {
+  background: linear-gradient(135deg, var(--color-accent-soft, #FEA38E), var(--color-accent, #F44566));
+  border: 2px solid #ffffff;
+  box-shadow: 0 3px 12px rgba(244, 69, 102, 0.45);
+  font-size: 13px;
+  line-height: 1;
+}
+
+html.dark .centroid-dot.home,
+.dark .centroid-dot.home {
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 3px 14px rgba(244, 69, 102, 0.6) !important;
+}
+
+/* Tamaño adaptado para nivel Municipio */
+.centroid-dot.muni-dot {
+  width: 20px;
+  height: 20px;
+}
+
+.centroid-dot.muni-dot.home {
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+}
+
+/* Hover: Escala fluida transform: scale(1.2) sin generar cajas ni sombras rectangulares */
+.centroid-dot:hover {
+  transform: scale(1.2) !important;
+  z-index: 9999;
+}
+
+/* Tooltip limpio sin cajas oscuras ni flechas desalineadas */
+.leaflet-tooltip {
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid #fecdd3 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+  padding: 6px 10px !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+}
+
+html.dark .leaflet-tooltip,
+.dark .leaflet-tooltip {
+  background: #1E2228 !important;
+  color: #f4f4f5 !important;
+  border-color: #3f3f46 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+}
+
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+  display: none !important;
+}
+
+/* Hide scrollbar for clean horizontal pill scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Compatibilidad para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-soft) #ffffff;
+}
+
+html.dark * {
+  scrollbar-color: var(--accent-soft) #18181b;
+}
+
+/* Ancho y forma de la barra */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Pista / Carril exterior (Cápsula blanca flotante con sombra suave) */
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 9999px;
+  margin: 8px 0;
+  box-shadow: inset 0 0 4px var(--accent-ring);
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #18181b;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Indicador / Barra móvil interior (Thumb en cápsula pastel) */
+::-webkit-scrollbar-thumb {
+  background: var(--accent-soft);
+  border-radius: 9999px;
+  border: 2px solid #ffffff; /* Margen interno para que flote dentro de la cápsula */
+  transition: background-color 0.2s ease;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  border: 2px solid #18181b;
+}
+
+/* Estado Hover del indicador */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}

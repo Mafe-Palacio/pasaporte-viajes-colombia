@@ -60,7 +60,11 @@ else
 var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>()
               ?? new[] { "http://localhost:3000", "http://localhost:5173" };
 builder.Services.AddCors(o => o.AddDefaultPolicy(p =>
-    p.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod()));
+{
+    if (origins.Contains("*")) p.AllowAnyOrigin();
+    else p.WithOrigins(origins);
+    p.AllowAnyHeader().AllowAnyMethod();
+}));
 
 // ───────────── Controladores + Swagger ─────────────
 builder.Services.AddControllers();
@@ -107,7 +111,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment()) app.UseHttpsRedirection();
 
 // Solo con almacenamiento local: sirve las fotos guardadas en /uploads
 if (app.Services.GetRequiredService<IPhotoStorage>() is LocalPhotoStorage localStorage)

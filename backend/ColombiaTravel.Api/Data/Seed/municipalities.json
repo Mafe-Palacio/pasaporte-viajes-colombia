@@ -1,0 +1,7856 @@
+[
+  {
+    "code": "05001",
+    "departmentCode": "05",
+    "name": "Medellín",
+    "latitude": 6.246631,
+    "longitude": -75.581775
+  },
+  {
+    "code": "05002",
+    "departmentCode": "05",
+    "name": "Abejorral",
+    "latitude": 5.789315,
+    "longitude": -75.428739
+  },
+  {
+    "code": "05004",
+    "departmentCode": "05",
+    "name": "Abriaquí",
+    "latitude": 6.632282,
+    "longitude": -76.064304
+  },
+  {
+    "code": "05021",
+    "departmentCode": "05",
+    "name": "Alejandría",
+    "latitude": 6.376061,
+    "longitude": -75.141346
+  },
+  {
+    "code": "05030",
+    "departmentCode": "05",
+    "name": "Amagá",
+    "latitude": 6.038708,
+    "longitude": -75.702188
+  },
+  {
+    "code": "05031",
+    "departmentCode": "05",
+    "name": "Amalfi",
+    "latitude": 6.909655,
+    "longitude": -75.077501
+  },
+  {
+    "code": "05034",
+    "departmentCode": "05",
+    "name": "Andes",
+    "latitude": 5.657194,
+    "longitude": -75.878828
+  },
+  {
+    "code": "05036",
+    "departmentCode": "05",
+    "name": "Angelópolis",
+    "latitude": 6.109719,
+    "longitude": -75.711389
+  },
+  {
+    "code": "05038",
+    "departmentCode": "05",
+    "name": "Angostura",
+    "latitude": 6.885175,
+    "longitude": -75.335116
+  },
+  {
+    "code": "05040",
+    "departmentCode": "05",
+    "name": "Anorí",
+    "latitude": 7.074703,
+    "longitude": -75.148355
+  },
+  {
+    "code": "05042",
+    "departmentCode": "05",
+    "name": "Santa Fé de Antioquia",
+    "latitude": 6.556484,
+    "longitude": -75.826648
+  },
+  {
+    "code": "05044",
+    "departmentCode": "05",
+    "name": "Anzá",
+    "latitude": 6.302641,
+    "longitude": -75.854442
+  },
+  {
+    "code": "05045",
+    "departmentCode": "05",
+    "name": "Apartadó",
+    "latitude": 7.882968,
+    "longitude": -76.625279
+  },
+  {
+    "code": "05051",
+    "departmentCode": "05",
+    "name": "Arboletes",
+    "latitude": 8.849317,
+    "longitude": -76.426708
+  },
+  {
+    "code": "05055",
+    "departmentCode": "05",
+    "name": "Argelia",
+    "latitude": 5.731474,
+    "longitude": -75.14107
+  },
+  {
+    "code": "05059",
+    "departmentCode": "05",
+    "name": "Armenia",
+    "latitude": 6.155667,
+    "longitude": -75.786647
+  },
+  {
+    "code": "05079",
+    "departmentCode": "05",
+    "name": "Barbosa",
+    "latitude": 6.439195,
+    "longitude": -75.331627
+  },
+  {
+    "code": "05086",
+    "departmentCode": "05",
+    "name": "Belmira",
+    "latitude": 6.606319,
+    "longitude": -75.667779
+  },
+  {
+    "code": "05088",
+    "departmentCode": "05",
+    "name": "Bello",
+    "latitude": 6.333587,
+    "longitude": -75.555245
+  },
+  {
+    "code": "05091",
+    "departmentCode": "05",
+    "name": "Betania",
+    "latitude": 5.74615,
+    "longitude": -75.97679
+  },
+  {
+    "code": "05093",
+    "departmentCode": "05",
+    "name": "Betulia",
+    "latitude": 6.115208,
+    "longitude": -75.984452
+  },
+  {
+    "code": "05101",
+    "departmentCode": "05",
+    "name": "Ciudad Bolívar",
+    "latitude": 5.850273,
+    "longitude": -76.021509
+  },
+  {
+    "code": "05107",
+    "departmentCode": "05",
+    "name": "Briceño",
+    "latitude": 7.112803,
+    "longitude": -75.55036
+  },
+  {
+    "code": "05113",
+    "departmentCode": "05",
+    "name": "Buriticá",
+    "latitude": 6.720759,
+    "longitude": -75.907
+  },
+  {
+    "code": "05120",
+    "departmentCode": "05",
+    "name": "Cáceres",
+    "latitude": 7.578366,
+    "longitude": -75.35205
+  },
+  {
+    "code": "05125",
+    "departmentCode": "05",
+    "name": "Caicedo",
+    "latitude": 6.405607,
+    "longitude": -75.98293
+  },
+  {
+    "code": "05129",
+    "departmentCode": "05",
+    "name": "Caldas",
+    "latitude": 6.091077,
+    "longitude": -75.633673
+  },
+  {
+    "code": "05134",
+    "departmentCode": "05",
+    "name": "Campamento",
+    "latitude": 6.979771,
+    "longitude": -75.298091
+  },
+  {
+    "code": "05138",
+    "departmentCode": "05",
+    "name": "Cañasgordas",
+    "latitude": 6.753859,
+    "longitude": -76.028228
+  },
+  {
+    "code": "05142",
+    "departmentCode": "05",
+    "name": "Caracolí",
+    "latitude": 6.409829,
+    "longitude": -74.757421
+  },
+  {
+    "code": "05145",
+    "departmentCode": "05",
+    "name": "Caramanta",
+    "latitude": 5.54853,
+    "longitude": -75.643868
+  },
+  {
+    "code": "05147",
+    "departmentCode": "05",
+    "name": "Carepa",
+    "latitude": 7.755148,
+    "longitude": -76.652652
+  },
+  {
+    "code": "05148",
+    "departmentCode": "05",
+    "name": "el Carmen de Viboral",
+    "latitude": 6.082885,
+    "longitude": -75.333901
+  },
+  {
+    "code": "05150",
+    "departmentCode": "05",
+    "name": "Carolina",
+    "latitude": 6.725995,
+    "longitude": -75.283192
+  },
+  {
+    "code": "05154",
+    "departmentCode": "05",
+    "name": "Caucasia",
+    "latitude": 7.977278,
+    "longitude": -75.197996
+  },
+  {
+    "code": "05172",
+    "departmentCode": "05",
+    "name": "Chigorodó",
+    "latitude": 7.666147,
+    "longitude": -76.681531
+  },
+  {
+    "code": "05190",
+    "departmentCode": "05",
+    "name": "Cisneros",
+    "latitude": 6.537829,
+    "longitude": -75.087047
+  },
+  {
+    "code": "05197",
+    "departmentCode": "05",
+    "name": "Cocorná",
+    "latitude": 6.058295,
+    "longitude": -75.185483
+  },
+  {
+    "code": "05206",
+    "departmentCode": "05",
+    "name": "Concepción",
+    "latitude": 6.394348,
+    "longitude": -75.257587
+  },
+  {
+    "code": "05209",
+    "departmentCode": "05",
+    "name": "Concordia",
+    "latitude": 6.045738,
+    "longitude": -75.908448
+  },
+  {
+    "code": "05212",
+    "departmentCode": "05",
+    "name": "Copacabana",
+    "latitude": 6.348557,
+    "longitude": -75.509384
+  },
+  {
+    "code": "05234",
+    "departmentCode": "05",
+    "name": "Dabeiba",
+    "latitude": 6.998112,
+    "longitude": -76.261614
+  },
+  {
+    "code": "05237",
+    "departmentCode": "05",
+    "name": "Donmatías",
+    "latitude": 6.485603,
+    "longitude": -75.39263
+  },
+  {
+    "code": "05240",
+    "departmentCode": "05",
+    "name": "Ebéjico",
+    "latitude": 6.325615,
+    "longitude": -75.766413
+  },
+  {
+    "code": "05250",
+    "departmentCode": "05",
+    "name": "el Bagre",
+    "latitude": 7.5975,
+    "longitude": -74.799097
+  },
+  {
+    "code": "05264",
+    "departmentCode": "05",
+    "name": "Entrerríos",
+    "latitude": 6.566273,
+    "longitude": -75.517685
+  },
+  {
+    "code": "05266",
+    "departmentCode": "05",
+    "name": "Envigado",
+    "latitude": 6.166695,
+    "longitude": -75.582192
+  },
+  {
+    "code": "05282",
+    "departmentCode": "05",
+    "name": "Fredonia",
+    "latitude": 5.928039,
+    "longitude": -75.675072
+  },
+  {
+    "code": "05284",
+    "departmentCode": "05",
+    "name": "Frontino",
+    "latitude": 6.776066,
+    "longitude": -76.130765
+  },
+  {
+    "code": "05306",
+    "departmentCode": "05",
+    "name": "Giraldo",
+    "latitude": 6.680808,
+    "longitude": -75.952158
+  },
+  {
+    "code": "05308",
+    "departmentCode": "05",
+    "name": "Girardota",
+    "latitude": 6.379472,
+    "longitude": -75.444238
+  },
+  {
+    "code": "05310",
+    "departmentCode": "05",
+    "name": "Gómez Plata",
+    "latitude": 6.683269,
+    "longitude": -75.220018
+  },
+  {
+    "code": "05313",
+    "departmentCode": "05",
+    "name": "Granada",
+    "latitude": 6.142892,
+    "longitude": -75.184446
+  },
+  {
+    "code": "05315",
+    "departmentCode": "05",
+    "name": "Guadalupe",
+    "latitude": 6.815069,
+    "longitude": -75.239862
+  },
+  {
+    "code": "05318",
+    "departmentCode": "05",
+    "name": "Guarne",
+    "latitude": 6.27787,
+    "longitude": -75.441612
+  },
+  {
+    "code": "05321",
+    "departmentCode": "05",
+    "name": "Guatapé",
+    "latitude": 6.232461,
+    "longitude": -75.160041
+  },
+  {
+    "code": "05347",
+    "departmentCode": "05",
+    "name": "Heliconia",
+    "latitude": 6.206757,
+    "longitude": -75.734322
+  },
+  {
+    "code": "05353",
+    "departmentCode": "05",
+    "name": "Hispania",
+    "latitude": 5.799461,
+    "longitude": -75.906587
+  },
+  {
+    "code": "05360",
+    "departmentCode": "05",
+    "name": "Itagüí",
+    "latitude": 6.175079,
+    "longitude": -75.612056
+  },
+  {
+    "code": "05361",
+    "departmentCode": "05",
+    "name": "Ituango",
+    "latitude": 7.171629,
+    "longitude": -75.764673
+  },
+  {
+    "code": "05364",
+    "departmentCode": "05",
+    "name": "Jardín",
+    "latitude": 5.597542,
+    "longitude": -75.818982
+  },
+  {
+    "code": "05368",
+    "departmentCode": "05",
+    "name": "Jericó",
+    "latitude": 5.789748,
+    "longitude": -75.785499
+  },
+  {
+    "code": "05376",
+    "departmentCode": "05",
+    "name": "la Ceja",
+    "latitude": 6.028062,
+    "longitude": -75.429433
+  },
+  {
+    "code": "05380",
+    "departmentCode": "05",
+    "name": "la Estrella",
+    "latitude": 6.145238,
+    "longitude": -75.637708
+  },
+  {
+    "code": "05390",
+    "departmentCode": "05",
+    "name": "la Pintada",
+    "latitude": 5.743808,
+    "longitude": -75.60781
+  },
+  {
+    "code": "05400",
+    "departmentCode": "05",
+    "name": "la Unión",
+    "latitude": 5.973845,
+    "longitude": -75.360874
+  },
+  {
+    "code": "05411",
+    "departmentCode": "05",
+    "name": "Liborina",
+    "latitude": 6.677316,
+    "longitude": -75.812838
+  },
+  {
+    "code": "05425",
+    "departmentCode": "05",
+    "name": "Maceo",
+    "latitude": 6.552116,
+    "longitude": -74.78716
+  },
+  {
+    "code": "05440",
+    "departmentCode": "05",
+    "name": "Marinilla",
+    "latitude": 6.173995,
+    "longitude": -75.339345
+  },
+  {
+    "code": "05467",
+    "departmentCode": "05",
+    "name": "Montebello",
+    "latitude": 5.946313,
+    "longitude": -75.523455
+  },
+  {
+    "code": "05475",
+    "departmentCode": "05",
+    "name": "Murindó",
+    "latitude": 6.97771,
+    "longitude": -76.817485
+  },
+  {
+    "code": "05480",
+    "departmentCode": "05",
+    "name": "Mutatá",
+    "latitude": 7.242875,
+    "longitude": -76.435875
+  },
+  {
+    "code": "05483",
+    "departmentCode": "05",
+    "name": "Nariño",
+    "latitude": 5.610777,
+    "longitude": -75.176262
+  },
+  {
+    "code": "05490",
+    "departmentCode": "05",
+    "name": "Necoclí",
+    "latitude": 8.434526,
+    "longitude": -76.787271
+  },
+  {
+    "code": "05495",
+    "departmentCode": "05",
+    "name": "Nechí",
+    "latitude": 8.094129,
+    "longitude": -74.77647
+  },
+  {
+    "code": "05501",
+    "departmentCode": "05",
+    "name": "Olaya",
+    "latitude": 6.626492,
+    "longitude": -75.811773
+  },
+  {
+    "code": "05541",
+    "departmentCode": "05",
+    "name": "Peñol",
+    "latitude": 6.219349,
+    "longitude": -75.242693
+  },
+  {
+    "code": "05543",
+    "departmentCode": "05",
+    "name": "Peque",
+    "latitude": 7.021029,
+    "longitude": -75.910357
+  },
+  {
+    "code": "05576",
+    "departmentCode": "05",
+    "name": "Pueblorrico",
+    "latitude": 5.79158,
+    "longitude": -75.839903
+  },
+  {
+    "code": "05579",
+    "departmentCode": "05",
+    "name": "Puerto Berrío",
+    "latitude": 6.487028,
+    "longitude": -74.410016
+  },
+  {
+    "code": "05585",
+    "departmentCode": "05",
+    "name": "Puerto Nare",
+    "latitude": 6.186025,
+    "longitude": -74.583012
+  },
+  {
+    "code": "05591",
+    "departmentCode": "05",
+    "name": "Puerto Triunfo",
+    "latitude": 5.871318,
+    "longitude": -74.64119
+  },
+  {
+    "code": "05604",
+    "departmentCode": "05",
+    "name": "Remedios",
+    "latitude": 7.029424,
+    "longitude": -74.698135
+  },
+  {
+    "code": "05607",
+    "departmentCode": "05",
+    "name": "Retiro",
+    "latitude": 6.062454,
+    "longitude": -75.501301
+  },
+  {
+    "code": "05615",
+    "departmentCode": "05",
+    "name": "Rionegro",
+    "latitude": 6.147148,
+    "longitude": -75.377316
+  },
+  {
+    "code": "05628",
+    "departmentCode": "05",
+    "name": "Sabanalarga",
+    "latitude": 6.850028,
+    "longitude": -75.816645
+  },
+  {
+    "code": "05631",
+    "departmentCode": "05",
+    "name": "Sabaneta",
+    "latitude": 6.149903,
+    "longitude": -75.615479
+  },
+  {
+    "code": "05642",
+    "departmentCode": "05",
+    "name": "Salgar",
+    "latitude": 5.964198,
+    "longitude": -75.976807
+  },
+  {
+    "code": "05647",
+    "departmentCode": "05",
+    "name": "San Andrés de Cuerquía",
+    "latitude": 6.916676,
+    "longitude": -75.674564
+  },
+  {
+    "code": "05649",
+    "departmentCode": "05",
+    "name": "San Carlos",
+    "latitude": 6.187746,
+    "longitude": -74.988097
+  },
+  {
+    "code": "05652",
+    "departmentCode": "05",
+    "name": "San Francisco",
+    "latitude": 5.963476,
+    "longitude": -75.101562
+  },
+  {
+    "code": "05656",
+    "departmentCode": "05",
+    "name": "San Jerónimo",
+    "latitude": 6.44809,
+    "longitude": -75.726975
+  },
+  {
+    "code": "05658",
+    "departmentCode": "05",
+    "name": "San José de la Montaña",
+    "latitude": 6.85009,
+    "longitude": -75.683352
+  },
+  {
+    "code": "05659",
+    "departmentCode": "05",
+    "name": "San Juan de Urabá",
+    "latitude": 8.758964,
+    "longitude": -76.52857
+  },
+  {
+    "code": "05660",
+    "departmentCode": "05",
+    "name": "San Luis",
+    "latitude": 6.043017,
+    "longitude": -74.993619
+  },
+  {
+    "code": "05664",
+    "departmentCode": "05",
+    "name": "San Pedro de los Milagros",
+    "latitude": 6.46012,
+    "longitude": -75.556743
+  },
+  {
+    "code": "05665",
+    "departmentCode": "05",
+    "name": "San Pedro de Urabá",
+    "latitude": 8.276884,
+    "longitude": -76.380567
+  },
+  {
+    "code": "05667",
+    "departmentCode": "05",
+    "name": "San Rafael",
+    "latitude": 6.293759,
+    "longitude": -75.02849
+  },
+  {
+    "code": "05670",
+    "departmentCode": "05",
+    "name": "San Roque",
+    "latitude": 6.485939,
+    "longitude": -75.019109
+  },
+  {
+    "code": "05674",
+    "departmentCode": "05",
+    "name": "San Vicente Ferrer",
+    "latitude": 6.282164,
+    "longitude": -75.332616
+  },
+  {
+    "code": "05679",
+    "departmentCode": "05",
+    "name": "Santa Bárbara",
+    "latitude": 5.875527,
+    "longitude": -75.567351
+  },
+  {
+    "code": "05686",
+    "departmentCode": "05",
+    "name": "Santa Rosa de Osos",
+    "latitude": 6.643366,
+    "longitude": -75.460723
+  },
+  {
+    "code": "05690",
+    "departmentCode": "05",
+    "name": "Santo Domingo",
+    "latitude": 6.473032,
+    "longitude": -75.164903
+  },
+  {
+    "code": "05697",
+    "departmentCode": "05",
+    "name": "el Santuario",
+    "latitude": 6.136871,
+    "longitude": -75.265465
+  },
+  {
+    "code": "05736",
+    "departmentCode": "05",
+    "name": "Segovia",
+    "latitude": 7.079648,
+    "longitude": -74.701596
+  },
+  {
+    "code": "05756",
+    "departmentCode": "05",
+    "name": "Sonsón",
+    "latitude": 5.714851,
+    "longitude": -75.309596
+  },
+  {
+    "code": "05761",
+    "departmentCode": "05",
+    "name": "Sopetrán",
+    "latitude": 6.500745,
+    "longitude": -75.747378
+  },
+  {
+    "code": "05789",
+    "departmentCode": "05",
+    "name": "Támesis",
+    "latitude": 5.664645,
+    "longitude": -75.714429
+  },
+  {
+    "code": "05790",
+    "departmentCode": "05",
+    "name": "Tarazá",
+    "latitude": 7.580127,
+    "longitude": -75.401407
+  },
+  {
+    "code": "05792",
+    "departmentCode": "05",
+    "name": "Tarso",
+    "latitude": 5.864542,
+    "longitude": -75.822956
+  },
+  {
+    "code": "05809",
+    "departmentCode": "05",
+    "name": "Titiribí",
+    "latitude": 6.062391,
+    "longitude": -75.791887
+  },
+  {
+    "code": "05819",
+    "departmentCode": "05",
+    "name": "Toledo",
+    "latitude": 7.010328,
+    "longitude": -75.692281
+  },
+  {
+    "code": "05837",
+    "departmentCode": "05",
+    "name": "Turbo",
+    "latitude": 8.089929,
+    "longitude": -76.728858
+  },
+  {
+    "code": "05842",
+    "departmentCode": "05",
+    "name": "Uramita",
+    "latitude": 6.898393,
+    "longitude": -76.173284
+  },
+  {
+    "code": "05847",
+    "departmentCode": "05",
+    "name": "Urrao",
+    "latitude": 6.317343,
+    "longitude": -76.133951
+  },
+  {
+    "code": "05854",
+    "departmentCode": "05",
+    "name": "Valdivia",
+    "latitude": 7.1652,
+    "longitude": -75.439274
+  },
+  {
+    "code": "05856",
+    "departmentCode": "05",
+    "name": "Valparaíso",
+    "latitude": 5.614555,
+    "longitude": -75.624452
+  },
+  {
+    "code": "05858",
+    "departmentCode": "05",
+    "name": "Vegachí",
+    "latitude": 6.773525,
+    "longitude": -74.798714
+  },
+  {
+    "code": "05861",
+    "departmentCode": "05",
+    "name": "Venecia",
+    "latitude": 5.964693,
+    "longitude": -75.735544
+  },
+  {
+    "code": "05873",
+    "departmentCode": "05",
+    "name": "Vigía del Fuerte",
+    "latitude": 6.588164,
+    "longitude": -76.896004
+  },
+  {
+    "code": "05885",
+    "departmentCode": "05",
+    "name": "Yalí",
+    "latitude": 6.676554,
+    "longitude": -74.840059
+  },
+  {
+    "code": "05887",
+    "departmentCode": "05",
+    "name": "Yarumal",
+    "latitude": 6.963832,
+    "longitude": -75.418828
+  },
+  {
+    "code": "05890",
+    "departmentCode": "05",
+    "name": "Yolombó",
+    "latitude": 6.594511,
+    "longitude": -75.013385
+  },
+  {
+    "code": "05893",
+    "departmentCode": "05",
+    "name": "Yondó",
+    "latitude": 7.00396,
+    "longitude": -73.912445
+  },
+  {
+    "code": "05895",
+    "departmentCode": "05",
+    "name": "Zaragoza",
+    "latitude": 7.488583,
+    "longitude": -74.867075
+  },
+  {
+    "code": "08001",
+    "departmentCode": "08",
+    "name": "Barranquilla",
+    "latitude": 10.977961,
+    "longitude": -74.815546
+  },
+  {
+    "code": "08078",
+    "departmentCode": "08",
+    "name": "Baranoa",
+    "latitude": 10.79445,
+    "longitude": -74.916077
+  },
+  {
+    "code": "08137",
+    "departmentCode": "08",
+    "name": "Campo de la Cruz",
+    "latitude": 10.378291,
+    "longitude": -74.880847
+  },
+  {
+    "code": "08141",
+    "departmentCode": "08",
+    "name": "Candelaria",
+    "latitude": 10.461903,
+    "longitude": -74.879717
+  },
+  {
+    "code": "08296",
+    "departmentCode": "08",
+    "name": "Galapa",
+    "latitude": 10.919033,
+    "longitude": -74.870385
+  },
+  {
+    "code": "08372",
+    "departmentCode": "08",
+    "name": "Juan de Acosta",
+    "latitude": 10.83254,
+    "longitude": -75.041032
+  },
+  {
+    "code": "08421",
+    "departmentCode": "08",
+    "name": "Luruaco",
+    "latitude": 10.610491,
+    "longitude": -75.14199
+  },
+  {
+    "code": "08433",
+    "departmentCode": "08",
+    "name": "Malambo",
+    "latitude": 10.857086,
+    "longitude": -74.776923
+  },
+  {
+    "code": "08436",
+    "departmentCode": "08",
+    "name": "Manatí",
+    "latitude": 10.449089,
+    "longitude": -74.956867
+  },
+  {
+    "code": "08520",
+    "departmentCode": "08",
+    "name": "Palmar de Varela",
+    "latitude": 10.738591,
+    "longitude": -74.754765
+  },
+  {
+    "code": "08549",
+    "departmentCode": "08",
+    "name": "Piojó",
+    "latitude": 10.749216,
+    "longitude": -75.107592
+  },
+  {
+    "code": "08558",
+    "departmentCode": "08",
+    "name": "Polonuevo",
+    "latitude": 10.777363,
+    "longitude": -74.852981
+  },
+  {
+    "code": "08560",
+    "departmentCode": "08",
+    "name": "Ponedera",
+    "latitude": 10.641779,
+    "longitude": -74.753885
+  },
+  {
+    "code": "08573",
+    "departmentCode": "08",
+    "name": "Puerto Colombia",
+    "latitude": 11.015322,
+    "longitude": -74.888627
+  },
+  {
+    "code": "08606",
+    "departmentCode": "08",
+    "name": "Repelón",
+    "latitude": 10.493357,
+    "longitude": -75.125534
+  },
+  {
+    "code": "08634",
+    "departmentCode": "08",
+    "name": "Sabanagrande",
+    "latitude": 10.792453,
+    "longitude": -74.759496
+  },
+  {
+    "code": "08638",
+    "departmentCode": "08",
+    "name": "Sabanalarga",
+    "latitude": 10.632091,
+    "longitude": -74.921256
+  },
+  {
+    "code": "08675",
+    "departmentCode": "08",
+    "name": "Santa Lucía",
+    "latitude": 10.324303,
+    "longitude": -74.959204
+  },
+  {
+    "code": "08685",
+    "departmentCode": "08",
+    "name": "Santo Tomás",
+    "latitude": 10.758735,
+    "longitude": -74.757859
+  },
+  {
+    "code": "08758",
+    "departmentCode": "08",
+    "name": "Soledad",
+    "latitude": 10.909921,
+    "longitude": -74.786054
+  },
+  {
+    "code": "08770",
+    "departmentCode": "08",
+    "name": "Suan",
+    "latitude": 10.335432,
+    "longitude": -74.881687
+  },
+  {
+    "code": "08832",
+    "departmentCode": "08",
+    "name": "Tubará",
+    "latitude": 10.873586,
+    "longitude": -74.978704
+  },
+  {
+    "code": "08849",
+    "departmentCode": "08",
+    "name": "Usiacurí",
+    "latitude": 10.74298,
+    "longitude": -74.976985
+  },
+  {
+    "code": "11001",
+    "departmentCode": "11",
+    "name": "Bogotá, D.C.",
+    "latitude": 4.649251,
+    "longitude": -74.106992
+  },
+  {
+    "code": "13001",
+    "departmentCode": "13",
+    "name": "Cartagena de Indias",
+    "latitude": 10.385126,
+    "longitude": -75.496269
+  },
+  {
+    "code": "13006",
+    "departmentCode": "13",
+    "name": "Achí",
+    "latitude": 8.570107,
+    "longitude": -74.557676
+  },
+  {
+    "code": "13030",
+    "departmentCode": "13",
+    "name": "Altos del Rosario",
+    "latitude": 8.791865,
+    "longitude": -74.164905
+  },
+  {
+    "code": "13042",
+    "departmentCode": "13",
+    "name": "Arenal",
+    "latitude": 8.458865,
+    "longitude": -73.941099
+  },
+  {
+    "code": "13052",
+    "departmentCode": "13",
+    "name": "Arjona",
+    "latitude": 10.25666,
+    "longitude": -75.344332
+  },
+  {
+    "code": "13062",
+    "departmentCode": "13",
+    "name": "Arroyohondo",
+    "latitude": 10.250075,
+    "longitude": -75.019215
+  },
+  {
+    "code": "13074",
+    "departmentCode": "13",
+    "name": "Barranco de Loba",
+    "latitude": 8.947787,
+    "longitude": -74.104391
+  },
+  {
+    "code": "13140",
+    "departmentCode": "13",
+    "name": "Calamar",
+    "latitude": 10.250431,
+    "longitude": -74.916144
+  },
+  {
+    "code": "13160",
+    "departmentCode": "13",
+    "name": "Cantagallo",
+    "latitude": 7.378678,
+    "longitude": -73.914605
+  },
+  {
+    "code": "13188",
+    "departmentCode": "13",
+    "name": "Cicuco",
+    "latitude": 9.274281,
+    "longitude": -74.645981
+  },
+  {
+    "code": "13212",
+    "departmentCode": "13",
+    "name": "Córdoba",
+    "latitude": 9.586942,
+    "longitude": -74.827399
+  },
+  {
+    "code": "13222",
+    "departmentCode": "13",
+    "name": "Clemencia",
+    "latitude": 10.567452,
+    "longitude": -75.328469
+  },
+  {
+    "code": "13244",
+    "departmentCode": "13",
+    "name": "el Carmen de Bolívar",
+    "latitude": 9.718653,
+    "longitude": -75.121178
+  },
+  {
+    "code": "13248",
+    "departmentCode": "13",
+    "name": "el Guamo",
+    "latitude": 10.030958,
+    "longitude": -74.976084
+  },
+  {
+    "code": "13268",
+    "departmentCode": "13",
+    "name": "el Peñón",
+    "latitude": 8.988271,
+    "longitude": -73.949274
+  },
+  {
+    "code": "13300",
+    "departmentCode": "13",
+    "name": "Hatillo de Loba",
+    "latitude": 8.956014,
+    "longitude": -74.077912
+  },
+  {
+    "code": "13430",
+    "departmentCode": "13",
+    "name": "Magangué",
+    "latitude": 9.263799,
+    "longitude": -74.766742
+  },
+  {
+    "code": "13433",
+    "departmentCode": "13",
+    "name": "Mahates",
+    "latitude": 10.233285,
+    "longitude": -75.191643
+  },
+  {
+    "code": "13440",
+    "departmentCode": "13",
+    "name": "Margarita",
+    "latitude": 9.15784,
+    "longitude": -74.285137
+  },
+  {
+    "code": "13442",
+    "departmentCode": "13",
+    "name": "María la Baja",
+    "latitude": 9.982402,
+    "longitude": -75.300516
+  },
+  {
+    "code": "13458",
+    "departmentCode": "13",
+    "name": "Montecristo",
+    "latitude": 8.297234,
+    "longitude": -74.471176
+  },
+  {
+    "code": "13468",
+    "departmentCode": "13",
+    "name": "Santa Cruz de Mompox",
+    "latitude": 9.244241,
+    "longitude": -74.42818
+  },
+  {
+    "code": "13473",
+    "departmentCode": "13",
+    "name": "Morales",
+    "latitude": 8.276558,
+    "longitude": -73.868172
+  },
+  {
+    "code": "13490",
+    "departmentCode": "13",
+    "name": "Norosí",
+    "latitude": 8.526259,
+    "longitude": -74.038003
+  },
+  {
+    "code": "13549",
+    "departmentCode": "13",
+    "name": "Pinillos",
+    "latitude": 8.914947,
+    "longitude": -74.462279
+  },
+  {
+    "code": "13580",
+    "departmentCode": "13",
+    "name": "Regidor",
+    "latitude": 8.666258,
+    "longitude": -73.821638
+  },
+  {
+    "code": "13600",
+    "departmentCode": "13",
+    "name": "Río Viejo",
+    "latitude": 8.58795,
+    "longitude": -73.840466
+  },
+  {
+    "code": "13620",
+    "departmentCode": "13",
+    "name": "San Cristóbal",
+    "latitude": 10.392836,
+    "longitude": -75.065076
+  },
+  {
+    "code": "13647",
+    "departmentCode": "13",
+    "name": "San Estanislao",
+    "latitude": 10.398602,
+    "longitude": -75.153101
+  },
+  {
+    "code": "13650",
+    "departmentCode": "13",
+    "name": "San Fernando",
+    "latitude": 9.214183,
+    "longitude": -74.323811
+  },
+  {
+    "code": "13654",
+    "departmentCode": "13",
+    "name": "San Jacinto",
+    "latitude": 9.830275,
+    "longitude": -75.12105
+  },
+  {
+    "code": "13655",
+    "departmentCode": "13",
+    "name": "San Jacinto del Cauca",
+    "latitude": 8.25158,
+    "longitude": -74.721156
+  },
+  {
+    "code": "13657",
+    "departmentCode": "13",
+    "name": "San Juan Nepomuceno",
+    "latitude": 9.953751,
+    "longitude": -75.081761
+  },
+  {
+    "code": "13667",
+    "departmentCode": "13",
+    "name": "San Martín de Loba",
+    "latitude": 8.937485,
+    "longitude": -74.039134
+  },
+  {
+    "code": "13670",
+    "departmentCode": "13",
+    "name": "San Pablo",
+    "latitude": 7.476747,
+    "longitude": -73.924602
+  },
+  {
+    "code": "13673",
+    "departmentCode": "13",
+    "name": "Santa Catalina",
+    "latitude": 10.605294,
+    "longitude": -75.287855
+  },
+  {
+    "code": "13683",
+    "departmentCode": "13",
+    "name": "Santa Rosa",
+    "latitude": 10.444396,
+    "longitude": -75.369824
+  },
+  {
+    "code": "13688",
+    "departmentCode": "13",
+    "name": "Santa Rosa del Sur",
+    "latitude": 7.963938,
+    "longitude": -74.052243
+  },
+  {
+    "code": "13744",
+    "departmentCode": "13",
+    "name": "Simití",
+    "latitude": 7.953916,
+    "longitude": -73.947264
+  },
+  {
+    "code": "13760",
+    "departmentCode": "13",
+    "name": "Soplaviento",
+    "latitude": 10.38839,
+    "longitude": -75.136404
+  },
+  {
+    "code": "13780",
+    "departmentCode": "13",
+    "name": "Talaigua Nuevo",
+    "latitude": 9.30403,
+    "longitude": -74.567479
+  },
+  {
+    "code": "13810",
+    "departmentCode": "13",
+    "name": "Tiquisio",
+    "latitude": 8.558666,
+    "longitude": -74.262922
+  },
+  {
+    "code": "13836",
+    "departmentCode": "13",
+    "name": "Turbaco",
+    "latitude": 10.348316,
+    "longitude": -75.427249
+  },
+  {
+    "code": "13838",
+    "departmentCode": "13",
+    "name": "Turbaná",
+    "latitude": 10.274585,
+    "longitude": -75.44265
+  },
+  {
+    "code": "13873",
+    "departmentCode": "13",
+    "name": "Villanueva",
+    "latitude": 10.444089,
+    "longitude": -75.275613
+  },
+  {
+    "code": "13894",
+    "departmentCode": "13",
+    "name": "Zambrano",
+    "latitude": 9.746306,
+    "longitude": -74.817879
+  },
+  {
+    "code": "15001",
+    "departmentCode": "15",
+    "name": "Tunja",
+    "latitude": 5.53988,
+    "longitude": -73.355539
+  },
+  {
+    "code": "15022",
+    "departmentCode": "15",
+    "name": "Almeida",
+    "latitude": 4.970857,
+    "longitude": -73.378933
+  },
+  {
+    "code": "15047",
+    "departmentCode": "15",
+    "name": "Aquitania",
+    "latitude": 5.518602,
+    "longitude": -72.88399
+  },
+  {
+    "code": "15051",
+    "departmentCode": "15",
+    "name": "Arcabuco",
+    "latitude": 5.755673,
+    "longitude": -73.437503
+  },
+  {
+    "code": "15087",
+    "departmentCode": "15",
+    "name": "Belén",
+    "latitude": 5.98923,
+    "longitude": -72.911641
+  },
+  {
+    "code": "15090",
+    "departmentCode": "15",
+    "name": "Berbeo",
+    "latitude": 5.227451,
+    "longitude": -73.12721
+  },
+  {
+    "code": "15092",
+    "departmentCode": "15",
+    "name": "Betéitiva",
+    "latitude": 5.909978,
+    "longitude": -72.809014
+  },
+  {
+    "code": "15097",
+    "departmentCode": "15",
+    "name": "Boavita",
+    "latitude": 6.330703,
+    "longitude": -72.584905
+  },
+  {
+    "code": "15104",
+    "departmentCode": "15",
+    "name": "Boyacá",
+    "latitude": 5.454578,
+    "longitude": -73.361945
+  },
+  {
+    "code": "15106",
+    "departmentCode": "15",
+    "name": "Briceño",
+    "latitude": 5.690879,
+    "longitude": -73.92326
+  },
+  {
+    "code": "15109",
+    "departmentCode": "15",
+    "name": "Buenavista",
+    "latitude": 5.512594,
+    "longitude": -73.94217
+  },
+  {
+    "code": "15114",
+    "departmentCode": "15",
+    "name": "Busbanzá",
+    "latitude": 5.831393,
+    "longitude": -72.884158
+  },
+  {
+    "code": "15131",
+    "departmentCode": "15",
+    "name": "Caldas",
+    "latitude": 5.55458,
+    "longitude": -73.865553
+  },
+  {
+    "code": "15135",
+    "departmentCode": "15",
+    "name": "Campohermoso",
+    "latitude": 5.031676,
+    "longitude": -73.104173
+  },
+  {
+    "code": "15162",
+    "departmentCode": "15",
+    "name": "Cerinza",
+    "latitude": 5.955939,
+    "longitude": -72.947918
+  },
+  {
+    "code": "15172",
+    "departmentCode": "15",
+    "name": "Chinavita",
+    "latitude": 5.167486,
+    "longitude": -73.368476
+  },
+  {
+    "code": "15176",
+    "departmentCode": "15",
+    "name": "Chiquinquirá",
+    "latitude": 5.61379,
+    "longitude": -73.818745
+  },
+  {
+    "code": "15180",
+    "departmentCode": "15",
+    "name": "Chiscas",
+    "latitude": 6.553136,
+    "longitude": -72.500957
+  },
+  {
+    "code": "15183",
+    "departmentCode": "15",
+    "name": "Chita",
+    "latitude": 6.187083,
+    "longitude": -72.471892
+  },
+  {
+    "code": "15185",
+    "departmentCode": "15",
+    "name": "Chitaraque",
+    "latitude": 6.027425,
+    "longitude": -73.4471
+  },
+  {
+    "code": "15187",
+    "departmentCode": "15",
+    "name": "Chivatá",
+    "latitude": 5.558949,
+    "longitude": -73.282529
+  },
+  {
+    "code": "15189",
+    "departmentCode": "15",
+    "name": "Ciénega",
+    "latitude": 5.408694,
+    "longitude": -73.296049
+  },
+  {
+    "code": "15204",
+    "departmentCode": "15",
+    "name": "Cómbita",
+    "latitude": 5.634545,
+    "longitude": -73.323957
+  },
+  {
+    "code": "15212",
+    "departmentCode": "15",
+    "name": "Coper",
+    "latitude": 5.475074,
+    "longitude": -74.045636
+  },
+  {
+    "code": "15215",
+    "departmentCode": "15",
+    "name": "Corrales",
+    "latitude": 5.828064,
+    "longitude": -72.844795
+  },
+  {
+    "code": "15218",
+    "departmentCode": "15",
+    "name": "Covarachía",
+    "latitude": 6.500177,
+    "longitude": -72.738978
+  },
+  {
+    "code": "15223",
+    "departmentCode": "15",
+    "name": "Cubará",
+    "latitude": 6.997275,
+    "longitude": -72.107939
+  },
+  {
+    "code": "15224",
+    "departmentCode": "15",
+    "name": "Cucaita",
+    "latitude": 5.544452,
+    "longitude": -73.454338
+  },
+  {
+    "code": "15226",
+    "departmentCode": "15",
+    "name": "Cuítiva",
+    "latitude": 5.580367,
+    "longitude": -72.965923
+  },
+  {
+    "code": "15232",
+    "departmentCode": "15",
+    "name": "Chíquiza",
+    "latitude": 5.639834,
+    "longitude": -73.449463
+  },
+  {
+    "code": "15236",
+    "departmentCode": "15",
+    "name": "Chivor",
+    "latitude": 4.888173,
+    "longitude": -73.368398
+  },
+  {
+    "code": "15238",
+    "departmentCode": "15",
+    "name": "Duitama",
+    "latitude": 5.822964,
+    "longitude": -73.03063
+  },
+  {
+    "code": "15244",
+    "departmentCode": "15",
+    "name": "el Cocuy",
+    "latitude": 6.407738,
+    "longitude": -72.444537
+  },
+  {
+    "code": "15248",
+    "departmentCode": "15",
+    "name": "el Espino",
+    "latitude": 6.483027,
+    "longitude": -72.497007
+  },
+  {
+    "code": "15272",
+    "departmentCode": "15",
+    "name": "Firavitoba",
+    "latitude": 5.668885,
+    "longitude": -72.993392
+  },
+  {
+    "code": "15276",
+    "departmentCode": "15",
+    "name": "Floresta",
+    "latitude": 5.859519,
+    "longitude": -72.918111
+  },
+  {
+    "code": "15293",
+    "departmentCode": "15",
+    "name": "Gachantivá",
+    "latitude": 5.751891,
+    "longitude": -73.549092
+  },
+  {
+    "code": "15296",
+    "departmentCode": "15",
+    "name": "Gámeza",
+    "latitude": 5.802333,
+    "longitude": -72.80553
+  },
+  {
+    "code": "15299",
+    "departmentCode": "15",
+    "name": "Garagoa",
+    "latitude": 5.083234,
+    "longitude": -73.364413
+  },
+  {
+    "code": "15317",
+    "departmentCode": "15",
+    "name": "Guacamayas",
+    "latitude": 6.459667,
+    "longitude": -72.500812
+  },
+  {
+    "code": "15322",
+    "departmentCode": "15",
+    "name": "Guateque",
+    "latitude": 5.007321,
+    "longitude": -73.471207
+  },
+  {
+    "code": "15325",
+    "departmentCode": "15",
+    "name": "Guayatá",
+    "latitude": 4.967122,
+    "longitude": -73.489698
+  },
+  {
+    "code": "15332",
+    "departmentCode": "15",
+    "name": "Güicán de la Sierra",
+    "latitude": 6.462864,
+    "longitude": -72.411763
+  },
+  {
+    "code": "15362",
+    "departmentCode": "15",
+    "name": "Iza",
+    "latitude": 5.611577,
+    "longitude": -72.979559
+  },
+  {
+    "code": "15367",
+    "departmentCode": "15",
+    "name": "Jenesano",
+    "latitude": 5.385813,
+    "longitude": -73.363738
+  },
+  {
+    "code": "15368",
+    "departmentCode": "15",
+    "name": "Jericó",
+    "latitude": 6.145735,
+    "longitude": -72.571122
+  },
+  {
+    "code": "15377",
+    "departmentCode": "15",
+    "name": "Labranzagrande",
+    "latitude": 5.562687,
+    "longitude": -72.57777
+  },
+  {
+    "code": "15380",
+    "departmentCode": "15",
+    "name": "la Capilla",
+    "latitude": 5.095687,
+    "longitude": -73.444347
+  },
+  {
+    "code": "15401",
+    "departmentCode": "15",
+    "name": "la Victoria",
+    "latitude": 5.523792,
+    "longitude": -74.234393
+  },
+  {
+    "code": "15403",
+    "departmentCode": "15",
+    "name": "la Uvita",
+    "latitude": 6.31616,
+    "longitude": -72.559982
+  },
+  {
+    "code": "15407",
+    "departmentCode": "15",
+    "name": "Villa de Leyva",
+    "latitude": 5.632455,
+    "longitude": -73.524948
+  },
+  {
+    "code": "15425",
+    "departmentCode": "15",
+    "name": "Macanal",
+    "latitude": 4.972464,
+    "longitude": -73.319593
+  },
+  {
+    "code": "15442",
+    "departmentCode": "15",
+    "name": "Maripí",
+    "latitude": 5.550091,
+    "longitude": -74.00405
+  },
+  {
+    "code": "15455",
+    "departmentCode": "15",
+    "name": "Miraflores",
+    "latitude": 5.196515,
+    "longitude": -73.14563
+  },
+  {
+    "code": "15464",
+    "departmentCode": "15",
+    "name": "Mongua",
+    "latitude": 5.754242,
+    "longitude": -72.79809
+  },
+  {
+    "code": "15466",
+    "departmentCode": "15",
+    "name": "Monguí",
+    "latitude": 5.723486,
+    "longitude": -72.849292
+  },
+  {
+    "code": "15469",
+    "departmentCode": "15",
+    "name": "Moniquirá",
+    "latitude": 5.876331,
+    "longitude": -73.573374
+  },
+  {
+    "code": "15476",
+    "departmentCode": "15",
+    "name": "Motavita",
+    "latitude": 5.5777,
+    "longitude": -73.367841
+  },
+  {
+    "code": "15480",
+    "departmentCode": "15",
+    "name": "Muzo",
+    "latitude": 5.532758,
+    "longitude": -74.10269
+  },
+  {
+    "code": "15491",
+    "departmentCode": "15",
+    "name": "Nobsa",
+    "latitude": 5.768046,
+    "longitude": -72.937042
+  },
+  {
+    "code": "15494",
+    "departmentCode": "15",
+    "name": "Nuevo Colón",
+    "latitude": 5.355317,
+    "longitude": -73.456759
+  },
+  {
+    "code": "15500",
+    "departmentCode": "15",
+    "name": "Oicatá",
+    "latitude": 5.595235,
+    "longitude": -73.308399
+  },
+  {
+    "code": "15507",
+    "departmentCode": "15",
+    "name": "Otanche",
+    "latitude": 5.657536,
+    "longitude": -74.180965
+  },
+  {
+    "code": "15511",
+    "departmentCode": "15",
+    "name": "Pachavita",
+    "latitude": 5.140065,
+    "longitude": -73.396953
+  },
+  {
+    "code": "15514",
+    "departmentCode": "15",
+    "name": "Páez",
+    "latitude": 5.097319,
+    "longitude": -73.052737
+  },
+  {
+    "code": "15516",
+    "departmentCode": "15",
+    "name": "Paipa",
+    "latitude": 5.779894,
+    "longitude": -73.11782
+  },
+  {
+    "code": "15518",
+    "departmentCode": "15",
+    "name": "Pajarito",
+    "latitude": 5.293783,
+    "longitude": -72.703231
+  },
+  {
+    "code": "15522",
+    "departmentCode": "15",
+    "name": "Panqueba",
+    "latitude": 6.443416,
+    "longitude": -72.459424
+  },
+  {
+    "code": "15531",
+    "departmentCode": "15",
+    "name": "Pauna",
+    "latitude": 5.656323,
+    "longitude": -73.978449
+  },
+  {
+    "code": "15533",
+    "departmentCode": "15",
+    "name": "Paya",
+    "latitude": 5.625699,
+    "longitude": -72.423775
+  },
+  {
+    "code": "15537",
+    "departmentCode": "15",
+    "name": "Paz de Río",
+    "latitude": 5.987645,
+    "longitude": -72.749137
+  },
+  {
+    "code": "15542",
+    "departmentCode": "15",
+    "name": "Pesca",
+    "latitude": 5.558808,
+    "longitude": -73.050872
+  },
+  {
+    "code": "15550",
+    "departmentCode": "15",
+    "name": "Pisba",
+    "latitude": 5.72141,
+    "longitude": -72.486023
+  },
+  {
+    "code": "15572",
+    "departmentCode": "15",
+    "name": "Puerto Boyacá",
+    "latitude": 5.976646,
+    "longitude": -74.587782
+  },
+  {
+    "code": "15580",
+    "departmentCode": "15",
+    "name": "Quípama",
+    "latitude": 5.52055,
+    "longitude": -74.180033
+  },
+  {
+    "code": "15599",
+    "departmentCode": "15",
+    "name": "Ramiriquí",
+    "latitude": 5.400303,
+    "longitude": -73.334839
+  },
+  {
+    "code": "15600",
+    "departmentCode": "15",
+    "name": "Ráquira",
+    "latitude": 5.539136,
+    "longitude": -73.632543
+  },
+  {
+    "code": "15621",
+    "departmentCode": "15",
+    "name": "Rondón",
+    "latitude": 5.357378,
+    "longitude": -73.208474
+  },
+  {
+    "code": "15632",
+    "departmentCode": "15",
+    "name": "Saboyá",
+    "latitude": 5.697756,
+    "longitude": -73.764456
+  },
+  {
+    "code": "15638",
+    "departmentCode": "15",
+    "name": "Sáchica",
+    "latitude": 5.584305,
+    "longitude": -73.542539
+  },
+  {
+    "code": "15646",
+    "departmentCode": "15",
+    "name": "Samacá",
+    "latitude": 5.492161,
+    "longitude": -73.485589
+  },
+  {
+    "code": "15660",
+    "departmentCode": "15",
+    "name": "San Eduardo",
+    "latitude": 5.22401,
+    "longitude": -73.077747
+  },
+  {
+    "code": "15664",
+    "departmentCode": "15",
+    "name": "San José de Pare",
+    "latitude": 6.018924,
+    "longitude": -73.545397
+  },
+  {
+    "code": "15667",
+    "departmentCode": "15",
+    "name": "San Luis de Gaceno",
+    "latitude": 4.81976,
+    "longitude": -73.168076
+  },
+  {
+    "code": "15673",
+    "departmentCode": "15",
+    "name": "San Mateo",
+    "latitude": 6.401683,
+    "longitude": -72.555264
+  },
+  {
+    "code": "15676",
+    "departmentCode": "15",
+    "name": "San Miguel de Sema",
+    "latitude": 5.518083,
+    "longitude": -73.722009
+  },
+  {
+    "code": "15681",
+    "departmentCode": "15",
+    "name": "San Pablo de Borbur",
+    "latitude": 5.650743,
+    "longitude": -74.069963
+  },
+  {
+    "code": "15686",
+    "departmentCode": "15",
+    "name": "Santana",
+    "latitude": 6.056866,
+    "longitude": -73.481639
+  },
+  {
+    "code": "15690",
+    "departmentCode": "15",
+    "name": "Santa María",
+    "latitude": 4.857193,
+    "longitude": -73.263518
+  },
+  {
+    "code": "15693",
+    "departmentCode": "15",
+    "name": "Santa Rosa de Viterbo",
+    "latitude": 5.874547,
+    "longitude": -72.982461
+  },
+  {
+    "code": "15696",
+    "departmentCode": "15",
+    "name": "Santa Sofía",
+    "latitude": 5.713269,
+    "longitude": -73.602707
+  },
+  {
+    "code": "15720",
+    "departmentCode": "15",
+    "name": "Sativanorte",
+    "latitude": 6.131132,
+    "longitude": -72.708458
+  },
+  {
+    "code": "15723",
+    "departmentCode": "15",
+    "name": "Sativasur",
+    "latitude": 6.093183,
+    "longitude": -72.712435
+  },
+  {
+    "code": "15740",
+    "departmentCode": "15",
+    "name": "Siachoque",
+    "latitude": 5.511811,
+    "longitude": -73.24466
+  },
+  {
+    "code": "15753",
+    "departmentCode": "15",
+    "name": "Soatá",
+    "latitude": 6.331945,
+    "longitude": -72.684051
+  },
+  {
+    "code": "15755",
+    "departmentCode": "15",
+    "name": "Socotá",
+    "latitude": 6.041162,
+    "longitude": -72.636653
+  },
+  {
+    "code": "15757",
+    "departmentCode": "15",
+    "name": "Socha",
+    "latitude": 5.996717,
+    "longitude": -72.691963
+  },
+  {
+    "code": "15759",
+    "departmentCode": "15",
+    "name": "Sogamoso",
+    "latitude": 5.723976,
+    "longitude": -72.924355
+  },
+  {
+    "code": "15761",
+    "departmentCode": "15",
+    "name": "Somondoco",
+    "latitude": 4.985726,
+    "longitude": -73.433393
+  },
+  {
+    "code": "15762",
+    "departmentCode": "15",
+    "name": "Sora",
+    "latitude": 5.56684,
+    "longitude": -73.450153
+  },
+  {
+    "code": "15763",
+    "departmentCode": "15",
+    "name": "Sotaquirá",
+    "latitude": 5.764986,
+    "longitude": -73.246585
+  },
+  {
+    "code": "15764",
+    "departmentCode": "15",
+    "name": "Soracá",
+    "latitude": 5.500898,
+    "longitude": -73.332804
+  },
+  {
+    "code": "15774",
+    "departmentCode": "15",
+    "name": "Susacón",
+    "latitude": 6.230332,
+    "longitude": -72.690289
+  },
+  {
+    "code": "15776",
+    "departmentCode": "15",
+    "name": "Sutamarchán",
+    "latitude": 5.619781,
+    "longitude": -73.620536
+  },
+  {
+    "code": "15778",
+    "departmentCode": "15",
+    "name": "Sutatenza",
+    "latitude": 5.022989,
+    "longitude": -73.452317
+  },
+  {
+    "code": "15790",
+    "departmentCode": "15",
+    "name": "Tasco",
+    "latitude": 5.909821,
+    "longitude": -72.781011
+  },
+  {
+    "code": "15798",
+    "departmentCode": "15",
+    "name": "Tenza",
+    "latitude": 5.076781,
+    "longitude": -73.421176
+  },
+  {
+    "code": "15804",
+    "departmentCode": "15",
+    "name": "Tibaná",
+    "latitude": 5.317251,
+    "longitude": -73.396457
+  },
+  {
+    "code": "15806",
+    "departmentCode": "15",
+    "name": "Tibasosa",
+    "latitude": 5.74723,
+    "longitude": -72.999449
+  },
+  {
+    "code": "15808",
+    "departmentCode": "15",
+    "name": "Tinjacá",
+    "latitude": 5.579713,
+    "longitude": -73.646847
+  },
+  {
+    "code": "15810",
+    "departmentCode": "15",
+    "name": "Tipacoque",
+    "latitude": 6.419203,
+    "longitude": -72.691729
+  },
+  {
+    "code": "15814",
+    "departmentCode": "15",
+    "name": "Toca",
+    "latitude": 5.566464,
+    "longitude": -73.184794
+  },
+  {
+    "code": "15816",
+    "departmentCode": "15",
+    "name": "Togüí",
+    "latitude": 5.937438,
+    "longitude": -73.513655
+  },
+  {
+    "code": "15820",
+    "departmentCode": "15",
+    "name": "Tópaga",
+    "latitude": 5.768201,
+    "longitude": -72.832245
+  },
+  {
+    "code": "15822",
+    "departmentCode": "15",
+    "name": "Tota",
+    "latitude": 5.560497,
+    "longitude": -72.985898
+  },
+  {
+    "code": "15832",
+    "departmentCode": "15",
+    "name": "Tununguá",
+    "latitude": 5.730582,
+    "longitude": -73.933155
+  },
+  {
+    "code": "15835",
+    "departmentCode": "15",
+    "name": "Turmequé",
+    "latitude": 5.323261,
+    "longitude": -73.491825
+  },
+  {
+    "code": "15837",
+    "departmentCode": "15",
+    "name": "Tuta",
+    "latitude": 5.689082,
+    "longitude": -73.230285
+  },
+  {
+    "code": "15839",
+    "departmentCode": "15",
+    "name": "Tutazá",
+    "latitude": 6.032608,
+    "longitude": -72.856035
+  },
+  {
+    "code": "15842",
+    "departmentCode": "15",
+    "name": "Úmbita",
+    "latitude": 5.221176,
+    "longitude": -73.456917
+  },
+  {
+    "code": "15861",
+    "departmentCode": "15",
+    "name": "Ventaquemada",
+    "latitude": 5.368739,
+    "longitude": -73.522368
+  },
+  {
+    "code": "15879",
+    "departmentCode": "15",
+    "name": "Viracachá",
+    "latitude": 5.436833,
+    "longitude": -73.296894
+  },
+  {
+    "code": "15897",
+    "departmentCode": "15",
+    "name": "Zetaquira",
+    "latitude": 5.283443,
+    "longitude": -73.17098
+  },
+  {
+    "code": "17001",
+    "departmentCode": "17",
+    "name": "Manizales",
+    "latitude": 5.057657,
+    "longitude": -75.491025
+  },
+  {
+    "code": "17013",
+    "departmentCode": "17",
+    "name": "Aguadas",
+    "latitude": 5.610244,
+    "longitude": -75.45487
+  },
+  {
+    "code": "17042",
+    "departmentCode": "17",
+    "name": "Anserma",
+    "latitude": 5.236471,
+    "longitude": -75.784343
+  },
+  {
+    "code": "17050",
+    "departmentCode": "17",
+    "name": "Aranzazu",
+    "latitude": 5.271195,
+    "longitude": -75.49129
+  },
+  {
+    "code": "17088",
+    "departmentCode": "17",
+    "name": "Belalcázar",
+    "latitude": 4.993785,
+    "longitude": -75.811918
+  },
+  {
+    "code": "17174",
+    "departmentCode": "17",
+    "name": "Chinchiná",
+    "latitude": 4.985227,
+    "longitude": -75.607529
+  },
+  {
+    "code": "17272",
+    "departmentCode": "17",
+    "name": "Filadelfia",
+    "latitude": 5.297091,
+    "longitude": -75.562474
+  },
+  {
+    "code": "17380",
+    "departmentCode": "17",
+    "name": "la Dorada",
+    "latitude": 5.460834,
+    "longitude": -74.668819
+  },
+  {
+    "code": "17388",
+    "departmentCode": "17",
+    "name": "la Merced",
+    "latitude": 5.39647,
+    "longitude": -75.546486
+  },
+  {
+    "code": "17433",
+    "departmentCode": "17",
+    "name": "Manzanares",
+    "latitude": 5.255699,
+    "longitude": -75.152829
+  },
+  {
+    "code": "17442",
+    "departmentCode": "17",
+    "name": "Marmato",
+    "latitude": 5.47422,
+    "longitude": -75.600049
+  },
+  {
+    "code": "17444",
+    "departmentCode": "17",
+    "name": "Marquetalia",
+    "latitude": 5.297525,
+    "longitude": -75.053097
+  },
+  {
+    "code": "17446",
+    "departmentCode": "17",
+    "name": "Marulanda",
+    "latitude": 5.284304,
+    "longitude": -75.259721
+  },
+  {
+    "code": "17486",
+    "departmentCode": "17",
+    "name": "Neira",
+    "latitude": 5.166895,
+    "longitude": -75.520006
+  },
+  {
+    "code": "17495",
+    "departmentCode": "17",
+    "name": "Norcasia",
+    "latitude": 5.574796,
+    "longitude": -74.889543
+  },
+  {
+    "code": "17513",
+    "departmentCode": "17",
+    "name": "Pácora",
+    "latitude": 5.527172,
+    "longitude": -75.459621
+  },
+  {
+    "code": "17524",
+    "departmentCode": "17",
+    "name": "Palestina",
+    "latitude": 5.017879,
+    "longitude": -75.624577
+  },
+  {
+    "code": "17541",
+    "departmentCode": "17",
+    "name": "Pensilvania",
+    "latitude": 5.383281,
+    "longitude": -75.160299
+  },
+  {
+    "code": "17614",
+    "departmentCode": "17",
+    "name": "Riosucio",
+    "latitude": 5.423673,
+    "longitude": -75.702104
+  },
+  {
+    "code": "17616",
+    "departmentCode": "17",
+    "name": "Risaralda",
+    "latitude": 5.164509,
+    "longitude": -75.76722
+  },
+  {
+    "code": "17653",
+    "departmentCode": "17",
+    "name": "Salamina",
+    "latitude": 5.403025,
+    "longitude": -75.487223
+  },
+  {
+    "code": "17662",
+    "departmentCode": "17",
+    "name": "Samaná",
+    "latitude": 5.41308,
+    "longitude": -74.992263
+  },
+  {
+    "code": "17665",
+    "departmentCode": "17",
+    "name": "San José",
+    "latitude": 5.08231,
+    "longitude": -75.792063
+  },
+  {
+    "code": "17777",
+    "departmentCode": "17",
+    "name": "Supía",
+    "latitude": 5.446843,
+    "longitude": -75.64966
+  },
+  {
+    "code": "17867",
+    "departmentCode": "17",
+    "name": "Victoria",
+    "latitude": 5.317437,
+    "longitude": -74.911239
+  },
+  {
+    "code": "17873",
+    "departmentCode": "17",
+    "name": "Villamaría",
+    "latitude": 5.038925,
+    "longitude": -75.502487
+  },
+  {
+    "code": "17877",
+    "departmentCode": "17",
+    "name": "Viterbo",
+    "latitude": 5.062664,
+    "longitude": -75.87061
+  },
+  {
+    "code": "18001",
+    "departmentCode": "18",
+    "name": "Florencia",
+    "latitude": 1.618196,
+    "longitude": -75.609831
+  },
+  {
+    "code": "18029",
+    "departmentCode": "18",
+    "name": "Albania",
+    "latitude": 1.328526,
+    "longitude": -75.878375
+  },
+  {
+    "code": "18094",
+    "departmentCode": "18",
+    "name": "Belén de los Andaquíes",
+    "latitude": 1.415812,
+    "longitude": -75.872405
+  },
+  {
+    "code": "18150",
+    "departmentCode": "18",
+    "name": "Cartagena del Chairá",
+    "latitude": 1.332371,
+    "longitude": -74.847867
+  },
+  {
+    "code": "18205",
+    "departmentCode": "18",
+    "name": "Curillo",
+    "latitude": 1.033473,
+    "longitude": -75.919205
+  },
+  {
+    "code": "18247",
+    "departmentCode": "18",
+    "name": "el Doncello",
+    "latitude": 1.679951,
+    "longitude": -75.283631
+  },
+  {
+    "code": "18256",
+    "departmentCode": "18",
+    "name": "el Paujíl",
+    "latitude": 1.570226,
+    "longitude": -75.326093
+  },
+  {
+    "code": "18410",
+    "departmentCode": "18",
+    "name": "la Montañita",
+    "latitude": 1.479173,
+    "longitude": -75.436408
+  },
+  {
+    "code": "18460",
+    "departmentCode": "18",
+    "name": "Milán",
+    "latitude": 1.29021,
+    "longitude": -75.506926
+  },
+  {
+    "code": "18479",
+    "departmentCode": "18",
+    "name": "Morelia",
+    "latitude": 1.486611,
+    "longitude": -75.724146
+  },
+  {
+    "code": "18592",
+    "departmentCode": "18",
+    "name": "Puerto Rico",
+    "latitude": 1.909063,
+    "longitude": -75.157604
+  },
+  {
+    "code": "18610",
+    "departmentCode": "18",
+    "name": "San José del Fragua",
+    "latitude": 1.330266,
+    "longitude": -75.973796
+  },
+  {
+    "code": "18753",
+    "departmentCode": "18",
+    "name": "San Vicente del Caguán",
+    "latitude": 2.119413,
+    "longitude": -74.767894
+  },
+  {
+    "code": "18756",
+    "departmentCode": "18",
+    "name": "Solano",
+    "latitude": 0.699077,
+    "longitude": -75.253702
+  },
+  {
+    "code": "18785",
+    "departmentCode": "18",
+    "name": "Solita",
+    "latitude": 0.87654,
+    "longitude": -75.619902
+  },
+  {
+    "code": "18860",
+    "departmentCode": "18",
+    "name": "Valparaíso",
+    "latitude": 1.194619,
+    "longitude": -75.70671
+  },
+  {
+    "code": "19001",
+    "departmentCode": "19",
+    "name": "Popayán",
+    "latitude": 2.459641,
+    "longitude": -76.599377
+  },
+  {
+    "code": "19022",
+    "departmentCode": "19",
+    "name": "Almaguer",
+    "latitude": 1.913429,
+    "longitude": -76.85607
+  },
+  {
+    "code": "19050",
+    "departmentCode": "19",
+    "name": "Argelia",
+    "latitude": 2.257427,
+    "longitude": -77.24905
+  },
+  {
+    "code": "19075",
+    "departmentCode": "19",
+    "name": "Balboa",
+    "latitude": 2.040998,
+    "longitude": -77.215773
+  },
+  {
+    "code": "19100",
+    "departmentCode": "19",
+    "name": "Bolívar",
+    "latitude": 1.837538,
+    "longitude": -76.966215
+  },
+  {
+    "code": "19110",
+    "departmentCode": "19",
+    "name": "Buenos Aires",
+    "latitude": 3.015382,
+    "longitude": -76.642238
+  },
+  {
+    "code": "19130",
+    "departmentCode": "19",
+    "name": "Cajibío",
+    "latitude": 2.623371,
+    "longitude": -76.570682
+  },
+  {
+    "code": "19137",
+    "departmentCode": "19",
+    "name": "Caldono",
+    "latitude": 2.798059,
+    "longitude": -76.484319
+  },
+  {
+    "code": "19142",
+    "departmentCode": "19",
+    "name": "Caloto",
+    "latitude": 3.034531,
+    "longitude": -76.408941
+  },
+  {
+    "code": "19212",
+    "departmentCode": "19",
+    "name": "Corinto",
+    "latitude": 3.173854,
+    "longitude": -76.261866
+  },
+  {
+    "code": "19256",
+    "departmentCode": "19",
+    "name": "el Tambo",
+    "latitude": 2.451409,
+    "longitude": -76.810911
+  },
+  {
+    "code": "19290",
+    "departmentCode": "19",
+    "name": "Florencia",
+    "latitude": 1.682535,
+    "longitude": -77.072547
+  },
+  {
+    "code": "19300",
+    "departmentCode": "19",
+    "name": "Guachené",
+    "latitude": 3.134153,
+    "longitude": -76.392189
+  },
+  {
+    "code": "19318",
+    "departmentCode": "19",
+    "name": "Guapi",
+    "latitude": 2.571337,
+    "longitude": -77.88797
+  },
+  {
+    "code": "19355",
+    "departmentCode": "19",
+    "name": "Inzá",
+    "latitude": 2.549183,
+    "longitude": -76.063503
+  },
+  {
+    "code": "19364",
+    "departmentCode": "19",
+    "name": "Jambaló",
+    "latitude": 2.777834,
+    "longitude": -76.323877
+  },
+  {
+    "code": "19392",
+    "departmentCode": "19",
+    "name": "la Sierra",
+    "latitude": 2.179383,
+    "longitude": -76.763278
+  },
+  {
+    "code": "19397",
+    "departmentCode": "19",
+    "name": "la Vega",
+    "latitude": 2.001803,
+    "longitude": -76.778771
+  },
+  {
+    "code": "19418",
+    "departmentCode": "19",
+    "name": "López de Micay",
+    "latitude": 2.846788,
+    "longitude": -77.247803
+  },
+  {
+    "code": "19450",
+    "departmentCode": "19",
+    "name": "Mercaderes",
+    "latitude": 1.789193,
+    "longitude": -77.164319
+  },
+  {
+    "code": "19455",
+    "departmentCode": "19",
+    "name": "Miranda",
+    "latitude": 3.254651,
+    "longitude": -76.228722
+  },
+  {
+    "code": "19473",
+    "departmentCode": "19",
+    "name": "Morales",
+    "latitude": 2.754684,
+    "longitude": -76.629106
+  },
+  {
+    "code": "19513",
+    "departmentCode": "19",
+    "name": "Padilla",
+    "latitude": 3.220984,
+    "longitude": -76.313265
+  },
+  {
+    "code": "19517",
+    "departmentCode": "19",
+    "name": "Páez",
+    "latitude": 2.645724,
+    "longitude": -75.970685
+  },
+  {
+    "code": "19532",
+    "departmentCode": "19",
+    "name": "Patía",
+    "latitude": 2.115875,
+    "longitude": -76.981075
+  },
+  {
+    "code": "19533",
+    "departmentCode": "19",
+    "name": "Piamonte",
+    "latitude": 1.11754,
+    "longitude": -76.327588
+  },
+  {
+    "code": "19548",
+    "departmentCode": "19",
+    "name": "Piendamó - Tunía",
+    "latitude": 2.64228,
+    "longitude": -76.528615
+  },
+  {
+    "code": "19573",
+    "departmentCode": "19",
+    "name": "Puerto Tejada",
+    "latitude": 3.233254,
+    "longitude": -76.417673
+  },
+  {
+    "code": "19585",
+    "departmentCode": "19",
+    "name": "Puracé",
+    "latitude": 2.341507,
+    "longitude": -76.496698
+  },
+  {
+    "code": "19622",
+    "departmentCode": "19",
+    "name": "Rosas",
+    "latitude": 2.260941,
+    "longitude": -76.740336
+  },
+  {
+    "code": "19693",
+    "departmentCode": "19",
+    "name": "San Sebastián",
+    "latitude": 1.838451,
+    "longitude": -76.769467
+  },
+  {
+    "code": "19698",
+    "departmentCode": "19",
+    "name": "Santander de Quilichao",
+    "latitude": 3.015008,
+    "longitude": -76.485141
+  },
+  {
+    "code": "19701",
+    "departmentCode": "19",
+    "name": "Santa Rosa",
+    "latitude": 1.700916,
+    "longitude": -76.573252
+  },
+  {
+    "code": "19743",
+    "departmentCode": "19",
+    "name": "Silvia",
+    "latitude": 2.611927,
+    "longitude": -76.379753
+  },
+  {
+    "code": "19760",
+    "departmentCode": "19",
+    "name": "Sotará - Paispamba",
+    "latitude": 2.253156,
+    "longitude": -76.613365
+  },
+  {
+    "code": "19780",
+    "departmentCode": "19",
+    "name": "Suárez",
+    "latitude": 2.959785,
+    "longitude": -76.69357
+  },
+  {
+    "code": "19785",
+    "departmentCode": "19",
+    "name": "Sucre",
+    "latitude": 2.038237,
+    "longitude": -76.926279
+  },
+  {
+    "code": "19807",
+    "departmentCode": "19",
+    "name": "Timbío",
+    "latitude": 2.349686,
+    "longitude": -76.684476
+  },
+  {
+    "code": "19809",
+    "departmentCode": "19",
+    "name": "Timbiquí",
+    "latitude": 2.777312,
+    "longitude": -77.667541
+  },
+  {
+    "code": "19821",
+    "departmentCode": "19",
+    "name": "Toribío",
+    "latitude": 2.953017,
+    "longitude": -76.270284
+  },
+  {
+    "code": "19824",
+    "departmentCode": "19",
+    "name": "Totoró",
+    "latitude": 2.510252,
+    "longitude": -76.403628
+  },
+  {
+    "code": "19845",
+    "departmentCode": "19",
+    "name": "Villa Rica",
+    "latitude": 3.17762,
+    "longitude": -76.458025
+  },
+  {
+    "code": "20001",
+    "departmentCode": "20",
+    "name": "Valledupar",
+    "latitude": 10.460472,
+    "longitude": -73.259398
+  },
+  {
+    "code": "20011",
+    "departmentCode": "20",
+    "name": "Aguachica",
+    "latitude": 8.306811,
+    "longitude": -73.614027
+  },
+  {
+    "code": "20013",
+    "departmentCode": "20",
+    "name": "Agustín Codazzi",
+    "latitude": 10.040454,
+    "longitude": -73.238389
+  },
+  {
+    "code": "20032",
+    "departmentCode": "20",
+    "name": "Astrea",
+    "latitude": 9.498062,
+    "longitude": -73.975842
+  },
+  {
+    "code": "20045",
+    "departmentCode": "20",
+    "name": "Becerril",
+    "latitude": 9.704404,
+    "longitude": -73.278707
+  },
+  {
+    "code": "20060",
+    "departmentCode": "20",
+    "name": "Bosconia",
+    "latitude": 9.975098,
+    "longitude": -73.888761
+  },
+  {
+    "code": "20175",
+    "departmentCode": "20",
+    "name": "Chimichagua",
+    "latitude": 9.25875,
+    "longitude": -73.813278
+  },
+  {
+    "code": "20178",
+    "departmentCode": "20",
+    "name": "Chiriguaná",
+    "latitude": 9.361058,
+    "longitude": -73.599913
+  },
+  {
+    "code": "20228",
+    "departmentCode": "20",
+    "name": "Curumaní",
+    "latitude": 9.201716,
+    "longitude": -73.540843
+  },
+  {
+    "code": "20238",
+    "departmentCode": "20",
+    "name": "el Copey",
+    "latitude": 10.149883,
+    "longitude": -73.962703
+  },
+  {
+    "code": "20250",
+    "departmentCode": "20",
+    "name": "el Paso",
+    "latitude": 9.668461,
+    "longitude": -73.742012
+  },
+  {
+    "code": "20295",
+    "departmentCode": "20",
+    "name": "Gamarra",
+    "latitude": 8.324793,
+    "longitude": -73.737558
+  },
+  {
+    "code": "20310",
+    "departmentCode": "20",
+    "name": "González",
+    "latitude": 8.389604,
+    "longitude": -73.38004
+  },
+  {
+    "code": "20383",
+    "departmentCode": "20",
+    "name": "la Gloria",
+    "latitude": 8.619298,
+    "longitude": -73.80321
+  },
+  {
+    "code": "20400",
+    "departmentCode": "20",
+    "name": "la Jagua de Ibirico",
+    "latitude": 9.563752,
+    "longitude": -73.334143
+  },
+  {
+    "code": "20443",
+    "departmentCode": "20",
+    "name": "Manaure Balcón del Cesar",
+    "latitude": 10.390776,
+    "longitude": -73.029472
+  },
+  {
+    "code": "20517",
+    "departmentCode": "20",
+    "name": "Pailitas",
+    "latitude": 8.959399,
+    "longitude": -73.625825
+  },
+  {
+    "code": "20550",
+    "departmentCode": "20",
+    "name": "Pelaya",
+    "latitude": 8.689451,
+    "longitude": -73.666735
+  },
+  {
+    "code": "20570",
+    "departmentCode": "20",
+    "name": "Pueblo Bello",
+    "latitude": 10.417321,
+    "longitude": -73.586211
+  },
+  {
+    "code": "20614",
+    "departmentCode": "20",
+    "name": "Río de Oro",
+    "latitude": 8.292292,
+    "longitude": -73.386393
+  },
+  {
+    "code": "20621",
+    "departmentCode": "20",
+    "name": "la Paz",
+    "latitude": 10.387552,
+    "longitude": -73.171365
+  },
+  {
+    "code": "20710",
+    "departmentCode": "20",
+    "name": "San Alberto",
+    "latitude": 7.76111,
+    "longitude": -73.393889
+  },
+  {
+    "code": "20750",
+    "departmentCode": "20",
+    "name": "San Diego",
+    "latitude": 10.333039,
+    "longitude": -73.181208
+  },
+  {
+    "code": "20770",
+    "departmentCode": "20",
+    "name": "San Martín",
+    "latitude": 7.999855,
+    "longitude": -73.510914
+  },
+  {
+    "code": "20787",
+    "departmentCode": "20",
+    "name": "Tamalameque",
+    "latitude": 8.861725,
+    "longitude": -73.812172
+  },
+  {
+    "code": "23001",
+    "departmentCode": "23",
+    "name": "Montería",
+    "latitude": 8.759789,
+    "longitude": -75.873096
+  },
+  {
+    "code": "23068",
+    "departmentCode": "23",
+    "name": "Ayapel",
+    "latitude": 8.313838,
+    "longitude": -75.146048
+  },
+  {
+    "code": "23079",
+    "departmentCode": "23",
+    "name": "Buenavista",
+    "latitude": 8.221187,
+    "longitude": -75.480897
+  },
+  {
+    "code": "23090",
+    "departmentCode": "23",
+    "name": "Canalete",
+    "latitude": 8.786939,
+    "longitude": -76.241476
+  },
+  {
+    "code": "23162",
+    "departmentCode": "23",
+    "name": "Cereté",
+    "latitude": 8.888532,
+    "longitude": -75.796093
+  },
+  {
+    "code": "23168",
+    "departmentCode": "23",
+    "name": "Chimá",
+    "latitude": 9.149698,
+    "longitude": -75.626886
+  },
+  {
+    "code": "23182",
+    "departmentCode": "23",
+    "name": "Chinú",
+    "latitude": 9.105473,
+    "longitude": -75.399633
+  },
+  {
+    "code": "23189",
+    "departmentCode": "23",
+    "name": "Ciénaga de Oro",
+    "latitude": 8.875794,
+    "longitude": -75.620807
+  },
+  {
+    "code": "23300",
+    "departmentCode": "23",
+    "name": "Cotorra",
+    "latitude": 9.037163,
+    "longitude": -75.799216
+  },
+  {
+    "code": "23350",
+    "departmentCode": "23",
+    "name": "la Apartada",
+    "latitude": 8.050125,
+    "longitude": -75.336031
+  },
+  {
+    "code": "23417",
+    "departmentCode": "23",
+    "name": "Lorica",
+    "latitude": 9.240789,
+    "longitude": -75.816084
+  },
+  {
+    "code": "23419",
+    "departmentCode": "23",
+    "name": "los Córdobas",
+    "latitude": 8.892098,
+    "longitude": -76.35518
+  },
+  {
+    "code": "23464",
+    "departmentCode": "23",
+    "name": "Momil",
+    "latitude": 9.240707,
+    "longitude": -75.67796
+  },
+  {
+    "code": "23466",
+    "departmentCode": "23",
+    "name": "Montelíbano",
+    "latitude": 7.973777,
+    "longitude": -75.416818
+  },
+  {
+    "code": "23500",
+    "departmentCode": "23",
+    "name": "Moñitos",
+    "latitude": 9.245223,
+    "longitude": -76.1291
+  },
+  {
+    "code": "23555",
+    "departmentCode": "23",
+    "name": "Planeta Rica",
+    "latitude": 8.4082,
+    "longitude": -75.583241
+  },
+  {
+    "code": "23570",
+    "departmentCode": "23",
+    "name": "Pueblo Nuevo",
+    "latitude": 8.504099,
+    "longitude": -75.508035
+  },
+  {
+    "code": "23574",
+    "departmentCode": "23",
+    "name": "Puerto Escondido",
+    "latitude": 9.005372,
+    "longitude": -76.260411
+  },
+  {
+    "code": "23580",
+    "departmentCode": "23",
+    "name": "Puerto Libertador",
+    "latitude": 7.888859,
+    "longitude": -75.671761
+  },
+  {
+    "code": "23586",
+    "departmentCode": "23",
+    "name": "Purísima de la Concepción",
+    "latitude": 9.239295,
+    "longitude": -75.724987
+  },
+  {
+    "code": "23660",
+    "departmentCode": "23",
+    "name": "Sahagún",
+    "latitude": 8.943048,
+    "longitude": -75.445834
+  },
+  {
+    "code": "23670",
+    "departmentCode": "23",
+    "name": "San Andrés de Sotavento",
+    "latitude": 9.145448,
+    "longitude": -75.50879
+  },
+  {
+    "code": "23672",
+    "departmentCode": "23",
+    "name": "San Antero",
+    "latitude": 9.376434,
+    "longitude": -75.76112
+  },
+  {
+    "code": "23675",
+    "departmentCode": "23",
+    "name": "San Bernardo del Viento",
+    "latitude": 9.35247,
+    "longitude": -75.955107
+  },
+  {
+    "code": "23678",
+    "departmentCode": "23",
+    "name": "San Carlos",
+    "latitude": 8.799282,
+    "longitude": -75.698799
+  },
+  {
+    "code": "23682",
+    "departmentCode": "23",
+    "name": "San José de Uré",
+    "latitude": 7.787303,
+    "longitude": -75.533476
+  },
+  {
+    "code": "23686",
+    "departmentCode": "23",
+    "name": "San Pelayo",
+    "latitude": 8.958436,
+    "longitude": -75.835615
+  },
+  {
+    "code": "23807",
+    "departmentCode": "23",
+    "name": "Tierralta",
+    "latitude": 8.170612,
+    "longitude": -76.059797
+  },
+  {
+    "code": "23815",
+    "departmentCode": "23",
+    "name": "Tuchín",
+    "latitude": 9.186625,
+    "longitude": -75.553962
+  },
+  {
+    "code": "23855",
+    "departmentCode": "23",
+    "name": "Valencia",
+    "latitude": 8.255016,
+    "longitude": -76.150756
+  },
+  {
+    "code": "25001",
+    "departmentCode": "25",
+    "name": "Agua de Dios",
+    "latitude": 4.375309,
+    "longitude": -74.669221
+  },
+  {
+    "code": "25019",
+    "departmentCode": "25",
+    "name": "Albán",
+    "latitude": 4.878022,
+    "longitude": -74.438261
+  },
+  {
+    "code": "25035",
+    "departmentCode": "25",
+    "name": "Anapoima",
+    "latitude": 4.562737,
+    "longitude": -74.528676
+  },
+  {
+    "code": "25040",
+    "departmentCode": "25",
+    "name": "Anolaima",
+    "latitude": 4.7617,
+    "longitude": -74.46384
+  },
+  {
+    "code": "25053",
+    "departmentCode": "25",
+    "name": "Arbeláez",
+    "latitude": 4.272534,
+    "longitude": -74.414901
+  },
+  {
+    "code": "25086",
+    "departmentCode": "25",
+    "name": "Beltrán",
+    "latitude": 4.802832,
+    "longitude": -74.741666
+  },
+  {
+    "code": "25095",
+    "departmentCode": "25",
+    "name": "Bituima",
+    "latitude": 4.872171,
+    "longitude": -74.539609
+  },
+  {
+    "code": "25099",
+    "departmentCode": "25",
+    "name": "Bojacá",
+    "latitude": 4.737205,
+    "longitude": -74.344594
+  },
+  {
+    "code": "25120",
+    "departmentCode": "25",
+    "name": "Cabrera",
+    "latitude": 3.985164,
+    "longitude": -74.484549
+  },
+  {
+    "code": "25123",
+    "departmentCode": "25",
+    "name": "Cachipay",
+    "latitude": 4.730957,
+    "longitude": -74.435711
+  },
+  {
+    "code": "25126",
+    "departmentCode": "25",
+    "name": "Cajicá",
+    "latitude": 4.920009,
+    "longitude": -74.02298
+  },
+  {
+    "code": "25148",
+    "departmentCode": "25",
+    "name": "Caparrapí",
+    "latitude": 5.34758,
+    "longitude": -74.491045
+  },
+  {
+    "code": "25151",
+    "departmentCode": "25",
+    "name": "Cáqueza",
+    "latitude": 4.404112,
+    "longitude": -73.946473
+  },
+  {
+    "code": "25154",
+    "departmentCode": "25",
+    "name": "Carmen de Carupa",
+    "latitude": 5.349119,
+    "longitude": -73.901357
+  },
+  {
+    "code": "25168",
+    "departmentCode": "25",
+    "name": "Chaguaní",
+    "latitude": 4.948916,
+    "longitude": -74.593455
+  },
+  {
+    "code": "25175",
+    "departmentCode": "25",
+    "name": "Chía",
+    "latitude": 4.866508,
+    "longitude": -74.05
+  },
+  {
+    "code": "25178",
+    "departmentCode": "25",
+    "name": "Chipaque",
+    "latitude": 4.442671,
+    "longitude": -74.044876
+  },
+  {
+    "code": "25181",
+    "departmentCode": "25",
+    "name": "Choachí",
+    "latitude": 4.527048,
+    "longitude": -73.922894
+  },
+  {
+    "code": "25183",
+    "departmentCode": "25",
+    "name": "Chocontá",
+    "latitude": 5.145224,
+    "longitude": -73.683533
+  },
+  {
+    "code": "25200",
+    "departmentCode": "25",
+    "name": "Cogua",
+    "latitude": 5.061842,
+    "longitude": -73.978497
+  },
+  {
+    "code": "25214",
+    "departmentCode": "25",
+    "name": "Cota",
+    "latitude": 4.812564,
+    "longitude": -74.102569
+  },
+  {
+    "code": "25224",
+    "departmentCode": "25",
+    "name": "Cucunubá",
+    "latitude": 5.249795,
+    "longitude": -73.766113
+  },
+  {
+    "code": "25245",
+    "departmentCode": "25",
+    "name": "el Colegio",
+    "latitude": 4.577951,
+    "longitude": -74.442261
+  },
+  {
+    "code": "25258",
+    "departmentCode": "25",
+    "name": "el Peñón",
+    "latitude": 5.248747,
+    "longitude": -74.290207
+  },
+  {
+    "code": "25260",
+    "departmentCode": "25",
+    "name": "el Rosal",
+    "latitude": 4.850589,
+    "longitude": -74.263103
+  },
+  {
+    "code": "25269",
+    "departmentCode": "25",
+    "name": "Facatativá",
+    "latitude": 4.813353,
+    "longitude": -74.350085
+  },
+  {
+    "code": "25279",
+    "departmentCode": "25",
+    "name": "Fómeque",
+    "latitude": 4.485474,
+    "longitude": -73.892523
+  },
+  {
+    "code": "25281",
+    "departmentCode": "25",
+    "name": "Fosca",
+    "latitude": 4.339093,
+    "longitude": -73.93902
+  },
+  {
+    "code": "25286",
+    "departmentCode": "25",
+    "name": "Funza",
+    "latitude": 4.710412,
+    "longitude": -74.201528
+  },
+  {
+    "code": "25288",
+    "departmentCode": "25",
+    "name": "Fúquene",
+    "latitude": 5.403997,
+    "longitude": -73.795855
+  },
+  {
+    "code": "25290",
+    "departmentCode": "25",
+    "name": "Fusagasugá",
+    "latitude": 4.336723,
+    "longitude": -74.37543
+  },
+  {
+    "code": "25293",
+    "departmentCode": "25",
+    "name": "Gachalá",
+    "latitude": 4.693579,
+    "longitude": -73.520161
+  },
+  {
+    "code": "25295",
+    "departmentCode": "25",
+    "name": "Gachancipá",
+    "latitude": 4.990947,
+    "longitude": -73.873464
+  },
+  {
+    "code": "25297",
+    "departmentCode": "25",
+    "name": "Gachetá",
+    "latitude": 4.816411,
+    "longitude": -73.636377
+  },
+  {
+    "code": "25299",
+    "departmentCode": "25",
+    "name": "Gama",
+    "latitude": 4.763325,
+    "longitude": -73.611037
+  },
+  {
+    "code": "25307",
+    "departmentCode": "25",
+    "name": "Girardot",
+    "latitude": 4.313069,
+    "longitude": -74.798201
+  },
+  {
+    "code": "25312",
+    "departmentCode": "25",
+    "name": "Granada",
+    "latitude": 4.519763,
+    "longitude": -74.350766
+  },
+  {
+    "code": "25317",
+    "departmentCode": "25",
+    "name": "Guachetá",
+    "latitude": 5.383378,
+    "longitude": -73.686972
+  },
+  {
+    "code": "25320",
+    "departmentCode": "25",
+    "name": "Guaduas",
+    "latitude": 5.072076,
+    "longitude": -74.603402
+  },
+  {
+    "code": "25322",
+    "departmentCode": "25",
+    "name": "Guasca",
+    "latitude": 4.866719,
+    "longitude": -73.877143
+  },
+  {
+    "code": "25324",
+    "departmentCode": "25",
+    "name": "Guataquí",
+    "latitude": 4.517517,
+    "longitude": -74.790058
+  },
+  {
+    "code": "25326",
+    "departmentCode": "25",
+    "name": "Guatavita",
+    "latitude": 4.935211,
+    "longitude": -73.83293
+  },
+  {
+    "code": "25328",
+    "departmentCode": "25",
+    "name": "Guayabal de Síquima",
+    "latitude": 4.877968,
+    "longitude": -74.467437
+  },
+  {
+    "code": "25335",
+    "departmentCode": "25",
+    "name": "Guayabetal",
+    "latitude": 4.215306,
+    "longitude": -73.815107
+  },
+  {
+    "code": "25339",
+    "departmentCode": "25",
+    "name": "Gutiérrez",
+    "latitude": 4.254679,
+    "longitude": -74.003042
+  },
+  {
+    "code": "25368",
+    "departmentCode": "25",
+    "name": "Jerusalén",
+    "latitude": 4.562273,
+    "longitude": -74.695474
+  },
+  {
+    "code": "25372",
+    "departmentCode": "25",
+    "name": "Junín",
+    "latitude": 4.79057,
+    "longitude": -73.662961
+  },
+  {
+    "code": "25377",
+    "departmentCode": "25",
+    "name": "la Calera",
+    "latitude": 4.721104,
+    "longitude": -73.968161
+  },
+  {
+    "code": "25386",
+    "departmentCode": "25",
+    "name": "la Mesa",
+    "latitude": 4.631028,
+    "longitude": -74.461588
+  },
+  {
+    "code": "25394",
+    "departmentCode": "25",
+    "name": "la Palma",
+    "latitude": 5.358816,
+    "longitude": -74.391022
+  },
+  {
+    "code": "25398",
+    "departmentCode": "25",
+    "name": "la Peña",
+    "latitude": 5.198945,
+    "longitude": -74.394105
+  },
+  {
+    "code": "25402",
+    "departmentCode": "25",
+    "name": "la Vega",
+    "latitude": 4.997768,
+    "longitude": -74.336885
+  },
+  {
+    "code": "25407",
+    "departmentCode": "25",
+    "name": "Lenguazaque",
+    "latitude": 5.306131,
+    "longitude": -73.711512
+  },
+  {
+    "code": "25426",
+    "departmentCode": "25",
+    "name": "Machetá",
+    "latitude": 5.08007,
+    "longitude": -73.608226
+  },
+  {
+    "code": "25430",
+    "departmentCode": "25",
+    "name": "Madrid",
+    "latitude": 4.732791,
+    "longitude": -74.265854
+  },
+  {
+    "code": "25436",
+    "departmentCode": "25",
+    "name": "Manta",
+    "latitude": 5.009008,
+    "longitude": -73.540444
+  },
+  {
+    "code": "25438",
+    "departmentCode": "25",
+    "name": "Medina",
+    "latitude": 4.506298,
+    "longitude": -73.348449
+  },
+  {
+    "code": "25473",
+    "departmentCode": "25",
+    "name": "Mosquera",
+    "latitude": 4.70653,
+    "longitude": -74.221154
+  },
+  {
+    "code": "25483",
+    "departmentCode": "25",
+    "name": "Nariño",
+    "latitude": 4.399837,
+    "longitude": -74.824732
+  },
+  {
+    "code": "25486",
+    "departmentCode": "25",
+    "name": "Nemocón",
+    "latitude": 5.068705,
+    "longitude": -73.877888
+  },
+  {
+    "code": "25488",
+    "departmentCode": "25",
+    "name": "Nilo",
+    "latitude": 4.305838,
+    "longitude": -74.620009
+  },
+  {
+    "code": "25489",
+    "departmentCode": "25",
+    "name": "Nimaima",
+    "latitude": 5.125992,
+    "longitude": -74.38604
+  },
+  {
+    "code": "25491",
+    "departmentCode": "25",
+    "name": "Nocaima",
+    "latitude": 5.069466,
+    "longitude": -74.379093
+  },
+  {
+    "code": "25506",
+    "departmentCode": "25",
+    "name": "Venecia",
+    "latitude": 4.089056,
+    "longitude": -74.478301
+  },
+  {
+    "code": "25513",
+    "departmentCode": "25",
+    "name": "Pacho",
+    "latitude": 5.136907,
+    "longitude": -74.156132
+  },
+  {
+    "code": "25518",
+    "departmentCode": "25",
+    "name": "Paime",
+    "latitude": 5.370487,
+    "longitude": -74.152213
+  },
+  {
+    "code": "25524",
+    "departmentCode": "25",
+    "name": "Pandi",
+    "latitude": 4.190393,
+    "longitude": -74.486641
+  },
+  {
+    "code": "25530",
+    "departmentCode": "25",
+    "name": "Paratebueno",
+    "latitude": 4.374832,
+    "longitude": -73.212825
+  },
+  {
+    "code": "25535",
+    "departmentCode": "25",
+    "name": "Pasca",
+    "latitude": 4.308979,
+    "longitude": -74.302276
+  },
+  {
+    "code": "25572",
+    "departmentCode": "25",
+    "name": "Puerto Salgar",
+    "latitude": 5.465413,
+    "longitude": -74.653695
+  },
+  {
+    "code": "25580",
+    "departmentCode": "25",
+    "name": "Pulí",
+    "latitude": 4.682022,
+    "longitude": -74.71438
+  },
+  {
+    "code": "25592",
+    "departmentCode": "25",
+    "name": "Quebradanegra",
+    "latitude": 5.118076,
+    "longitude": -74.48014
+  },
+  {
+    "code": "25594",
+    "departmentCode": "25",
+    "name": "Quetame",
+    "latitude": 4.329884,
+    "longitude": -73.863214
+  },
+  {
+    "code": "25596",
+    "departmentCode": "25",
+    "name": "Quipile",
+    "latitude": 4.74481,
+    "longitude": -74.533705
+  },
+  {
+    "code": "25599",
+    "departmentCode": "25",
+    "name": "Apulo",
+    "latitude": 4.520304,
+    "longitude": -74.593926
+  },
+  {
+    "code": "25612",
+    "departmentCode": "25",
+    "name": "Ricaurte",
+    "latitude": 4.282113,
+    "longitude": -74.772861
+  },
+  {
+    "code": "25645",
+    "departmentCode": "25",
+    "name": "San Antonio del Tequendama",
+    "latitude": 4.616138,
+    "longitude": -74.351443
+  },
+  {
+    "code": "25649",
+    "departmentCode": "25",
+    "name": "San Bernardo",
+    "latitude": 4.179433,
+    "longitude": -74.42296
+  },
+  {
+    "code": "25653",
+    "departmentCode": "25",
+    "name": "San Cayetano",
+    "latitude": 5.332938,
+    "longitude": -74.024754
+  },
+  {
+    "code": "25658",
+    "departmentCode": "25",
+    "name": "San Francisco",
+    "latitude": 4.972917,
+    "longitude": -74.289672
+  },
+  {
+    "code": "25662",
+    "departmentCode": "25",
+    "name": "San Juan de Rioseco",
+    "latitude": 4.847575,
+    "longitude": -74.621919
+  },
+  {
+    "code": "25718",
+    "departmentCode": "25",
+    "name": "Sasaima",
+    "latitude": 4.962167,
+    "longitude": -74.432628
+  },
+  {
+    "code": "25736",
+    "departmentCode": "25",
+    "name": "Sesquilé",
+    "latitude": 5.04476,
+    "longitude": -73.796099
+  },
+  {
+    "code": "25740",
+    "departmentCode": "25",
+    "name": "Sibaté",
+    "latitude": 4.492625,
+    "longitude": -74.257874
+  },
+  {
+    "code": "25743",
+    "departmentCode": "25",
+    "name": "Silvania",
+    "latitude": 4.381981,
+    "longitude": -74.405534
+  },
+  {
+    "code": "25745",
+    "departmentCode": "25",
+    "name": "Simijaca",
+    "latitude": 5.505231,
+    "longitude": -73.850703
+  },
+  {
+    "code": "25754",
+    "departmentCode": "25",
+    "name": "Soacha",
+    "latitude": 4.579268,
+    "longitude": -74.215463
+  },
+  {
+    "code": "25758",
+    "departmentCode": "25",
+    "name": "Sopó",
+    "latitude": 4.915395,
+    "longitude": -73.943328
+  },
+  {
+    "code": "25769",
+    "departmentCode": "25",
+    "name": "Subachoque",
+    "latitude": 4.929118,
+    "longitude": -74.172773
+  },
+  {
+    "code": "25772",
+    "departmentCode": "25",
+    "name": "Suesca",
+    "latitude": 5.103495,
+    "longitude": -73.798227
+  },
+  {
+    "code": "25777",
+    "departmentCode": "25",
+    "name": "Supatá",
+    "latitude": 5.06162,
+    "longitude": -74.235403
+  },
+  {
+    "code": "25779",
+    "departmentCode": "25",
+    "name": "Susa",
+    "latitude": 5.455291,
+    "longitude": -73.813938
+  },
+  {
+    "code": "25781",
+    "departmentCode": "25",
+    "name": "Sutatausa",
+    "latitude": 5.247482,
+    "longitude": -73.853159
+  },
+  {
+    "code": "25785",
+    "departmentCode": "25",
+    "name": "Tabio",
+    "latitude": 4.916832,
+    "longitude": -74.096461
+  },
+  {
+    "code": "25793",
+    "departmentCode": "25",
+    "name": "Tausa",
+    "latitude": 5.196333,
+    "longitude": -73.887813
+  },
+  {
+    "code": "25797",
+    "departmentCode": "25",
+    "name": "Tena",
+    "latitude": 4.655286,
+    "longitude": -74.389193
+  },
+  {
+    "code": "25799",
+    "departmentCode": "25",
+    "name": "Tenjo",
+    "latitude": 4.872014,
+    "longitude": -74.143724
+  },
+  {
+    "code": "25805",
+    "departmentCode": "25",
+    "name": "Tibacuy",
+    "latitude": 4.348605,
+    "longitude": -74.452662
+  },
+  {
+    "code": "25807",
+    "departmentCode": "25",
+    "name": "Tibirita",
+    "latitude": 5.052278,
+    "longitude": -73.504514
+  },
+  {
+    "code": "25815",
+    "departmentCode": "25",
+    "name": "Tocaima",
+    "latitude": 4.459279,
+    "longitude": -74.636296
+  },
+  {
+    "code": "25817",
+    "departmentCode": "25",
+    "name": "Tocancipá",
+    "latitude": 4.964641,
+    "longitude": -73.91207
+  },
+  {
+    "code": "25823",
+    "departmentCode": "25",
+    "name": "Topaipí",
+    "latitude": 5.336224,
+    "longitude": -74.300626
+  },
+  {
+    "code": "25839",
+    "departmentCode": "25",
+    "name": "Ubalá",
+    "latitude": 4.74762,
+    "longitude": -73.531489
+  },
+  {
+    "code": "25841",
+    "departmentCode": "25",
+    "name": "Ubaque",
+    "latitude": 4.483788,
+    "longitude": -73.933477
+  },
+  {
+    "code": "25843",
+    "departmentCode": "25",
+    "name": "Villa de San Diego de Ubaté",
+    "latitude": 5.307463,
+    "longitude": -73.814367
+  },
+  {
+    "code": "25845",
+    "departmentCode": "25",
+    "name": "Une",
+    "latitude": 4.40245,
+    "longitude": -74.025183
+  },
+  {
+    "code": "25851",
+    "departmentCode": "25",
+    "name": "Útica",
+    "latitude": 5.19055,
+    "longitude": -74.483154
+  },
+  {
+    "code": "25862",
+    "departmentCode": "25",
+    "name": "Vergara",
+    "latitude": 5.117258,
+    "longitude": -74.346163
+  },
+  {
+    "code": "25867",
+    "departmentCode": "25",
+    "name": "Vianí",
+    "latitude": 4.875208,
+    "longitude": -74.56132
+  },
+  {
+    "code": "25871",
+    "departmentCode": "25",
+    "name": "Villagómez",
+    "latitude": 5.273024,
+    "longitude": -74.195145
+  },
+  {
+    "code": "25873",
+    "departmentCode": "25",
+    "name": "Villapinzón",
+    "latitude": 5.216393,
+    "longitude": -73.595704
+  },
+  {
+    "code": "25875",
+    "departmentCode": "25",
+    "name": "Villeta",
+    "latitude": 5.012754,
+    "longitude": -74.469686
+  },
+  {
+    "code": "25878",
+    "departmentCode": "25",
+    "name": "Viotá",
+    "latitude": 4.43935,
+    "longitude": -74.523131
+  },
+  {
+    "code": "25885",
+    "departmentCode": "25",
+    "name": "Yacopí",
+    "latitude": 5.459272,
+    "longitude": -74.33806
+  },
+  {
+    "code": "25898",
+    "departmentCode": "25",
+    "name": "Zipacón",
+    "latitude": 4.759932,
+    "longitude": -74.379566
+  },
+  {
+    "code": "25899",
+    "departmentCode": "25",
+    "name": "Zipaquirá",
+    "latitude": 5.025477,
+    "longitude": -73.994444
+  },
+  {
+    "code": "27001",
+    "departmentCode": "27",
+    "name": "Quibdó",
+    "latitude": 5.682166,
+    "longitude": -76.638144
+  },
+  {
+    "code": "27006",
+    "departmentCode": "27",
+    "name": "Acandí",
+    "latitude": 8.512178,
+    "longitude": -77.279951
+  },
+  {
+    "code": "27025",
+    "departmentCode": "27",
+    "name": "Alto Baudó",
+    "latitude": 5.516221,
+    "longitude": -76.974373
+  },
+  {
+    "code": "27050",
+    "departmentCode": "27",
+    "name": "Atrato",
+    "latitude": 5.531419,
+    "longitude": -76.635674
+  },
+  {
+    "code": "27073",
+    "departmentCode": "27",
+    "name": "Bagadó",
+    "latitude": 5.409681,
+    "longitude": -76.416063
+  },
+  {
+    "code": "27075",
+    "departmentCode": "27",
+    "name": "Bahía Solano",
+    "latitude": 6.222807,
+    "longitude": -77.401359
+  },
+  {
+    "code": "27077",
+    "departmentCode": "27",
+    "name": "Bajo Baudó",
+    "latitude": 4.954576,
+    "longitude": -77.365717
+  },
+  {
+    "code": "27099",
+    "departmentCode": "27",
+    "name": "Bojayá",
+    "latitude": 6.559708,
+    "longitude": -76.886773
+  },
+  {
+    "code": "27135",
+    "departmentCode": "27",
+    "name": "el Cantón del San Pablo",
+    "latitude": 5.335321,
+    "longitude": -76.726844
+  },
+  {
+    "code": "27150",
+    "departmentCode": "27",
+    "name": "Carmen del Darién",
+    "latitude": 7.158294,
+    "longitude": -76.970798
+  },
+  {
+    "code": "27160",
+    "departmentCode": "27",
+    "name": "Cértegui",
+    "latitude": 5.371373,
+    "longitude": -76.607619
+  },
+  {
+    "code": "27205",
+    "departmentCode": "27",
+    "name": "Condoto",
+    "latitude": 5.091003,
+    "longitude": -76.650683
+  },
+  {
+    "code": "27245",
+    "departmentCode": "27",
+    "name": "el Carmen de Atrato",
+    "latitude": 5.899789,
+    "longitude": -76.142112
+  },
+  {
+    "code": "27250",
+    "departmentCode": "27",
+    "name": "el Litoral del San Juan",
+    "latitude": 4.259564,
+    "longitude": -77.363702
+  },
+  {
+    "code": "27361",
+    "departmentCode": "27",
+    "name": "Istmina",
+    "latitude": 5.153946,
+    "longitude": -76.68518
+  },
+  {
+    "code": "27372",
+    "departmentCode": "27",
+    "name": "Juradó",
+    "latitude": 7.103619,
+    "longitude": -77.762751
+  },
+  {
+    "code": "27413",
+    "departmentCode": "27",
+    "name": "Lloró",
+    "latitude": 5.49789,
+    "longitude": -76.545147
+  },
+  {
+    "code": "27425",
+    "departmentCode": "27",
+    "name": "Medio Atrato",
+    "latitude": 5.994935,
+    "longitude": -76.783042
+  },
+  {
+    "code": "27430",
+    "departmentCode": "27",
+    "name": "Medio Baudó",
+    "latitude": 5.192471,
+    "longitude": -76.950891
+  },
+  {
+    "code": "27450",
+    "departmentCode": "27",
+    "name": "Medio San Juan",
+    "latitude": 5.098291,
+    "longitude": -76.694409
+  },
+  {
+    "code": "27491",
+    "departmentCode": "27",
+    "name": "Nóvita",
+    "latitude": 4.956063,
+    "longitude": -76.609467
+  },
+  {
+    "code": "27493",
+    "departmentCode": "27",
+    "name": "Nuevo Belén de Bajirá",
+    "latitude": 7.3719,
+    "longitude": -76.71727
+  },
+  {
+    "code": "27495",
+    "departmentCode": "27",
+    "name": "Nuquí",
+    "latitude": 5.709812,
+    "longitude": -77.265507
+  },
+  {
+    "code": "27580",
+    "departmentCode": "27",
+    "name": "Río Iró",
+    "latitude": 5.1863,
+    "longitude": -76.472925
+  },
+  {
+    "code": "27600",
+    "departmentCode": "27",
+    "name": "Río Quito",
+    "latitude": 5.483667,
+    "longitude": -76.740684
+  },
+  {
+    "code": "27615",
+    "departmentCode": "27",
+    "name": "Riosucio",
+    "latitude": 7.436704,
+    "longitude": -77.113156
+  },
+  {
+    "code": "27660",
+    "departmentCode": "27",
+    "name": "San José del Palmar",
+    "latitude": 4.896954,
+    "longitude": -76.234227
+  },
+  {
+    "code": "27745",
+    "departmentCode": "27",
+    "name": "Sipí",
+    "latitude": 4.65262,
+    "longitude": -76.643453
+  },
+  {
+    "code": "27787",
+    "departmentCode": "27",
+    "name": "Tadó",
+    "latitude": 5.264873,
+    "longitude": -76.558571
+  },
+  {
+    "code": "27800",
+    "departmentCode": "27",
+    "name": "Unguía",
+    "latitude": 8.04406,
+    "longitude": -77.092538
+  },
+  {
+    "code": "27810",
+    "departmentCode": "27",
+    "name": "Unión Panamericana",
+    "latitude": 5.281108,
+    "longitude": -76.630143
+  },
+  {
+    "code": "41001",
+    "departmentCode": "41",
+    "name": "Neiva",
+    "latitude": 2.935432,
+    "longitude": -75.277327
+  },
+  {
+    "code": "41006",
+    "departmentCode": "41",
+    "name": "Acevedo",
+    "latitude": 1.805173,
+    "longitude": -75.888706
+  },
+  {
+    "code": "41013",
+    "departmentCode": "41",
+    "name": "Agrado",
+    "latitude": 2.25987,
+    "longitude": -75.772022
+  },
+  {
+    "code": "41016",
+    "departmentCode": "41",
+    "name": "Aipe",
+    "latitude": 3.223996,
+    "longitude": -75.239017
+  },
+  {
+    "code": "41020",
+    "departmentCode": "41",
+    "name": "Algeciras",
+    "latitude": 2.521674,
+    "longitude": -75.315389
+  },
+  {
+    "code": "41026",
+    "departmentCode": "41",
+    "name": "Altamira",
+    "latitude": 2.063841,
+    "longitude": -75.788471
+  },
+  {
+    "code": "41078",
+    "departmentCode": "41",
+    "name": "Baraya",
+    "latitude": 3.152204,
+    "longitude": -75.054843
+  },
+  {
+    "code": "41132",
+    "departmentCode": "41",
+    "name": "Campoalegre",
+    "latitude": 2.686767,
+    "longitude": -75.325748
+  },
+  {
+    "code": "41206",
+    "departmentCode": "41",
+    "name": "Colombia",
+    "latitude": 3.376745,
+    "longitude": -74.802815
+  },
+  {
+    "code": "41244",
+    "departmentCode": "41",
+    "name": "Elías",
+    "latitude": 2.012854,
+    "longitude": -75.938301
+  },
+  {
+    "code": "41298",
+    "departmentCode": "41",
+    "name": "Garzón",
+    "latitude": 2.196493,
+    "longitude": -75.627057
+  },
+  {
+    "code": "41306",
+    "departmentCode": "41",
+    "name": "Gigante",
+    "latitude": 2.384031,
+    "longitude": -75.547681
+  },
+  {
+    "code": "41319",
+    "departmentCode": "41",
+    "name": "Guadalupe",
+    "latitude": 2.02426,
+    "longitude": -75.757185
+  },
+  {
+    "code": "41349",
+    "departmentCode": "41",
+    "name": "Hobo",
+    "latitude": 2.580812,
+    "longitude": -75.447697
+  },
+  {
+    "code": "41357",
+    "departmentCode": "41",
+    "name": "Íquira",
+    "latitude": 2.649359,
+    "longitude": -75.634497
+  },
+  {
+    "code": "41359",
+    "departmentCode": "41",
+    "name": "Isnos",
+    "latitude": 1.929467,
+    "longitude": -76.217637
+  },
+  {
+    "code": "41378",
+    "departmentCode": "41",
+    "name": "la Argentina",
+    "latitude": 2.198496,
+    "longitude": -75.979763
+  },
+  {
+    "code": "41396",
+    "departmentCode": "41",
+    "name": "la Plata",
+    "latitude": 2.389263,
+    "longitude": -75.891254
+  },
+  {
+    "code": "41483",
+    "departmentCode": "41",
+    "name": "Nátaga",
+    "latitude": 2.5451,
+    "longitude": -75.808756
+  },
+  {
+    "code": "41503",
+    "departmentCode": "41",
+    "name": "Oporapa",
+    "latitude": 2.025088,
+    "longitude": -75.995165
+  },
+  {
+    "code": "41518",
+    "departmentCode": "41",
+    "name": "Paicol",
+    "latitude": 2.449651,
+    "longitude": -75.773158
+  },
+  {
+    "code": "41524",
+    "departmentCode": "41",
+    "name": "Palermo",
+    "latitude": 2.889649,
+    "longitude": -75.435296
+  },
+  {
+    "code": "41530",
+    "departmentCode": "41",
+    "name": "Palestina",
+    "latitude": 1.723725,
+    "longitude": -76.133251
+  },
+  {
+    "code": "41548",
+    "departmentCode": "41",
+    "name": "Pital",
+    "latitude": 2.266618,
+    "longitude": -75.804544
+  },
+  {
+    "code": "41551",
+    "departmentCode": "41",
+    "name": "Pitalito",
+    "latitude": 1.852631,
+    "longitude": -76.049441
+  },
+  {
+    "code": "41615",
+    "departmentCode": "41",
+    "name": "Rivera",
+    "latitude": 2.777586,
+    "longitude": -75.258753
+  },
+  {
+    "code": "41660",
+    "departmentCode": "41",
+    "name": "Saladoblanco",
+    "latitude": 1.9934,
+    "longitude": -76.044747
+  },
+  {
+    "code": "41668",
+    "departmentCode": "41",
+    "name": "San Agustín",
+    "latitude": 1.881081,
+    "longitude": -76.27036
+  },
+  {
+    "code": "41676",
+    "departmentCode": "41",
+    "name": "Santa María",
+    "latitude": 2.939603,
+    "longitude": -75.586223
+  },
+  {
+    "code": "41770",
+    "departmentCode": "41",
+    "name": "Suaza",
+    "latitude": 1.976051,
+    "longitude": -75.79525
+  },
+  {
+    "code": "41791",
+    "departmentCode": "41",
+    "name": "Tarqui",
+    "latitude": 2.111325,
+    "longitude": -75.823976
+  },
+  {
+    "code": "41797",
+    "departmentCode": "41",
+    "name": "Tesalia",
+    "latitude": 2.486364,
+    "longitude": -75.730271
+  },
+  {
+    "code": "41799",
+    "departmentCode": "41",
+    "name": "Tello",
+    "latitude": 3.067538,
+    "longitude": -75.138773
+  },
+  {
+    "code": "41801",
+    "departmentCode": "41",
+    "name": "Teruel",
+    "latitude": 2.740968,
+    "longitude": -75.567034
+  },
+  {
+    "code": "41807",
+    "departmentCode": "41",
+    "name": "Timaná",
+    "latitude": 1.974539,
+    "longitude": -75.932167
+  },
+  {
+    "code": "41872",
+    "departmentCode": "41",
+    "name": "Villavieja",
+    "latitude": 3.218822,
+    "longitude": -75.217174
+  },
+  {
+    "code": "41885",
+    "departmentCode": "41",
+    "name": "Yaguará",
+    "latitude": 2.664694,
+    "longitude": -75.518023
+  },
+  {
+    "code": "44001",
+    "departmentCode": "44",
+    "name": "Riohacha",
+    "latitude": 11.528588,
+    "longitude": -72.911795
+  },
+  {
+    "code": "44035",
+    "departmentCode": "44",
+    "name": "Albania",
+    "latitude": 11.151628,
+    "longitude": -72.61232
+  },
+  {
+    "code": "44078",
+    "departmentCode": "44",
+    "name": "Barrancas",
+    "latitude": 10.958669,
+    "longitude": -72.793639
+  },
+  {
+    "code": "44090",
+    "departmentCode": "44",
+    "name": "Dibulla",
+    "latitude": 11.27155,
+    "longitude": -73.307598
+  },
+  {
+    "code": "44098",
+    "departmentCode": "44",
+    "name": "Distracción",
+    "latitude": 10.898414,
+    "longitude": -72.887405
+  },
+  {
+    "code": "44110",
+    "departmentCode": "44",
+    "name": "el Molino",
+    "latitude": 10.653505,
+    "longitude": -72.92673
+  },
+  {
+    "code": "44279",
+    "departmentCode": "44",
+    "name": "Fonseca",
+    "latitude": 10.886734,
+    "longitude": -72.846319
+  },
+  {
+    "code": "44378",
+    "departmentCode": "44",
+    "name": "Hatonuevo",
+    "latitude": 11.068864,
+    "longitude": -72.75904
+  },
+  {
+    "code": "44420",
+    "departmentCode": "44",
+    "name": "la Jagua del Pilar",
+    "latitude": 10.511862,
+    "longitude": -73.072638
+  },
+  {
+    "code": "44430",
+    "departmentCode": "44",
+    "name": "Maicao",
+    "latitude": 11.378535,
+    "longitude": -72.242738
+  },
+  {
+    "code": "44560",
+    "departmentCode": "44",
+    "name": "Manaure",
+    "latitude": 11.773767,
+    "longitude": -72.438739
+  },
+  {
+    "code": "44650",
+    "departmentCode": "44",
+    "name": "San Juan del Cesar",
+    "latitude": 10.769546,
+    "longitude": -73.000629
+  },
+  {
+    "code": "44847",
+    "departmentCode": "44",
+    "name": "Uribia",
+    "latitude": 11.711904,
+    "longitude": -72.265906
+  },
+  {
+    "code": "44855",
+    "departmentCode": "44",
+    "name": "Urumita",
+    "latitude": 10.560169,
+    "longitude": -73.012507
+  },
+  {
+    "code": "44874",
+    "departmentCode": "44",
+    "name": "Villanueva",
+    "latitude": 10.608774,
+    "longitude": -72.977583
+  },
+  {
+    "code": "47001",
+    "departmentCode": "47",
+    "name": "Santa Marta",
+    "latitude": 11.204679,
+    "longitude": -74.199829
+  },
+  {
+    "code": "47030",
+    "departmentCode": "47",
+    "name": "Algarrobo",
+    "latitude": 10.188059,
+    "longitude": -74.061132
+  },
+  {
+    "code": "47053",
+    "departmentCode": "47",
+    "name": "Aracataca",
+    "latitude": 10.589791,
+    "longitude": -74.186702
+  },
+  {
+    "code": "47058",
+    "departmentCode": "47",
+    "name": "Ariguaní",
+    "latitude": 9.847047,
+    "longitude": -74.236515
+  },
+  {
+    "code": "47161",
+    "departmentCode": "47",
+    "name": "Cerro de San Antonio",
+    "latitude": 10.325531,
+    "longitude": -74.868474
+  },
+  {
+    "code": "47170",
+    "departmentCode": "47",
+    "name": "Chivolo",
+    "latitude": 10.026631,
+    "longitude": -74.622242
+  },
+  {
+    "code": "47189",
+    "departmentCode": "47",
+    "name": "Ciénaga",
+    "latitude": 11.006654,
+    "longitude": -74.241286
+  },
+  {
+    "code": "47205",
+    "departmentCode": "47",
+    "name": "Concordia",
+    "latitude": 10.257314,
+    "longitude": -74.83303
+  },
+  {
+    "code": "47245",
+    "departmentCode": "47",
+    "name": "el Banco",
+    "latitude": 9.008503,
+    "longitude": -73.97437
+  },
+  {
+    "code": "47258",
+    "departmentCode": "47",
+    "name": "el Piñón",
+    "latitude": 10.402781,
+    "longitude": -74.823094
+  },
+  {
+    "code": "47268",
+    "departmentCode": "47",
+    "name": "el Retén",
+    "latitude": 10.610488,
+    "longitude": -74.268444
+  },
+  {
+    "code": "47288",
+    "departmentCode": "47",
+    "name": "Fundación",
+    "latitude": 10.514146,
+    "longitude": -74.191453
+  },
+  {
+    "code": "47318",
+    "departmentCode": "47",
+    "name": "Guamal",
+    "latitude": 9.144354,
+    "longitude": -74.223689
+  },
+  {
+    "code": "47460",
+    "departmentCode": "47",
+    "name": "Nueva Granada",
+    "latitude": 9.80186,
+    "longitude": -74.391841
+  },
+  {
+    "code": "47541",
+    "departmentCode": "47",
+    "name": "Pedraza",
+    "latitude": 10.18825,
+    "longitude": -74.9154
+  },
+  {
+    "code": "47545",
+    "departmentCode": "47",
+    "name": "Pijiño del Carmen",
+    "latitude": 9.331922,
+    "longitude": -74.459034
+  },
+  {
+    "code": "47551",
+    "departmentCode": "47",
+    "name": "Pivijay",
+    "latitude": 10.460707,
+    "longitude": -74.613312
+  },
+  {
+    "code": "47555",
+    "departmentCode": "47",
+    "name": "Plato",
+    "latitude": 9.796713,
+    "longitude": -74.784549
+  },
+  {
+    "code": "47570",
+    "departmentCode": "47",
+    "name": "Puebloviejo",
+    "latitude": 10.994766,
+    "longitude": -74.28253
+  },
+  {
+    "code": "47605",
+    "departmentCode": "47",
+    "name": "Remolino",
+    "latitude": 10.701952,
+    "longitude": -74.716172
+  },
+  {
+    "code": "47660",
+    "departmentCode": "47",
+    "name": "Sabanas de San Ángel",
+    "latitude": 10.032536,
+    "longitude": -74.213946
+  },
+  {
+    "code": "47675",
+    "departmentCode": "47",
+    "name": "Salamina",
+    "latitude": 10.491229,
+    "longitude": -74.794189
+  },
+  {
+    "code": "47692",
+    "departmentCode": "47",
+    "name": "San Sebastián de Buenavista",
+    "latitude": 9.241656,
+    "longitude": -74.351498
+  },
+  {
+    "code": "47703",
+    "departmentCode": "47",
+    "name": "San Zenón",
+    "latitude": 9.245061,
+    "longitude": -74.498992
+  },
+  {
+    "code": "47707",
+    "departmentCode": "47",
+    "name": "Santa Ana",
+    "latitude": 9.324294,
+    "longitude": -74.566845
+  },
+  {
+    "code": "47720",
+    "departmentCode": "47",
+    "name": "Santa Bárbara de Pinto",
+    "latitude": 9.432263,
+    "longitude": -74.704667
+  },
+  {
+    "code": "47745",
+    "departmentCode": "47",
+    "name": "Sitionuevo",
+    "latitude": 10.775285,
+    "longitude": -74.720021
+  },
+  {
+    "code": "47798",
+    "departmentCode": "47",
+    "name": "Tenerife",
+    "latitude": 9.898273,
+    "longitude": -74.859783
+  },
+  {
+    "code": "47960",
+    "departmentCode": "47",
+    "name": "Zapayán",
+    "latitude": 10.168297,
+    "longitude": -74.716878
+  },
+  {
+    "code": "47980",
+    "departmentCode": "47",
+    "name": "Zona Bananera",
+    "latitude": 10.763024,
+    "longitude": -74.140091
+  },
+  {
+    "code": "50001",
+    "departmentCode": "50",
+    "name": "Villavicencio",
+    "latitude": 4.126369,
+    "longitude": -73.622601
+  },
+  {
+    "code": "50006",
+    "departmentCode": "50",
+    "name": "Acacías",
+    "latitude": 3.990413,
+    "longitude": -73.766034
+  },
+  {
+    "code": "50110",
+    "departmentCode": "50",
+    "name": "Barranca de Upía",
+    "latitude": 4.566225,
+    "longitude": -72.961083
+  },
+  {
+    "code": "50124",
+    "departmentCode": "50",
+    "name": "Cabuyaro",
+    "latitude": 4.286705,
+    "longitude": -72.791768
+  },
+  {
+    "code": "50150",
+    "departmentCode": "50",
+    "name": "Castilla la Nueva",
+    "latitude": 3.830005,
+    "longitude": -73.687302
+  },
+  {
+    "code": "50223",
+    "departmentCode": "50",
+    "name": "Cubarral",
+    "latitude": 3.793653,
+    "longitude": -73.837999
+  },
+  {
+    "code": "50226",
+    "departmentCode": "50",
+    "name": "Cumaral",
+    "latitude": 4.270042,
+    "longitude": -73.487052
+  },
+  {
+    "code": "50245",
+    "departmentCode": "50",
+    "name": "el Calvario",
+    "latitude": 4.352665,
+    "longitude": -73.713325
+  },
+  {
+    "code": "50251",
+    "departmentCode": "50",
+    "name": "el Castillo",
+    "latitude": 3.563907,
+    "longitude": -73.794225
+  },
+  {
+    "code": "50270",
+    "departmentCode": "50",
+    "name": "el Dorado",
+    "latitude": 3.739984,
+    "longitude": -73.835264
+  },
+  {
+    "code": "50287",
+    "departmentCode": "50",
+    "name": "Fuente de Oro",
+    "latitude": 3.462875,
+    "longitude": -73.618121
+  },
+  {
+    "code": "50313",
+    "departmentCode": "50",
+    "name": "Granada",
+    "latitude": 3.547147,
+    "longitude": -73.705815
+  },
+  {
+    "code": "50318",
+    "departmentCode": "50",
+    "name": "Guamal",
+    "latitude": 3.879657,
+    "longitude": -73.768815
+  },
+  {
+    "code": "50325",
+    "departmentCode": "50",
+    "name": "Mapiripán",
+    "latitude": 2.896617,
+    "longitude": -72.135509
+  },
+  {
+    "code": "50330",
+    "departmentCode": "50",
+    "name": "Mesetas",
+    "latitude": 3.382732,
+    "longitude": -74.044328
+  },
+  {
+    "code": "50350",
+    "departmentCode": "50",
+    "name": "la Macarena",
+    "latitude": 2.177143,
+    "longitude": -73.78661
+  },
+  {
+    "code": "50370",
+    "departmentCode": "50",
+    "name": "Uribe",
+    "latitude": 3.239634,
+    "longitude": -74.351508
+  },
+  {
+    "code": "50400",
+    "departmentCode": "50",
+    "name": "Lejanías",
+    "latitude": 3.525115,
+    "longitude": -74.023514
+  },
+  {
+    "code": "50450",
+    "departmentCode": "50",
+    "name": "Puerto Concordia",
+    "latitude": 2.624006,
+    "longitude": -72.760209
+  },
+  {
+    "code": "50568",
+    "departmentCode": "50",
+    "name": "Puerto Gaitán",
+    "latitude": 4.314905,
+    "longitude": -72.087649
+  },
+  {
+    "code": "50573",
+    "departmentCode": "50",
+    "name": "Puerto López",
+    "latitude": 4.09349,
+    "longitude": -72.957324
+  },
+  {
+    "code": "50577",
+    "departmentCode": "50",
+    "name": "Puerto Lleras",
+    "latitude": 3.272117,
+    "longitude": -73.37385
+  },
+  {
+    "code": "50590",
+    "departmentCode": "50",
+    "name": "Puerto Rico",
+    "latitude": 2.939621,
+    "longitude": -73.206314
+  },
+  {
+    "code": "50606",
+    "departmentCode": "50",
+    "name": "Restrepo",
+    "latitude": 4.259556,
+    "longitude": -73.565408
+  },
+  {
+    "code": "50680",
+    "departmentCode": "50",
+    "name": "San Carlos de Guaroa",
+    "latitude": 3.71065,
+    "longitude": -73.242253
+  },
+  {
+    "code": "50683",
+    "departmentCode": "50",
+    "name": "San Juan de Arama",
+    "latitude": 3.373728,
+    "longitude": -73.875832
+  },
+  {
+    "code": "50686",
+    "departmentCode": "50",
+    "name": "San Juanito",
+    "latitude": 4.458181,
+    "longitude": -73.676699
+  },
+  {
+    "code": "50689",
+    "departmentCode": "50",
+    "name": "San Martín",
+    "latitude": 3.701899,
+    "longitude": -73.695812
+  },
+  {
+    "code": "50711",
+    "departmentCode": "50",
+    "name": "Vistahermosa",
+    "latitude": 3.125579,
+    "longitude": -73.750966
+  },
+  {
+    "code": "52001",
+    "departmentCode": "52",
+    "name": "Pasto",
+    "latitude": 1.212352,
+    "longitude": -77.278795
+  },
+  {
+    "code": "52019",
+    "departmentCode": "52",
+    "name": "Albán",
+    "latitude": 1.474978,
+    "longitude": -77.080712
+  },
+  {
+    "code": "52022",
+    "departmentCode": "52",
+    "name": "Aldana",
+    "latitude": 0.882381,
+    "longitude": -77.700564
+  },
+  {
+    "code": "52036",
+    "departmentCode": "52",
+    "name": "Ancuya",
+    "latitude": 1.263276,
+    "longitude": -77.514512
+  },
+  {
+    "code": "52051",
+    "departmentCode": "52",
+    "name": "Arboleda",
+    "latitude": 1.503418,
+    "longitude": -77.135467
+  },
+  {
+    "code": "52079",
+    "departmentCode": "52",
+    "name": "Barbacoas",
+    "latitude": 1.671733,
+    "longitude": -78.13765
+  },
+  {
+    "code": "52083",
+    "departmentCode": "52",
+    "name": "Belén",
+    "latitude": 1.595681,
+    "longitude": -77.015619
+  },
+  {
+    "code": "52110",
+    "departmentCode": "52",
+    "name": "Buesaco",
+    "latitude": 1.381453,
+    "longitude": -77.156463
+  },
+  {
+    "code": "52203",
+    "departmentCode": "52",
+    "name": "Colón",
+    "latitude": 1.643878,
+    "longitude": -77.019777
+  },
+  {
+    "code": "52207",
+    "departmentCode": "52",
+    "name": "Consacá",
+    "latitude": 1.207854,
+    "longitude": -77.466136
+  },
+  {
+    "code": "52210",
+    "departmentCode": "52",
+    "name": "Contadero",
+    "latitude": 0.910458,
+    "longitude": -77.549409
+  },
+  {
+    "code": "52215",
+    "departmentCode": "52",
+    "name": "Córdoba",
+    "latitude": 0.854564,
+    "longitude": -77.517897
+  },
+  {
+    "code": "52224",
+    "departmentCode": "52",
+    "name": "Cuaspud Carlosama",
+    "latitude": 0.862978,
+    "longitude": -77.728947
+  },
+  {
+    "code": "52227",
+    "departmentCode": "52",
+    "name": "Cumbal",
+    "latitude": 0.906367,
+    "longitude": -77.792505
+  },
+  {
+    "code": "52233",
+    "departmentCode": "52",
+    "name": "Cumbitara",
+    "latitude": 1.647163,
+    "longitude": -77.578616
+  },
+  {
+    "code": "52240",
+    "departmentCode": "52",
+    "name": "Chachagüí",
+    "latitude": 1.360545,
+    "longitude": -77.281869
+  },
+  {
+    "code": "52250",
+    "departmentCode": "52",
+    "name": "el Charco",
+    "latitude": 2.479688,
+    "longitude": -78.110217
+  },
+  {
+    "code": "52254",
+    "departmentCode": "52",
+    "name": "el Peñol",
+    "latitude": 1.453567,
+    "longitude": -77.438522
+  },
+  {
+    "code": "52256",
+    "departmentCode": "52",
+    "name": "el Rosario",
+    "latitude": 1.745309,
+    "longitude": -77.33417
+  },
+  {
+    "code": "52258",
+    "departmentCode": "52",
+    "name": "el Tablón de Gómez",
+    "latitude": 1.427277,
+    "longitude": -77.097101
+  },
+  {
+    "code": "52260",
+    "departmentCode": "52",
+    "name": "el Tambo",
+    "latitude": 1.407913,
+    "longitude": -77.390772
+  },
+  {
+    "code": "52287",
+    "departmentCode": "52",
+    "name": "Funes",
+    "latitude": 1.001159,
+    "longitude": -77.448913
+  },
+  {
+    "code": "52317",
+    "departmentCode": "52",
+    "name": "Guachucal",
+    "latitude": 0.959744,
+    "longitude": -77.731589
+  },
+  {
+    "code": "52320",
+    "departmentCode": "52",
+    "name": "Guaitarilla",
+    "latitude": 1.129574,
+    "longitude": -77.549824
+  },
+  {
+    "code": "52323",
+    "departmentCode": "52",
+    "name": "Gualmatán",
+    "latitude": 0.919652,
+    "longitude": -77.568701
+  },
+  {
+    "code": "52352",
+    "departmentCode": "52",
+    "name": "Iles",
+    "latitude": 0.96952,
+    "longitude": -77.521227
+  },
+  {
+    "code": "52354",
+    "departmentCode": "52",
+    "name": "Imués",
+    "latitude": 1.05506,
+    "longitude": -77.496339
+  },
+  {
+    "code": "52356",
+    "departmentCode": "52",
+    "name": "Ipiales",
+    "latitude": 0.827732,
+    "longitude": -77.646367
+  },
+  {
+    "code": "52378",
+    "departmentCode": "52",
+    "name": "la Cruz",
+    "latitude": 1.601318,
+    "longitude": -76.970504
+  },
+  {
+    "code": "52381",
+    "departmentCode": "52",
+    "name": "la Florida",
+    "latitude": 1.29753,
+    "longitude": -77.402882
+  },
+  {
+    "code": "52385",
+    "departmentCode": "52",
+    "name": "la Llanada",
+    "latitude": 1.472892,
+    "longitude": -77.58091
+  },
+  {
+    "code": "52390",
+    "departmentCode": "52",
+    "name": "la Tola",
+    "latitude": 2.398999,
+    "longitude": -78.189725
+  },
+  {
+    "code": "52399",
+    "departmentCode": "52",
+    "name": "la Unión",
+    "latitude": 1.600219,
+    "longitude": -77.131316
+  },
+  {
+    "code": "52405",
+    "departmentCode": "52",
+    "name": "Leiva",
+    "latitude": 1.934453,
+    "longitude": -77.306135
+  },
+  {
+    "code": "52411",
+    "departmentCode": "52",
+    "name": "Linares",
+    "latitude": 1.350814,
+    "longitude": -77.523953
+  },
+  {
+    "code": "52418",
+    "departmentCode": "52",
+    "name": "los Andes",
+    "latitude": 1.494587,
+    "longitude": -77.521303
+  },
+  {
+    "code": "52427",
+    "departmentCode": "52",
+    "name": "Magüí",
+    "latitude": 1.765633,
+    "longitude": -78.182924
+  },
+  {
+    "code": "52435",
+    "departmentCode": "52",
+    "name": "Mallama",
+    "latitude": 1.141037,
+    "longitude": -77.864549
+  },
+  {
+    "code": "52473",
+    "departmentCode": "52",
+    "name": "Mosquera",
+    "latitude": 2.507139,
+    "longitude": -78.452992
+  },
+  {
+    "code": "52480",
+    "departmentCode": "52",
+    "name": "Nariño",
+    "latitude": 1.288979,
+    "longitude": -77.357972
+  },
+  {
+    "code": "52490",
+    "departmentCode": "52",
+    "name": "Olaya Herrera",
+    "latitude": 2.347457,
+    "longitude": -78.325814
+  },
+  {
+    "code": "52506",
+    "departmentCode": "52",
+    "name": "Ospina",
+    "latitude": 1.058433,
+    "longitude": -77.566082
+  },
+  {
+    "code": "52520",
+    "departmentCode": "52",
+    "name": "Francisco Pizarro",
+    "latitude": 2.040629,
+    "longitude": -78.658361
+  },
+  {
+    "code": "52540",
+    "departmentCode": "52",
+    "name": "Policarpa",
+    "latitude": 1.627196,
+    "longitude": -77.458686
+  },
+  {
+    "code": "52560",
+    "departmentCode": "52",
+    "name": "Potosí",
+    "latitude": 0.806639,
+    "longitude": -77.573003
+  },
+  {
+    "code": "52565",
+    "departmentCode": "52",
+    "name": "Providencia",
+    "latitude": 1.237814,
+    "longitude": -77.596794
+  },
+  {
+    "code": "52573",
+    "departmentCode": "52",
+    "name": "Puerres",
+    "latitude": 0.885125,
+    "longitude": -77.504211
+  },
+  {
+    "code": "52585",
+    "departmentCode": "52",
+    "name": "Pupiales",
+    "latitude": 0.870442,
+    "longitude": -77.636042
+  },
+  {
+    "code": "52612",
+    "departmentCode": "52",
+    "name": "Ricaurte",
+    "latitude": 1.212492,
+    "longitude": -77.995153
+  },
+  {
+    "code": "52621",
+    "departmentCode": "52",
+    "name": "Roberto Payán",
+    "latitude": 1.697492,
+    "longitude": -78.245716
+  },
+  {
+    "code": "52678",
+    "departmentCode": "52",
+    "name": "Samaniego",
+    "latitude": 1.335438,
+    "longitude": -77.594341
+  },
+  {
+    "code": "52683",
+    "departmentCode": "52",
+    "name": "Sandoná",
+    "latitude": 1.283438,
+    "longitude": -77.47313
+  },
+  {
+    "code": "52685",
+    "departmentCode": "52",
+    "name": "San Bernardo",
+    "latitude": 1.513762,
+    "longitude": -77.0475
+  },
+  {
+    "code": "52687",
+    "departmentCode": "52",
+    "name": "San Lorenzo",
+    "latitude": 1.503362,
+    "longitude": -77.21542
+  },
+  {
+    "code": "52693",
+    "departmentCode": "52",
+    "name": "San Pablo",
+    "latitude": 1.669429,
+    "longitude": -77.013984
+  },
+  {
+    "code": "52694",
+    "departmentCode": "52",
+    "name": "San Pedro de Cartago",
+    "latitude": 1.551572,
+    "longitude": -77.11941
+  },
+  {
+    "code": "52696",
+    "departmentCode": "52",
+    "name": "Santa Bárbara",
+    "latitude": 2.449653,
+    "longitude": -77.979916
+  },
+  {
+    "code": "52699",
+    "departmentCode": "52",
+    "name": "Santacruz",
+    "latitude": 1.222589,
+    "longitude": -77.677035
+  },
+  {
+    "code": "52720",
+    "departmentCode": "52",
+    "name": "Sapuyes",
+    "latitude": 1.037536,
+    "longitude": -77.62028
+  },
+  {
+    "code": "52786",
+    "departmentCode": "52",
+    "name": "Taminango",
+    "latitude": 1.570358,
+    "longitude": -77.2808
+  },
+  {
+    "code": "52788",
+    "departmentCode": "52",
+    "name": "Tangua",
+    "latitude": 1.09482,
+    "longitude": -77.393735
+  },
+  {
+    "code": "52835",
+    "departmentCode": "52",
+    "name": "San Andrés de Tumaco",
+    "latitude": 1.807399,
+    "longitude": -78.764073
+  },
+  {
+    "code": "52838",
+    "departmentCode": "52",
+    "name": "Túquerres",
+    "latitude": 1.085044,
+    "longitude": -77.61672
+  },
+  {
+    "code": "52885",
+    "departmentCode": "52",
+    "name": "Yacuanquer",
+    "latitude": 1.115937,
+    "longitude": -77.400169
+  },
+  {
+    "code": "54001",
+    "departmentCode": "54",
+    "name": "San José de Cúcuta",
+    "latitude": 7.905725,
+    "longitude": -72.508178
+  },
+  {
+    "code": "54003",
+    "departmentCode": "54",
+    "name": "Ábrego",
+    "latitude": 8.081616,
+    "longitude": -73.221722
+  },
+  {
+    "code": "54051",
+    "departmentCode": "54",
+    "name": "Arboledas",
+    "latitude": 7.642985,
+    "longitude": -72.798952
+  },
+  {
+    "code": "54099",
+    "departmentCode": "54",
+    "name": "Bochalema",
+    "latitude": 7.612192,
+    "longitude": -72.64701
+  },
+  {
+    "code": "54109",
+    "departmentCode": "54",
+    "name": "Bucarasica",
+    "latitude": 8.041299,
+    "longitude": -72.868231
+  },
+  {
+    "code": "54125",
+    "departmentCode": "54",
+    "name": "Cácota",
+    "latitude": 7.268705,
+    "longitude": -72.642059
+  },
+  {
+    "code": "54128",
+    "departmentCode": "54",
+    "name": "Cáchira",
+    "latitude": 7.741248,
+    "longitude": -73.048983
+  },
+  {
+    "code": "54172",
+    "departmentCode": "54",
+    "name": "Chinácota",
+    "latitude": 7.603112,
+    "longitude": -72.601162
+  },
+  {
+    "code": "54174",
+    "departmentCode": "54",
+    "name": "Chitagá",
+    "latitude": 7.138187,
+    "longitude": -72.665468
+  },
+  {
+    "code": "54206",
+    "departmentCode": "54",
+    "name": "Convención",
+    "latitude": 8.470374,
+    "longitude": -73.3372
+  },
+  {
+    "code": "54223",
+    "departmentCode": "54",
+    "name": "Cucutilla",
+    "latitude": 7.539633,
+    "longitude": -72.772816
+  },
+  {
+    "code": "54239",
+    "departmentCode": "54",
+    "name": "Durania",
+    "latitude": 7.714804,
+    "longitude": -72.658491
+  },
+  {
+    "code": "54245",
+    "departmentCode": "54",
+    "name": "el Carmen",
+    "latitude": 8.510579,
+    "longitude": -73.446687
+  },
+  {
+    "code": "54250",
+    "departmentCode": "54",
+    "name": "el Tarra",
+    "latitude": 8.574281,
+    "longitude": -73.09614
+  },
+  {
+    "code": "54261",
+    "departmentCode": "54",
+    "name": "el Zulia",
+    "latitude": 7.938572,
+    "longitude": -72.604717
+  },
+  {
+    "code": "54313",
+    "departmentCode": "54",
+    "name": "Gramalote",
+    "latitude": 7.916946,
+    "longitude": -72.787233
+  },
+  {
+    "code": "54344",
+    "departmentCode": "54",
+    "name": "Hacarí",
+    "latitude": 8.321506,
+    "longitude": -73.145997
+  },
+  {
+    "code": "54347",
+    "departmentCode": "54",
+    "name": "Herrán",
+    "latitude": 7.506541,
+    "longitude": -72.483519
+  },
+  {
+    "code": "54377",
+    "departmentCode": "54",
+    "name": "Labateca",
+    "latitude": 7.298414,
+    "longitude": -72.495983
+  },
+  {
+    "code": "54385",
+    "departmentCode": "54",
+    "name": "la Esperanza",
+    "latitude": 7.639839,
+    "longitude": -73.328126
+  },
+  {
+    "code": "54398",
+    "departmentCode": "54",
+    "name": "la Playa",
+    "latitude": 8.21124,
+    "longitude": -73.239986
+  },
+  {
+    "code": "54405",
+    "departmentCode": "54",
+    "name": "los Patios",
+    "latitude": 7.833186,
+    "longitude": -72.505612
+  },
+  {
+    "code": "54418",
+    "departmentCode": "54",
+    "name": "Lourdes",
+    "latitude": 7.945631,
+    "longitude": -72.832376
+  },
+  {
+    "code": "54480",
+    "departmentCode": "54",
+    "name": "Mutiscua",
+    "latitude": 7.300469,
+    "longitude": -72.747169
+  },
+  {
+    "code": "54498",
+    "departmentCode": "54",
+    "name": "Ocaña",
+    "latitude": 8.248574,
+    "longitude": -73.35607
+  },
+  {
+    "code": "54518",
+    "departmentCode": "54",
+    "name": "Pamplona",
+    "latitude": 7.372802,
+    "longitude": -72.647714
+  },
+  {
+    "code": "54520",
+    "departmentCode": "54",
+    "name": "Pamplonita",
+    "latitude": 7.436745,
+    "longitude": -72.639111
+  },
+  {
+    "code": "54553",
+    "departmentCode": "54",
+    "name": "Puerto Santander",
+    "latitude": 8.359993,
+    "longitude": -72.411363
+  },
+  {
+    "code": "54599",
+    "departmentCode": "54",
+    "name": "Ragonvalia",
+    "latitude": 7.577861,
+    "longitude": -72.476708
+  },
+  {
+    "code": "54660",
+    "departmentCode": "54",
+    "name": "Salazar",
+    "latitude": 7.773683,
+    "longitude": -72.813064
+  },
+  {
+    "code": "54670",
+    "departmentCode": "54",
+    "name": "San Calixto",
+    "latitude": 8.40214,
+    "longitude": -73.208622
+  },
+  {
+    "code": "54673",
+    "departmentCode": "54",
+    "name": "San Cayetano",
+    "latitude": 7.875695,
+    "longitude": -72.625459
+  },
+  {
+    "code": "54680",
+    "departmentCode": "54",
+    "name": "Santiago",
+    "latitude": 7.865856,
+    "longitude": -72.716203
+  },
+  {
+    "code": "54720",
+    "departmentCode": "54",
+    "name": "Sardinata",
+    "latitude": 8.082105,
+    "longitude": -72.800577
+  },
+  {
+    "code": "54743",
+    "departmentCode": "54",
+    "name": "Silos",
+    "latitude": 7.204736,
+    "longitude": -72.757128
+  },
+  {
+    "code": "54800",
+    "departmentCode": "54",
+    "name": "Teorama",
+    "latitude": 8.438134,
+    "longitude": -73.28707
+  },
+  {
+    "code": "54810",
+    "departmentCode": "54",
+    "name": "Tibú",
+    "latitude": 8.639891,
+    "longitude": -72.734496
+  },
+  {
+    "code": "54820",
+    "departmentCode": "54",
+    "name": "Toledo",
+    "latitude": 7.307692,
+    "longitude": -72.481915
+  },
+  {
+    "code": "54871",
+    "departmentCode": "54",
+    "name": "Villa Caro",
+    "latitude": 7.914244,
+    "longitude": -72.973601
+  },
+  {
+    "code": "54874",
+    "departmentCode": "54",
+    "name": "Villa del Rosario",
+    "latitude": 7.847672,
+    "longitude": -72.469758
+  },
+  {
+    "code": "63001",
+    "departmentCode": "63",
+    "name": "Armenia",
+    "latitude": 4.53598,
+    "longitude": -75.680786
+  },
+  {
+    "code": "63111",
+    "departmentCode": "63",
+    "name": "Buenavista",
+    "latitude": 4.360029,
+    "longitude": -75.739572
+  },
+  {
+    "code": "63130",
+    "departmentCode": "63",
+    "name": "Calarcá",
+    "latitude": 4.520982,
+    "longitude": -75.646085
+  },
+  {
+    "code": "63190",
+    "departmentCode": "63",
+    "name": "Circasia",
+    "latitude": 4.617759,
+    "longitude": -75.636533
+  },
+  {
+    "code": "63212",
+    "departmentCode": "63",
+    "name": "Córdoba",
+    "latitude": 4.392485,
+    "longitude": -75.687866
+  },
+  {
+    "code": "63272",
+    "departmentCode": "63",
+    "name": "Filandia",
+    "latitude": 4.674338,
+    "longitude": -75.658387
+  },
+  {
+    "code": "63302",
+    "departmentCode": "63",
+    "name": "Génova",
+    "latitude": 4.206641,
+    "longitude": -75.790402
+  },
+  {
+    "code": "63401",
+    "departmentCode": "63",
+    "name": "la Tebaida",
+    "latitude": 4.453755,
+    "longitude": -75.786887
+  },
+  {
+    "code": "63470",
+    "departmentCode": "63",
+    "name": "Montenegro",
+    "latitude": 4.565057,
+    "longitude": -75.749827
+  },
+  {
+    "code": "63548",
+    "departmentCode": "63",
+    "name": "Pijao",
+    "latitude": 4.335036,
+    "longitude": -75.703329
+  },
+  {
+    "code": "63594",
+    "departmentCode": "63",
+    "name": "Quimbaya",
+    "latitude": 4.624387,
+    "longitude": -75.765074
+  },
+  {
+    "code": "63690",
+    "departmentCode": "63",
+    "name": "Salento",
+    "latitude": 4.637157,
+    "longitude": -75.570844
+  },
+  {
+    "code": "66001",
+    "departmentCode": "66",
+    "name": "Pereira",
+    "latitude": 4.804985,
+    "longitude": -75.719711
+  },
+  {
+    "code": "66045",
+    "departmentCode": "66",
+    "name": "Apía",
+    "latitude": 5.106526,
+    "longitude": -75.942356
+  },
+  {
+    "code": "66075",
+    "departmentCode": "66",
+    "name": "Balboa",
+    "latitude": 4.949096,
+    "longitude": -75.958663
+  },
+  {
+    "code": "66088",
+    "departmentCode": "66",
+    "name": "Belén de Umbría",
+    "latitude": 5.200793,
+    "longitude": -75.868334
+  },
+  {
+    "code": "66170",
+    "departmentCode": "66",
+    "name": "Dosquebradas",
+    "latitude": 4.833131,
+    "longitude": -75.675371
+  },
+  {
+    "code": "66318",
+    "departmentCode": "66",
+    "name": "Guática",
+    "latitude": 5.315367,
+    "longitude": -75.799005
+  },
+  {
+    "code": "66383",
+    "departmentCode": "66",
+    "name": "la Celia",
+    "latitude": 5.002787,
+    "longitude": -76.0032
+  },
+  {
+    "code": "66400",
+    "departmentCode": "66",
+    "name": "la Virginia",
+    "latitude": 4.896624,
+    "longitude": -75.880394
+  },
+  {
+    "code": "66440",
+    "departmentCode": "66",
+    "name": "Marsella",
+    "latitude": 4.935771,
+    "longitude": -75.73879
+  },
+  {
+    "code": "66456",
+    "departmentCode": "66",
+    "name": "Mistrató",
+    "latitude": 5.297039,
+    "longitude": -75.882886
+  },
+  {
+    "code": "66572",
+    "departmentCode": "66",
+    "name": "Pueblo Rico",
+    "latitude": 5.222043,
+    "longitude": -76.030801
+  },
+  {
+    "code": "66594",
+    "departmentCode": "66",
+    "name": "Quinchía",
+    "latitude": 5.340456,
+    "longitude": -75.730431
+  },
+  {
+    "code": "66682",
+    "departmentCode": "66",
+    "name": "Santa Rosa de Cabal",
+    "latitude": 4.876271,
+    "longitude": -75.623268
+  },
+  {
+    "code": "66687",
+    "departmentCode": "66",
+    "name": "Santuario",
+    "latitude": 5.074911,
+    "longitude": -75.964628
+  },
+  {
+    "code": "68001",
+    "departmentCode": "68",
+    "name": "Bucaramanga",
+    "latitude": 7.11647,
+    "longitude": -73.132562
+  },
+  {
+    "code": "68013",
+    "departmentCode": "68",
+    "name": "Aguada",
+    "latitude": 6.162355,
+    "longitude": -73.523132
+  },
+  {
+    "code": "68020",
+    "departmentCode": "68",
+    "name": "Albania",
+    "latitude": 5.759166,
+    "longitude": -73.91336
+  },
+  {
+    "code": "68051",
+    "departmentCode": "68",
+    "name": "Aratoca",
+    "latitude": 6.694418,
+    "longitude": -73.01786
+  },
+  {
+    "code": "68077",
+    "departmentCode": "68",
+    "name": "Barbosa",
+    "latitude": 5.932531,
+    "longitude": -73.615965
+  },
+  {
+    "code": "68079",
+    "departmentCode": "68",
+    "name": "Barichara",
+    "latitude": 6.634111,
+    "longitude": -73.223047
+  },
+  {
+    "code": "68081",
+    "departmentCode": "68",
+    "name": "Barrancabermeja",
+    "latitude": 7.064857,
+    "longitude": -73.849243
+  },
+  {
+    "code": "68092",
+    "departmentCode": "68",
+    "name": "Betulia",
+    "latitude": 6.899525,
+    "longitude": -73.283669
+  },
+  {
+    "code": "68101",
+    "departmentCode": "68",
+    "name": "Bolívar",
+    "latitude": 5.988953,
+    "longitude": -73.771346
+  },
+  {
+    "code": "68121",
+    "departmentCode": "68",
+    "name": "Cabrera",
+    "latitude": 6.592118,
+    "longitude": -73.246475
+  },
+  {
+    "code": "68132",
+    "departmentCode": "68",
+    "name": "California",
+    "latitude": 7.347989,
+    "longitude": -72.946491
+  },
+  {
+    "code": "68147",
+    "departmentCode": "68",
+    "name": "Capitanejo",
+    "latitude": 6.527394,
+    "longitude": -72.695427
+  },
+  {
+    "code": "68152",
+    "departmentCode": "68",
+    "name": "Carcasí",
+    "latitude": 6.629016,
+    "longitude": -72.627099
+  },
+  {
+    "code": "68160",
+    "departmentCode": "68",
+    "name": "Cepitá",
+    "latitude": 6.753518,
+    "longitude": -72.973536
+  },
+  {
+    "code": "68162",
+    "departmentCode": "68",
+    "name": "Cerrito",
+    "latitude": 6.840405,
+    "longitude": -72.694851
+  },
+  {
+    "code": "68167",
+    "departmentCode": "68",
+    "name": "Charalá",
+    "latitude": 6.284339,
+    "longitude": -73.146873
+  },
+  {
+    "code": "68169",
+    "departmentCode": "68",
+    "name": "Charta",
+    "latitude": 7.28082,
+    "longitude": -72.968798
+  },
+  {
+    "code": "68176",
+    "departmentCode": "68",
+    "name": "Chima",
+    "latitude": 6.344348,
+    "longitude": -73.373656
+  },
+  {
+    "code": "68179",
+    "departmentCode": "68",
+    "name": "Chipatá",
+    "latitude": 6.062521,
+    "longitude": -73.637111
+  },
+  {
+    "code": "68190",
+    "departmentCode": "68",
+    "name": "Cimitarra",
+    "latitude": 6.320886,
+    "longitude": -73.953011
+  },
+  {
+    "code": "68207",
+    "departmentCode": "68",
+    "name": "Concepción",
+    "latitude": 6.768908,
+    "longitude": -72.694567
+  },
+  {
+    "code": "68209",
+    "departmentCode": "68",
+    "name": "Confines",
+    "latitude": 6.357327,
+    "longitude": -73.240554
+  },
+  {
+    "code": "68211",
+    "departmentCode": "68",
+    "name": "Contratación",
+    "latitude": 6.290561,
+    "longitude": -73.474426
+  },
+  {
+    "code": "68217",
+    "departmentCode": "68",
+    "name": "Coromoro",
+    "latitude": 6.294999,
+    "longitude": -73.040816
+  },
+  {
+    "code": "68229",
+    "departmentCode": "68",
+    "name": "Curití",
+    "latitude": 6.605099,
+    "longitude": -73.069383
+  },
+  {
+    "code": "68235",
+    "departmentCode": "68",
+    "name": "el Carmen de Chucurí",
+    "latitude": 6.700038,
+    "longitude": -73.51066
+  },
+  {
+    "code": "68245",
+    "departmentCode": "68",
+    "name": "el Guacamayo",
+    "latitude": 6.245111,
+    "longitude": -73.496908
+  },
+  {
+    "code": "68250",
+    "departmentCode": "68",
+    "name": "el Peñón",
+    "latitude": 6.05537,
+    "longitude": -73.815532
+  },
+  {
+    "code": "68255",
+    "departmentCode": "68",
+    "name": "el Playón",
+    "latitude": 7.470715,
+    "longitude": -73.20287
+  },
+  {
+    "code": "68264",
+    "departmentCode": "68",
+    "name": "Encino",
+    "latitude": 6.137429,
+    "longitude": -73.098749
+  },
+  {
+    "code": "68266",
+    "departmentCode": "68",
+    "name": "Enciso",
+    "latitude": 6.668034,
+    "longitude": -72.699647
+  },
+  {
+    "code": "68271",
+    "departmentCode": "68",
+    "name": "Florián",
+    "latitude": 5.804659,
+    "longitude": -73.97143
+  },
+  {
+    "code": "68276",
+    "departmentCode": "68",
+    "name": "Floridablanca",
+    "latitude": 7.072329,
+    "longitude": -73.099104
+  },
+  {
+    "code": "68296",
+    "departmentCode": "68",
+    "name": "Galán",
+    "latitude": 6.638423,
+    "longitude": -73.287769
+  },
+  {
+    "code": "68298",
+    "departmentCode": "68",
+    "name": "Gámbita",
+    "latitude": 5.945998,
+    "longitude": -73.344185
+  },
+  {
+    "code": "68307",
+    "departmentCode": "68",
+    "name": "Girón",
+    "latitude": 7.070432,
+    "longitude": -73.166832
+  },
+  {
+    "code": "68318",
+    "departmentCode": "68",
+    "name": "Guaca",
+    "latitude": 6.876563,
+    "longitude": -72.856322
+  },
+  {
+    "code": "68320",
+    "departmentCode": "68",
+    "name": "Guadalupe",
+    "latitude": 6.245847,
+    "longitude": -73.419292
+  },
+  {
+    "code": "68322",
+    "departmentCode": "68",
+    "name": "Guapotá",
+    "latitude": 6.308635,
+    "longitude": -73.320732
+  },
+  {
+    "code": "68324",
+    "departmentCode": "68",
+    "name": "Guavatá",
+    "latitude": 5.954348,
+    "longitude": -73.700906
+  },
+  {
+    "code": "68327",
+    "departmentCode": "68",
+    "name": "Güepsa",
+    "latitude": 6.025013,
+    "longitude": -73.575146
+  },
+  {
+    "code": "68344",
+    "departmentCode": "68",
+    "name": "Hato",
+    "latitude": 6.543957,
+    "longitude": -73.308399
+  },
+  {
+    "code": "68368",
+    "departmentCode": "68",
+    "name": "Jesús María",
+    "latitude": 5.876497,
+    "longitude": -73.783396
+  },
+  {
+    "code": "68370",
+    "departmentCode": "68",
+    "name": "Jordán",
+    "latitude": 6.732727,
+    "longitude": -73.096053
+  },
+  {
+    "code": "68377",
+    "departmentCode": "68",
+    "name": "la Belleza",
+    "latitude": 5.85925,
+    "longitude": -73.965494
+  },
+  {
+    "code": "68385",
+    "departmentCode": "68",
+    "name": "Landázuri",
+    "latitude": 6.218812,
+    "longitude": -73.811359
+  },
+  {
+    "code": "68397",
+    "departmentCode": "68",
+    "name": "la Paz",
+    "latitude": 6.178509,
+    "longitude": -73.58959
+  },
+  {
+    "code": "68406",
+    "departmentCode": "68",
+    "name": "Lebrija",
+    "latitude": 7.113351,
+    "longitude": -73.219524
+  },
+  {
+    "code": "68418",
+    "departmentCode": "68",
+    "name": "los Santos",
+    "latitude": 6.755203,
+    "longitude": -73.102739
+  },
+  {
+    "code": "68425",
+    "departmentCode": "68",
+    "name": "Macaravita",
+    "latitude": 6.50658,
+    "longitude": -72.593105
+  },
+  {
+    "code": "68432",
+    "departmentCode": "68",
+    "name": "Málaga",
+    "latitude": 6.703081,
+    "longitude": -72.732089
+  },
+  {
+    "code": "68444",
+    "departmentCode": "68",
+    "name": "Matanza",
+    "latitude": 7.323175,
+    "longitude": -73.015566
+  },
+  {
+    "code": "68464",
+    "departmentCode": "68",
+    "name": "Mogotes",
+    "latitude": 6.475246,
+    "longitude": -72.969807
+  },
+  {
+    "code": "68468",
+    "departmentCode": "68",
+    "name": "Molagavita",
+    "latitude": 6.67432,
+    "longitude": -72.809175
+  },
+  {
+    "code": "68498",
+    "departmentCode": "68",
+    "name": "Ocamonte",
+    "latitude": 6.339988,
+    "longitude": -73.122563
+  },
+  {
+    "code": "68500",
+    "departmentCode": "68",
+    "name": "Oiba",
+    "latitude": 6.26521,
+    "longitude": -73.299791
+  },
+  {
+    "code": "68502",
+    "departmentCode": "68",
+    "name": "Onzaga",
+    "latitude": 6.344104,
+    "longitude": -72.816766
+  },
+  {
+    "code": "68522",
+    "departmentCode": "68",
+    "name": "Palmar",
+    "latitude": 6.537789,
+    "longitude": -73.29109
+  },
+  {
+    "code": "68524",
+    "departmentCode": "68",
+    "name": "Palmas del Socorro",
+    "latitude": 6.406139,
+    "longitude": -73.287764
+  },
+  {
+    "code": "68533",
+    "departmentCode": "68",
+    "name": "Páramo",
+    "latitude": 6.416811,
+    "longitude": -73.17022
+  },
+  {
+    "code": "68547",
+    "departmentCode": "68",
+    "name": "Piedecuesta",
+    "latitude": 6.997245,
+    "longitude": -73.054795
+  },
+  {
+    "code": "68549",
+    "departmentCode": "68",
+    "name": "Pinchote",
+    "latitude": 6.531552,
+    "longitude": -73.174209
+  },
+  {
+    "code": "68572",
+    "departmentCode": "68",
+    "name": "Puente Nacional",
+    "latitude": 5.878381,
+    "longitude": -73.677567
+  },
+  {
+    "code": "68573",
+    "departmentCode": "68",
+    "name": "Puerto Parra",
+    "latitude": 6.650785,
+    "longitude": -74.056129
+  },
+  {
+    "code": "68575",
+    "departmentCode": "68",
+    "name": "Puerto Wilches",
+    "latitude": 7.344057,
+    "longitude": -73.899909
+  },
+  {
+    "code": "68615",
+    "departmentCode": "68",
+    "name": "Rionegro",
+    "latitude": 7.265014,
+    "longitude": -73.150177
+  },
+  {
+    "code": "68655",
+    "departmentCode": "68",
+    "name": "Sabana de Torres",
+    "latitude": 7.391919,
+    "longitude": -73.49906
+  },
+  {
+    "code": "68669",
+    "departmentCode": "68",
+    "name": "San Andrés",
+    "latitude": 6.811511,
+    "longitude": -72.848864
+  },
+  {
+    "code": "68673",
+    "departmentCode": "68",
+    "name": "San Benito",
+    "latitude": 6.126656,
+    "longitude": -73.50907
+  },
+  {
+    "code": "68679",
+    "departmentCode": "68",
+    "name": "San Gil",
+    "latitude": 6.551952,
+    "longitude": -73.134776
+  },
+  {
+    "code": "68682",
+    "departmentCode": "68",
+    "name": "San Joaquín",
+    "latitude": 6.427548,
+    "longitude": -72.867638
+  },
+  {
+    "code": "68684",
+    "departmentCode": "68",
+    "name": "San José de Miranda",
+    "latitude": 6.658995,
+    "longitude": -72.733616
+  },
+  {
+    "code": "68686",
+    "departmentCode": "68",
+    "name": "San Miguel",
+    "latitude": 6.575315,
+    "longitude": -72.644123
+  },
+  {
+    "code": "68689",
+    "departmentCode": "68",
+    "name": "San Vicente de Chucurí",
+    "latitude": 6.880383,
+    "longitude": -73.411024
+  },
+  {
+    "code": "68705",
+    "departmentCode": "68",
+    "name": "Santa Bárbara",
+    "latitude": 6.990996,
+    "longitude": -72.907445
+  },
+  {
+    "code": "68720",
+    "departmentCode": "68",
+    "name": "Santa Helena del Opón",
+    "latitude": 6.339565,
+    "longitude": -73.616716
+  },
+  {
+    "code": "68745",
+    "departmentCode": "68",
+    "name": "Simacota",
+    "latitude": 6.443469,
+    "longitude": -73.337368
+  },
+  {
+    "code": "68755",
+    "departmentCode": "68",
+    "name": "Socorro",
+    "latitude": 6.46387,
+    "longitude": -73.261198
+  },
+  {
+    "code": "68770",
+    "departmentCode": "68",
+    "name": "Suaita",
+    "latitude": 6.101329,
+    "longitude": -73.44165
+  },
+  {
+    "code": "68773",
+    "departmentCode": "68",
+    "name": "Sucre",
+    "latitude": 5.918743,
+    "longitude": -73.790975
+  },
+  {
+    "code": "68780",
+    "departmentCode": "68",
+    "name": "Suratá",
+    "latitude": 7.36658,
+    "longitude": -72.984232
+  },
+  {
+    "code": "68820",
+    "departmentCode": "68",
+    "name": "Tona",
+    "latitude": 7.201417,
+    "longitude": -72.967023
+  },
+  {
+    "code": "68855",
+    "departmentCode": "68",
+    "name": "Valle de San José",
+    "latitude": 6.448028,
+    "longitude": -73.143507
+  },
+  {
+    "code": "68861",
+    "departmentCode": "68",
+    "name": "Vélez",
+    "latitude": 6.009275,
+    "longitude": -73.672447
+  },
+  {
+    "code": "68867",
+    "departmentCode": "68",
+    "name": "Vetas",
+    "latitude": 7.30981,
+    "longitude": -72.871041
+  },
+  {
+    "code": "68872",
+    "departmentCode": "68",
+    "name": "Villanueva",
+    "latitude": 6.670078,
+    "longitude": -73.174307
+  },
+  {
+    "code": "68895",
+    "departmentCode": "68",
+    "name": "Zapatoca",
+    "latitude": 6.814387,
+    "longitude": -73.268034
+  },
+  {
+    "code": "70001",
+    "departmentCode": "70",
+    "name": "Sincelejo",
+    "latitude": 9.302322,
+    "longitude": -75.395445
+  },
+  {
+    "code": "70110",
+    "departmentCode": "70",
+    "name": "Buenavista",
+    "latitude": 9.319794,
+    "longitude": -74.972827
+  },
+  {
+    "code": "70124",
+    "departmentCode": "70",
+    "name": "Caimito",
+    "latitude": 8.789324,
+    "longitude": -75.117141
+  },
+  {
+    "code": "70204",
+    "departmentCode": "70",
+    "name": "Colosó",
+    "latitude": 9.494192,
+    "longitude": -75.353256
+  },
+  {
+    "code": "70215",
+    "departmentCode": "70",
+    "name": "Corozal",
+    "latitude": 9.318749,
+    "longitude": -75.293048
+  },
+  {
+    "code": "70221",
+    "departmentCode": "70",
+    "name": "Coveñas",
+    "latitude": 9.402779,
+    "longitude": -75.680158
+  },
+  {
+    "code": "70230",
+    "departmentCode": "70",
+    "name": "Chalán",
+    "latitude": 9.545352,
+    "longitude": -75.312697
+  },
+  {
+    "code": "70233",
+    "departmentCode": "70",
+    "name": "el Roble",
+    "latitude": 9.100647,
+    "longitude": -75.198378
+  },
+  {
+    "code": "70235",
+    "departmentCode": "70",
+    "name": "Galeras",
+    "latitude": 9.160379,
+    "longitude": -75.04959
+  },
+  {
+    "code": "70265",
+    "departmentCode": "70",
+    "name": "Guaranda",
+    "latitude": 8.468556,
+    "longitude": -74.537749
+  },
+  {
+    "code": "70400",
+    "departmentCode": "70",
+    "name": "la Unión",
+    "latitude": 8.853975,
+    "longitude": -75.276056
+  },
+  {
+    "code": "70418",
+    "departmentCode": "70",
+    "name": "los Palmitos",
+    "latitude": 9.380269,
+    "longitude": -75.268716
+  },
+  {
+    "code": "70429",
+    "departmentCode": "70",
+    "name": "Majagual",
+    "latitude": 8.541163,
+    "longitude": -74.628077
+  },
+  {
+    "code": "70473",
+    "departmentCode": "70",
+    "name": "Morroa",
+    "latitude": 9.331395,
+    "longitude": -75.305949
+  },
+  {
+    "code": "70508",
+    "departmentCode": "70",
+    "name": "Ovejas",
+    "latitude": 9.527176,
+    "longitude": -75.229037
+  },
+  {
+    "code": "70523",
+    "departmentCode": "70",
+    "name": "Palmito",
+    "latitude": 9.333157,
+    "longitude": -75.541264
+  },
+  {
+    "code": "70670",
+    "departmentCode": "70",
+    "name": "Sampués",
+    "latitude": 9.183193,
+    "longitude": -75.380222
+  },
+  {
+    "code": "70678",
+    "departmentCode": "70",
+    "name": "San Benito Abad",
+    "latitude": 8.930108,
+    "longitude": -75.031089
+  },
+  {
+    "code": "70702",
+    "departmentCode": "70",
+    "name": "San Juan de Betulia",
+    "latitude": 9.273066,
+    "longitude": -75.243565
+  },
+  {
+    "code": "70708",
+    "departmentCode": "70",
+    "name": "San Marcos",
+    "latitude": 8.661774,
+    "longitude": -75.133831
+  },
+  {
+    "code": "70713",
+    "departmentCode": "70",
+    "name": "San Onofre",
+    "latitude": 9.736955,
+    "longitude": -75.522398
+  },
+  {
+    "code": "70717",
+    "departmentCode": "70",
+    "name": "San Pedro",
+    "latitude": 9.39625,
+    "longitude": -75.063647
+  },
+  {
+    "code": "70742",
+    "departmentCode": "70",
+    "name": "San Luis de Sincé",
+    "latitude": 9.244308,
+    "longitude": -75.145999
+  },
+  {
+    "code": "70771",
+    "departmentCode": "70",
+    "name": "Sucre",
+    "latitude": 8.811737,
+    "longitude": -74.723175
+  },
+  {
+    "code": "70820",
+    "departmentCode": "70",
+    "name": "Santiago de Tolú",
+    "latitude": 9.525387,
+    "longitude": -75.581112
+  },
+  {
+    "code": "70823",
+    "departmentCode": "70",
+    "name": "San José de Toluviejo",
+    "latitude": 9.451819,
+    "longitude": -75.44085
+  },
+  {
+    "code": "73001",
+    "departmentCode": "73",
+    "name": "Ibagué",
+    "latitude": 4.432248,
+    "longitude": -75.19425
+  },
+  {
+    "code": "73024",
+    "departmentCode": "73",
+    "name": "Alpujarra",
+    "latitude": 3.391548,
+    "longitude": -74.9329
+  },
+  {
+    "code": "73026",
+    "departmentCode": "73",
+    "name": "Alvarado",
+    "latitude": 4.567356,
+    "longitude": -74.953418
+  },
+  {
+    "code": "73030",
+    "departmentCode": "73",
+    "name": "Ambalema",
+    "latitude": 4.782682,
+    "longitude": -74.764429
+  },
+  {
+    "code": "73043",
+    "departmentCode": "73",
+    "name": "Anzoátegui",
+    "latitude": 4.631756,
+    "longitude": -75.093772
+  },
+  {
+    "code": "73055",
+    "departmentCode": "73",
+    "name": "Armero",
+    "latitude": 5.030744,
+    "longitude": -74.884438
+  },
+  {
+    "code": "73067",
+    "departmentCode": "73",
+    "name": "Ataco",
+    "latitude": 3.590591,
+    "longitude": -75.382545
+  },
+  {
+    "code": "73124",
+    "departmentCode": "73",
+    "name": "Cajamarca",
+    "latitude": 4.438812,
+    "longitude": -75.431971
+  },
+  {
+    "code": "73148",
+    "departmentCode": "73",
+    "name": "Carmen de Apicalá",
+    "latitude": 4.152334,
+    "longitude": -74.717633
+  },
+  {
+    "code": "73152",
+    "departmentCode": "73",
+    "name": "Casabianca",
+    "latitude": 5.078465,
+    "longitude": -75.120966
+  },
+  {
+    "code": "73168",
+    "departmentCode": "73",
+    "name": "Chaparral",
+    "latitude": 3.722918,
+    "longitude": -75.480765
+  },
+  {
+    "code": "73200",
+    "departmentCode": "73",
+    "name": "Coello",
+    "latitude": 4.287276,
+    "longitude": -74.898464
+  },
+  {
+    "code": "73217",
+    "departmentCode": "73",
+    "name": "Coyaima",
+    "latitude": 3.798036,
+    "longitude": -75.193862
+  },
+  {
+    "code": "73226",
+    "departmentCode": "73",
+    "name": "Cunday",
+    "latitude": 4.059259,
+    "longitude": -74.692227
+  },
+  {
+    "code": "73236",
+    "departmentCode": "73",
+    "name": "Dolores",
+    "latitude": 3.539072,
+    "longitude": -74.896761
+  },
+  {
+    "code": "73268",
+    "departmentCode": "73",
+    "name": "Espinal",
+    "latitude": 4.151314,
+    "longitude": -74.885446
+  },
+  {
+    "code": "73270",
+    "departmentCode": "73",
+    "name": "Falan",
+    "latitude": 5.123104,
+    "longitude": -74.953007
+  },
+  {
+    "code": "73275",
+    "departmentCode": "73",
+    "name": "Flandes",
+    "latitude": 4.276373,
+    "longitude": -74.818763
+  },
+  {
+    "code": "73283",
+    "departmentCode": "73",
+    "name": "Fresno",
+    "latitude": 5.153576,
+    "longitude": -75.035722
+  },
+  {
+    "code": "73319",
+    "departmentCode": "73",
+    "name": "Guamo",
+    "latitude": 4.030992,
+    "longitude": -74.968135
+  },
+  {
+    "code": "73347",
+    "departmentCode": "73",
+    "name": "Herveo",
+    "latitude": 5.080228,
+    "longitude": -75.177151
+  },
+  {
+    "code": "73349",
+    "departmentCode": "73",
+    "name": "Honda",
+    "latitude": 5.211816,
+    "longitude": -74.75699
+  },
+  {
+    "code": "73352",
+    "departmentCode": "73",
+    "name": "Icononzo",
+    "latitude": 4.176487,
+    "longitude": -74.531969
+  },
+  {
+    "code": "73408",
+    "departmentCode": "73",
+    "name": "Lérida",
+    "latitude": 4.862046,
+    "longitude": -74.910716
+  },
+  {
+    "code": "73411",
+    "departmentCode": "73",
+    "name": "Líbano",
+    "latitude": 4.92042,
+    "longitude": -75.061959
+  },
+  {
+    "code": "73443",
+    "departmentCode": "73",
+    "name": "San Sebastián de Mariquita",
+    "latitude": 5.199708,
+    "longitude": -74.889276
+  },
+  {
+    "code": "73449",
+    "departmentCode": "73",
+    "name": "Melgar",
+    "latitude": 4.203655,
+    "longitude": -74.641317
+  },
+  {
+    "code": "73461",
+    "departmentCode": "73",
+    "name": "Murillo",
+    "latitude": 4.874341,
+    "longitude": -75.171022
+  },
+  {
+    "code": "73483",
+    "departmentCode": "73",
+    "name": "Natagaima",
+    "latitude": 3.624324,
+    "longitude": -75.093182
+  },
+  {
+    "code": "73504",
+    "departmentCode": "73",
+    "name": "Ortega",
+    "latitude": 3.934916,
+    "longitude": -75.222601
+  },
+  {
+    "code": "73520",
+    "departmentCode": "73",
+    "name": "Palocabildo",
+    "latitude": 5.120918,
+    "longitude": -75.022167
+  },
+  {
+    "code": "73547",
+    "departmentCode": "73",
+    "name": "Piedras",
+    "latitude": 4.543951,
+    "longitude": -74.878106
+  },
+  {
+    "code": "73555",
+    "departmentCode": "73",
+    "name": "Planadas",
+    "latitude": 3.197911,
+    "longitude": -75.644163
+  },
+  {
+    "code": "73563",
+    "departmentCode": "73",
+    "name": "Prado",
+    "latitude": 3.750939,
+    "longitude": -74.927447
+  },
+  {
+    "code": "73585",
+    "departmentCode": "73",
+    "name": "Purificación",
+    "latitude": 3.857246,
+    "longitude": -74.935555
+  },
+  {
+    "code": "73616",
+    "departmentCode": "73",
+    "name": "Rioblanco",
+    "latitude": 3.529932,
+    "longitude": -75.644069
+  },
+  {
+    "code": "73622",
+    "departmentCode": "73",
+    "name": "Roncesvalles",
+    "latitude": 4.011567,
+    "longitude": -75.605959
+  },
+  {
+    "code": "73624",
+    "departmentCode": "73",
+    "name": "Rovira",
+    "latitude": 4.239019,
+    "longitude": -75.240648
+  },
+  {
+    "code": "73671",
+    "departmentCode": "73",
+    "name": "Saldaña",
+    "latitude": 3.929815,
+    "longitude": -75.016852
+  },
+  {
+    "code": "73675",
+    "departmentCode": "73",
+    "name": "San Antonio",
+    "latitude": 3.914146,
+    "longitude": -75.480074
+  },
+  {
+    "code": "73678",
+    "departmentCode": "73",
+    "name": "San Luis",
+    "latitude": 4.133721,
+    "longitude": -75.095804
+  },
+  {
+    "code": "73686",
+    "departmentCode": "73",
+    "name": "Santa Isabel",
+    "latitude": 4.713606,
+    "longitude": -75.097934
+  },
+  {
+    "code": "73770",
+    "departmentCode": "73",
+    "name": "Suárez",
+    "latitude": 4.048891,
+    "longitude": -74.831885
+  },
+  {
+    "code": "73854",
+    "departmentCode": "73",
+    "name": "Valle de San Juan",
+    "latitude": 4.197494,
+    "longitude": -75.115669
+  },
+  {
+    "code": "73861",
+    "departmentCode": "73",
+    "name": "Venadillo",
+    "latitude": 4.717878,
+    "longitude": -74.929333
+  },
+  {
+    "code": "73870",
+    "departmentCode": "73",
+    "name": "Villahermosa",
+    "latitude": 5.030452,
+    "longitude": -75.117729
+  },
+  {
+    "code": "73873",
+    "departmentCode": "73",
+    "name": "Villarrica",
+    "latitude": 3.936902,
+    "longitude": -74.600285
+  },
+  {
+    "code": "76001",
+    "departmentCode": "76",
+    "name": "Santiago de Cali",
+    "latitude": 3.413686,
+    "longitude": -76.52133
+  },
+  {
+    "code": "76020",
+    "departmentCode": "76",
+    "name": "Alcalá",
+    "latitude": 4.674994,
+    "longitude": -75.779792
+  },
+  {
+    "code": "76036",
+    "departmentCode": "76",
+    "name": "Andalucía",
+    "latitude": 4.171713,
+    "longitude": -76.167925
+  },
+  {
+    "code": "76041",
+    "departmentCode": "76",
+    "name": "Ansermanuevo",
+    "latitude": 4.794984,
+    "longitude": -75.992003
+  },
+  {
+    "code": "76054",
+    "departmentCode": "76",
+    "name": "Argelia",
+    "latitude": 4.726945,
+    "longitude": -76.119905
+  },
+  {
+    "code": "76100",
+    "departmentCode": "76",
+    "name": "Bolívar",
+    "latitude": 4.337846,
+    "longitude": -76.183583
+  },
+  {
+    "code": "76109",
+    "departmentCode": "76",
+    "name": "Buenaventura",
+    "latitude": 3.875708,
+    "longitude": -77.01074
+  },
+  {
+    "code": "76111",
+    "departmentCode": "76",
+    "name": "Guadalajara de Buga",
+    "latitude": 3.900736,
+    "longitude": -76.298979
+  },
+  {
+    "code": "76113",
+    "departmentCode": "76",
+    "name": "Bugalagrande",
+    "latitude": 4.208358,
+    "longitude": -76.15682
+  },
+  {
+    "code": "76122",
+    "departmentCode": "76",
+    "name": "Caicedonia",
+    "latitude": 4.334808,
+    "longitude": -75.830594
+  },
+  {
+    "code": "76126",
+    "departmentCode": "76",
+    "name": "Calima",
+    "latitude": 3.933664,
+    "longitude": -76.484132
+  },
+  {
+    "code": "76130",
+    "departmentCode": "76",
+    "name": "Candelaria",
+    "latitude": 3.408354,
+    "longitude": -76.346519
+  },
+  {
+    "code": "76147",
+    "departmentCode": "76",
+    "name": "Cartago",
+    "latitude": 4.742192,
+    "longitude": -75.924374
+  },
+  {
+    "code": "76233",
+    "departmentCode": "76",
+    "name": "Dagua",
+    "latitude": 3.657318,
+    "longitude": -76.68886
+  },
+  {
+    "code": "76243",
+    "departmentCode": "76",
+    "name": "el Águila",
+    "latitude": 4.906062,
+    "longitude": -76.042779
+  },
+  {
+    "code": "76246",
+    "departmentCode": "76",
+    "name": "el Cairo",
+    "latitude": 4.760874,
+    "longitude": -76.221611
+  },
+  {
+    "code": "76248",
+    "departmentCode": "76",
+    "name": "el Cerrito",
+    "latitude": 3.684229,
+    "longitude": -76.311972
+  },
+  {
+    "code": "76250",
+    "departmentCode": "76",
+    "name": "el Dovio",
+    "latitude": 4.510452,
+    "longitude": -76.237084
+  },
+  {
+    "code": "76275",
+    "departmentCode": "76",
+    "name": "Florida",
+    "latitude": 3.324118,
+    "longitude": -76.234199
+  },
+  {
+    "code": "76306",
+    "departmentCode": "76",
+    "name": "Ginebra",
+    "latitude": 3.724181,
+    "longitude": -76.268068
+  },
+  {
+    "code": "76318",
+    "departmentCode": "76",
+    "name": "Guacarí",
+    "latitude": 3.761815,
+    "longitude": -76.330911
+  },
+  {
+    "code": "76364",
+    "departmentCode": "76",
+    "name": "Jamundí",
+    "latitude": 3.258751,
+    "longitude": -76.538472
+  },
+  {
+    "code": "76377",
+    "departmentCode": "76",
+    "name": "la Cumbre",
+    "latitude": 3.649268,
+    "longitude": -76.56805
+  },
+  {
+    "code": "76400",
+    "departmentCode": "76",
+    "name": "la Unión",
+    "latitude": 4.533869,
+    "longitude": -76.099661
+  },
+  {
+    "code": "76403",
+    "departmentCode": "76",
+    "name": "la Victoria",
+    "latitude": 4.523603,
+    "longitude": -76.036529
+  },
+  {
+    "code": "76497",
+    "departmentCode": "76",
+    "name": "Obando",
+    "latitude": 4.575712,
+    "longitude": -75.974709
+  },
+  {
+    "code": "76520",
+    "departmentCode": "76",
+    "name": "Palmira",
+    "latitude": 3.531544,
+    "longitude": -76.298846
+  },
+  {
+    "code": "76563",
+    "departmentCode": "76",
+    "name": "Pradera",
+    "latitude": 3.419793,
+    "longitude": -76.241799
+  },
+  {
+    "code": "76606",
+    "departmentCode": "76",
+    "name": "Restrepo",
+    "latitude": 3.821351,
+    "longitude": -76.523329
+  },
+  {
+    "code": "76616",
+    "departmentCode": "76",
+    "name": "Riofrío",
+    "latitude": 4.156908,
+    "longitude": -76.288313
+  },
+  {
+    "code": "76622",
+    "departmentCode": "76",
+    "name": "Roldanillo",
+    "latitude": 4.413601,
+    "longitude": -76.152277
+  },
+  {
+    "code": "76670",
+    "departmentCode": "76",
+    "name": "San Pedro",
+    "latitude": 3.995073,
+    "longitude": -76.228692
+  },
+  {
+    "code": "76736",
+    "departmentCode": "76",
+    "name": "Sevilla",
+    "latitude": 4.270714,
+    "longitude": -75.931629
+  },
+  {
+    "code": "76823",
+    "departmentCode": "76",
+    "name": "Toro",
+    "latitude": 4.608085,
+    "longitude": -76.076859
+  },
+  {
+    "code": "76828",
+    "departmentCode": "76",
+    "name": "Trujillo",
+    "latitude": 4.212037,
+    "longitude": -76.318818
+  },
+  {
+    "code": "76834",
+    "departmentCode": "76",
+    "name": "Tuluá",
+    "latitude": 4.085399,
+    "longitude": -76.197731
+  },
+  {
+    "code": "76845",
+    "departmentCode": "76",
+    "name": "Ulloa",
+    "latitude": 4.703623,
+    "longitude": -75.737808
+  },
+  {
+    "code": "76863",
+    "departmentCode": "76",
+    "name": "Versalles",
+    "latitude": 4.575019,
+    "longitude": -76.199203
+  },
+  {
+    "code": "76869",
+    "departmentCode": "76",
+    "name": "Vijes",
+    "latitude": 3.698686,
+    "longitude": -76.441804
+  },
+  {
+    "code": "76890",
+    "departmentCode": "76",
+    "name": "Yotoco",
+    "latitude": 3.861241,
+    "longitude": -76.382698
+  },
+  {
+    "code": "76892",
+    "departmentCode": "76",
+    "name": "Yumbo",
+    "latitude": 3.540097,
+    "longitude": -76.499893
+  },
+  {
+    "code": "76895",
+    "departmentCode": "76",
+    "name": "Zarzal",
+    "latitude": 4.392658,
+    "longitude": -76.070795
+  },
+  {
+    "code": "81001",
+    "departmentCode": "81",
+    "name": "Arauca",
+    "latitude": 7.072726,
+    "longitude": -70.747408
+  },
+  {
+    "code": "81065",
+    "departmentCode": "81",
+    "name": "Arauquita",
+    "latitude": 7.02702,
+    "longitude": -71.426733
+  },
+  {
+    "code": "81220",
+    "departmentCode": "81",
+    "name": "Cravo Norte",
+    "latitude": 6.303913,
+    "longitude": -70.204286
+  },
+  {
+    "code": "81300",
+    "departmentCode": "81",
+    "name": "Fortul",
+    "latitude": 6.796695,
+    "longitude": -71.76877
+  },
+  {
+    "code": "81591",
+    "departmentCode": "81",
+    "name": "Puerto Rondón",
+    "latitude": 6.281461,
+    "longitude": -71.10339
+  },
+  {
+    "code": "81736",
+    "departmentCode": "81",
+    "name": "Saravena",
+    "latitude": 6.953926,
+    "longitude": -71.872812
+  },
+  {
+    "code": "81794",
+    "departmentCode": "81",
+    "name": "Tame",
+    "latitude": 6.453324,
+    "longitude": -71.754427
+  },
+  {
+    "code": "85001",
+    "departmentCode": "85",
+    "name": "Yopal",
+    "latitude": 5.327102,
+    "longitude": -72.396132
+  },
+  {
+    "code": "85010",
+    "departmentCode": "85",
+    "name": "Aguazul",
+    "latitude": 5.172641,
+    "longitude": -72.546838
+  },
+  {
+    "code": "85015",
+    "departmentCode": "85",
+    "name": "Chámeza",
+    "latitude": 5.214527,
+    "longitude": -72.87016
+  },
+  {
+    "code": "85125",
+    "departmentCode": "85",
+    "name": "Hato Corozal",
+    "latitude": 6.154099,
+    "longitude": -71.764213
+  },
+  {
+    "code": "85136",
+    "departmentCode": "85",
+    "name": "la Salina",
+    "latitude": 6.127762,
+    "longitude": -72.334978
+  },
+  {
+    "code": "85139",
+    "departmentCode": "85",
+    "name": "Maní",
+    "latitude": 4.81681,
+    "longitude": -72.281384
+  },
+  {
+    "code": "85162",
+    "departmentCode": "85",
+    "name": "Monterrey",
+    "latitude": 4.877017,
+    "longitude": -72.894065
+  },
+  {
+    "code": "85225",
+    "departmentCode": "85",
+    "name": "Nunchía",
+    "latitude": 5.636474,
+    "longitude": -72.195323
+  },
+  {
+    "code": "85230",
+    "departmentCode": "85",
+    "name": "Orocué",
+    "latitude": 4.790258,
+    "longitude": -71.338533
+  },
+  {
+    "code": "85250",
+    "departmentCode": "85",
+    "name": "Paz de Ariporo",
+    "latitude": 5.879827,
+    "longitude": -71.890348
+  },
+  {
+    "code": "85263",
+    "departmentCode": "85",
+    "name": "Pore",
+    "latitude": 5.72773,
+    "longitude": -71.99286
+  },
+  {
+    "code": "85279",
+    "departmentCode": "85",
+    "name": "Recetor",
+    "latitude": 5.229181,
+    "longitude": -72.760991
+  },
+  {
+    "code": "85300",
+    "departmentCode": "85",
+    "name": "Sabanalarga",
+    "latitude": 4.854787,
+    "longitude": -73.038696
+  },
+  {
+    "code": "85315",
+    "departmentCode": "85",
+    "name": "Sácama",
+    "latitude": 6.096738,
+    "longitude": -72.250157
+  },
+  {
+    "code": "85325",
+    "departmentCode": "85",
+    "name": "San Luis de Palenque",
+    "latitude": 5.422397,
+    "longitude": -71.732198
+  },
+  {
+    "code": "85400",
+    "departmentCode": "85",
+    "name": "Támara",
+    "latitude": 5.829543,
+    "longitude": -72.16165
+  },
+  {
+    "code": "85410",
+    "departmentCode": "85",
+    "name": "Tauramena",
+    "latitude": 5.018977,
+    "longitude": -72.74662
+  },
+  {
+    "code": "85430",
+    "departmentCode": "85",
+    "name": "Trinidad",
+    "latitude": 5.412178,
+    "longitude": -71.662812
+  },
+  {
+    "code": "85440",
+    "departmentCode": "85",
+    "name": "Villanueva",
+    "latitude": 4.61035,
+    "longitude": -72.927797
+  },
+  {
+    "code": "86001",
+    "departmentCode": "86",
+    "name": "Mocoa",
+    "latitude": 1.151172,
+    "longitude": -76.654238
+  },
+  {
+    "code": "86219",
+    "departmentCode": "86",
+    "name": "Colón",
+    "latitude": 1.190133,
+    "longitude": -76.972566
+  },
+  {
+    "code": "86320",
+    "departmentCode": "86",
+    "name": "Orito",
+    "latitude": 0.663593,
+    "longitude": -76.873276
+  },
+  {
+    "code": "86568",
+    "departmentCode": "86",
+    "name": "Puerto Asís",
+    "latitude": 0.505627,
+    "longitude": -76.496887
+  },
+  {
+    "code": "86569",
+    "departmentCode": "86",
+    "name": "Puerto Caicedo",
+    "latitude": 0.687784,
+    "longitude": -76.606118
+  },
+  {
+    "code": "86571",
+    "departmentCode": "86",
+    "name": "Puerto Guzmán",
+    "latitude": 0.962854,
+    "longitude": -76.407663
+  },
+  {
+    "code": "86573",
+    "departmentCode": "86",
+    "name": "Puerto Leguízamo",
+    "latitude": -0.192318,
+    "longitude": -74.781842
+  },
+  {
+    "code": "86749",
+    "departmentCode": "86",
+    "name": "Sibundoy",
+    "latitude": 1.20026,
+    "longitude": -76.917814
+  },
+  {
+    "code": "86755",
+    "departmentCode": "86",
+    "name": "San Francisco",
+    "latitude": 1.174194,
+    "longitude": -76.879283
+  },
+  {
+    "code": "86757",
+    "departmentCode": "86",
+    "name": "San Miguel",
+    "latitude": 0.34346,
+    "longitude": -76.91217
+  },
+  {
+    "code": "86760",
+    "departmentCode": "86",
+    "name": "Santiago",
+    "latitude": 1.147076,
+    "longitude": -77.002641
+  },
+  {
+    "code": "86865",
+    "departmentCode": "86",
+    "name": "Valle del Guamuez",
+    "latitude": 0.423506,
+    "longitude": -76.906751
+  },
+  {
+    "code": "86885",
+    "departmentCode": "86",
+    "name": "Villagarzón",
+    "latitude": 1.028821,
+    "longitude": -76.61721
+  },
+  {
+    "code": "88001",
+    "departmentCode": "88",
+    "name": "San Andrés",
+    "latitude": 12.578108,
+    "longitude": -81.707181
+  },
+  {
+    "code": "88564",
+    "departmentCode": "88",
+    "name": "Providencia",
+    "latitude": 13.373185,
+    "longitude": -81.368386
+  },
+  {
+    "code": "91001",
+    "departmentCode": "91",
+    "name": "Leticia",
+    "latitude": -4.19895,
+    "longitude": -69.941721
+  },
+  {
+    "code": "91263",
+    "departmentCode": "91",
+    "name": "el Encanto",
+    "latitude": -1.74806,
+    "longitude": -73.207114
+  },
+  {
+    "code": "91405",
+    "departmentCode": "91",
+    "name": "la Chorrera",
+    "latitude": -1.442617,
+    "longitude": -72.791889
+  },
+  {
+    "code": "91407",
+    "departmentCode": "91",
+    "name": "la Pedrera",
+    "latitude": -1.320301,
+    "longitude": -69.585499
+  },
+  {
+    "code": "91430",
+    "departmentCode": "91",
+    "name": "la Victoria",
+    "latitude": 0.054936,
+    "longitude": -71.223208
+  },
+  {
+    "code": "91460",
+    "departmentCode": "91",
+    "name": "Mirití - Paraná",
+    "latitude": -0.888833,
+    "longitude": -70.98893
+  },
+  {
+    "code": "91530",
+    "departmentCode": "91",
+    "name": "Puerto Alegría",
+    "latitude": -1.005674,
+    "longitude": -74.014461
+  },
+  {
+    "code": "91536",
+    "departmentCode": "91",
+    "name": "Puerto Arica",
+    "latitude": -2.147039,
+    "longitude": -71.752186
+  },
+  {
+    "code": "91540",
+    "departmentCode": "91",
+    "name": "Puerto Nariño",
+    "latitude": -3.779934,
+    "longitude": -70.364937
+  },
+  {
+    "code": "91669",
+    "departmentCode": "91",
+    "name": "Puerto Santander",
+    "latitude": -0.621184,
+    "longitude": -72.384213
+  },
+  {
+    "code": "91798",
+    "departmentCode": "91",
+    "name": "Tarapacá",
+    "latitude": -2.890126,
+    "longitude": -69.741745
+  },
+  {
+    "code": "94001",
+    "departmentCode": "94",
+    "name": "Inírida",
+    "latitude": 3.866764,
+    "longitude": -67.918613
+  },
+  {
+    "code": "94343",
+    "departmentCode": "94",
+    "name": "Barrancominas",
+    "latitude": 3.494178,
+    "longitude": -69.814066
+  },
+  {
+    "code": "94883",
+    "departmentCode": "94",
+    "name": "San Felipe",
+    "latitude": 1.912495,
+    "longitude": -67.067848
+  },
+  {
+    "code": "94884",
+    "departmentCode": "94",
+    "name": "Puerto Colombia",
+    "latitude": 2.726438,
+    "longitude": -67.566774
+  },
+  {
+    "code": "94885",
+    "departmentCode": "94",
+    "name": "la Guadalupe",
+    "latitude": 1.632464,
+    "longitude": -66.963692
+  },
+  {
+    "code": "94886",
+    "departmentCode": "94",
+    "name": "Cacahual",
+    "latitude": 3.52617,
+    "longitude": -67.413312
+  },
+  {
+    "code": "94887",
+    "departmentCode": "94",
+    "name": "Pana Pana",
+    "latitude": 1.865668,
+    "longitude": -69.0099
+  },
+  {
+    "code": "94888",
+    "departmentCode": "94",
+    "name": "Morichal",
+    "latitude": 2.265132,
+    "longitude": -69.919404
+  },
+  {
+    "code": "95001",
+    "departmentCode": "95",
+    "name": "San José del Guaviare",
+    "latitude": 2.565932,
+    "longitude": -72.639254
+  },
+  {
+    "code": "95015",
+    "departmentCode": "95",
+    "name": "Calamar",
+    "latitude": 1.960982,
+    "longitude": -72.655197
+  },
+  {
+    "code": "95025",
+    "departmentCode": "95",
+    "name": "el Retorno",
+    "latitude": 2.330164,
+    "longitude": -72.627304
+  },
+  {
+    "code": "95200",
+    "departmentCode": "95",
+    "name": "Miraflores",
+    "latitude": 1.337539,
+    "longitude": -71.950416
+  },
+  {
+    "code": "97001",
+    "departmentCode": "97",
+    "name": "Mitú",
+    "latitude": 1.253151,
+    "longitude": -70.232641
+  },
+  {
+    "code": "97161",
+    "departmentCode": "97",
+    "name": "Carurú",
+    "latitude": 1.016116,
+    "longitude": -71.30221
+  },
+  {
+    "code": "97511",
+    "departmentCode": "97",
+    "name": "Pacoa",
+    "latitude": 0.020698,
+    "longitude": -71.004339
+  },
+  {
+    "code": "97666",
+    "departmentCode": "97",
+    "name": "Taraira",
+    "latitude": -0.564984,
+    "longitude": -69.635497
+  },
+  {
+    "code": "97777",
+    "departmentCode": "97",
+    "name": "Papunahua",
+    "latitude": 1.908124,
+    "longitude": -70.76091
+  },
+  {
+    "code": "97889",
+    "departmentCode": "97",
+    "name": "Yavaraté",
+    "latitude": 0.609142,
+    "longitude": -69.203337
+  },
+  {
+    "code": "99001",
+    "departmentCode": "99",
+    "name": "Puerto Carreño",
+    "latitude": 6.186636,
+    "longitude": -67.487095
+  },
+  {
+    "code": "99524",
+    "departmentCode": "99",
+    "name": "la Primavera",
+    "latitude": 5.486309,
+    "longitude": -70.410515
+  },
+  {
+    "code": "99624",
+    "departmentCode": "99",
+    "name": "Santa Rosalía",
+    "latitude": 5.136393,
+    "longitude": -70.859499
+  },
+  {
+    "code": "99773",
+    "departmentCode": "99",
+    "name": "Cumaribo",
+    "latitude": 4.446352,
+    "longitude": -69.795533
+  }
+]

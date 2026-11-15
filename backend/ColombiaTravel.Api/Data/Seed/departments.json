@@ -1,0 +1,299 @@
+[
+  {
+    "id": "antioquia",
+    "code": "05",
+    "name": "Antioquia",
+    "capital": "Medellín",
+    "latitude": 6.5367,
+    "longitude": -75.5906,
+    "description": "Tierra de montañas, café, arquitectura colonial y paisajes verdes majestuosos."
+  },
+  {
+    "id": "atlantico",
+    "code": "08",
+    "name": "Atlántico",
+    "capital": "Barranquilla",
+    "latitude": 10.9685,
+    "longitude": -74.7813,
+    "description": "Carnaval de Barranquilla, Bocas de Ceniza y brisa del Caribe."
+  },
+  {
+    "id": "bogota",
+    "code": "11",
+    "name": "Bogotá, D.C.",
+    "capital": "Bogotá",
+    "latitude": 4.711,
+    "longitude": -74.0721,
+    "description": "Distrito Capital de Colombia. Cerro de Monserrate, La Candelaria y vibrante escena cultural."
+  },
+  {
+    "id": "bolivar",
+    "code": "13",
+    "name": "Bolívar",
+    "capital": "Cartagena",
+    "latitude": 8.6705,
+    "longitude": -74.0298,
+    "description": "La Heroica Cartagena de Indias, el río Magdalena y ciénagas costeras."
+  },
+  {
+    "id": "boyaca",
+    "code": "15",
+    "name": "Boyacá",
+    "capital": "Tunja",
+    "latitude": 5.4545,
+    "longitude": -73.362,
+    "description": "Laguna de Tota, Villa de Leyva y ruana boyacense bajo cielos estrellados."
+  },
+  {
+    "id": "caldas",
+    "code": "17",
+    "name": "Caldas",
+    "capital": "Manizales",
+    "latitude": 5.3,
+    "longitude": -75.4,
+    "description": "Nevado del Ruiz, termales calientes y cafetales de altura."
+  },
+  {
+    "id": "caqueta",
+    "code": "18",
+    "name": "Caquetá",
+    "capital": "Florencia",
+    "latitude": 1.1601,
+    "longitude": -74.459,
+    "description": "Puerta de oro de la Amazonía colombiana."
+  },
+  {
+    "id": "cauca",
+    "code": "19",
+    "name": "Cauca",
+    "capital": "Popayán",
+    "latitude": 2.4448,
+    "longitude": -76.6147,
+    "description": "La Ciudad Blanca de Popayán, Parque Nacional Puracé y ricas tradiciones culinarias."
+  },
+  {
+    "id": "cesar",
+    "code": "20",
+    "name": "Cesar",
+    "capital": "Valledupar",
+    "latitude": 10.4631,
+    "longitude": -73.2532,
+    "description": "Cuna del Festival de la Leyenda Vallenata y río Guatapurí."
+  },
+  {
+    "id": "cordoba",
+    "code": "23",
+    "name": "Córdoba",
+    "capital": "Montería",
+    "latitude": 8.7479,
+    "longitude": -75.8814,
+    "description": "Ronda del Sinú, sombrero vueltiao y ganaderías sabaneras."
+  },
+  {
+    "id": "cundinamarca",
+    "code": "25",
+    "name": "Cundinamarca",
+    "capital": "Bogotá",
+    "latitude": 4.711,
+    "longitude": -74.0721,
+    "description": "Sabana andina, catedrales de sal y páramos de frailejones."
+  },
+  {
+    "id": "choco",
+    "code": "27",
+    "name": "Chocó",
+    "capital": "Quibdó",
+    "latitude": 5.6983,
+    "longitude": -76.6583,
+    "description": "Biodiversidad exuberante, selva tropical húmeda y playas vírgenes en Nuquí."
+  },
+  {
+    "id": "huila",
+    "code": "41",
+    "name": "Huila",
+    "capital": "Neiva",
+    "latitude": 2.5359,
+    "longitude": -75.5277,
+    "description": "Desierto de la Tatacoa y Parque Arqueológico de San Agustín."
+  },
+  {
+    "id": "la-guajira",
+    "code": "44",
+    "name": "La Guajira",
+    "capital": "Riohacha",
+    "latitude": 11.5444,
+    "longitude": -72.9072,
+    "description": "Cabo de la Vela, dunas doradas de Taroa y cultura ancestral Wayúu."
+  },
+  {
+    "id": "magdalena",
+    "code": "47",
+    "name": "Magdalena",
+    "capital": "Santa Marta",
+    "latitude": 10.4113,
+    "longitude": -74.4057,
+    "description": "Sierra Nevada de Santa Marta y bahías de ensueño del Parque Tayrona."
+  },
+  {
+    "id": "meta",
+    "code": "50",
+    "name": "Meta",
+    "capital": "Villavicencio",
+    "latitude": 4.142,
+    "longitude": -73.6266,
+    "description": "Caño Cristales, el río de los siete colores, y cultura llanera."
+  },
+  {
+    "id": "narino",
+    "code": "52",
+    "name": "Nariño",
+    "capital": "Pasto",
+    "latitude": 1.2891,
+    "longitude": -77.3579,
+    "description": "Santuario de Las Lajas, Laguna de La Cocha y Carnaval de Negros y Blancos."
+  },
+  {
+    "id": "norte-de-santander",
+    "code": "54",
+    "name": "Norte de Santander",
+    "capital": "Cúcuta",
+    "latitude": 7.9463,
+    "longitude": -72.8988,
+    "description": "Pamplona colonial y la hermosa cordillera nororiental."
+  },
+  {
+    "id": "quindio",
+    "code": "63",
+    "name": "Quindío",
+    "capital": "Armenia",
+    "latitude": 4.4614,
+    "longitude": -75.6674,
+    "description": "Corazón del Eje Cafetero con el Valle de Cocora y pueblos multicolores."
+  },
+  {
+    "id": "risaralda",
+    "code": "66",
+    "name": "Risaralda",
+    "capital": "Pereira",
+    "latitude": 4.8133,
+    "longitude": -75.6961,
+    "description": "Santuario Otún Quimbaya y hermosas fincas tradicionales."
+  },
+  {
+    "id": "santander",
+    "code": "68",
+    "name": "Santander",
+    "capital": "Bucaramanga",
+    "latitude": 6.6437,
+    "longitude": -73.2205,
+    "description": "Cañón del Chicamocha, calles empedradas de Barichara y deportes extremos."
+  },
+  {
+    "id": "sucre",
+    "code": "70",
+    "name": "Sucre",
+    "capital": "Sincelejo",
+    "latitude": 9.3047,
+    "longitude": -75.3978,
+    "description": "Golfo de Morrosquillo, playas de Tolú y Coveñas y festivales de fandango."
+  },
+  {
+    "id": "tolima",
+    "code": "73",
+    "name": "Tolima",
+    "capital": "Ibagué",
+    "latitude": 4.0925,
+    "longitude": -75.1545,
+    "description": "Lechona tolimense, Desierto de la Tatacoita y cañones verdes."
+  },
+  {
+    "id": "valle-del-cauca",
+    "code": "76",
+    "name": "Valle del Cauca",
+    "capital": "Cali",
+    "latitude": 3.8643,
+    "longitude": -76.532,
+    "description": "Cañaverales, sabor a salsa en Cali y ballenas en el Pacífico."
+  },
+  {
+    "id": "arauca",
+    "code": "81",
+    "name": "Arauca",
+    "capital": "Arauca",
+    "latitude": 6.7456,
+    "longitude": -70.7234,
+    "description": "Llanura infinita sobre la frontera con cantos de vaquería."
+  },
+  {
+    "id": "casanare",
+    "code": "85",
+    "name": "Casanare",
+    "capital": "Yopal",
+    "latitude": 5.3378,
+    "longitude": -71.7456,
+    "description": "Safaris llaneros, esteros y atardeceres de fuego."
+  },
+  {
+    "id": "putumayo",
+    "code": "86",
+    "name": "Putumayo",
+    "capital": "Mocoa",
+    "latitude": 0.7264,
+    "longitude": -76.5197,
+    "description": "Cascadas del Fin del Mundo y transición andino-amazónica."
+  },
+  {
+    "id": "san-andres",
+    "code": "88",
+    "name": "San Andrés y Providencia",
+    "capital": "San Andrés",
+    "latitude": 12.5847,
+    "longitude": -81.7006,
+    "description": "Mar de los siete colores, Cayo Cangrejo y barreras coralinas caribeñas."
+  },
+  {
+    "id": "amazonas",
+    "code": "91",
+    "name": "Amazonas",
+    "capital": "Leticia",
+    "latitude": -1.4429,
+    "longitude": -71.5724,
+    "description": "Pulmón verde del planeta, delfines rosados y selva profunda en Leticia."
+  },
+  {
+    "id": "guainia",
+    "code": "94",
+    "name": "Guainía",
+    "capital": "Inírida",
+    "latitude": 2.5854,
+    "longitude": -68.5247,
+    "description": "Cerros de Mavecure alzándose sobre ríos oscuros."
+  },
+  {
+    "id": "guaviare",
+    "code": "95",
+    "name": "Guaviare",
+    "capital": "San José del Guaviare",
+    "latitude": 2.1284,
+    "longitude": -72.2476,
+    "description": "Pinturas rupestres de Cerro Azul y tepuyes de la serranía."
+  },
+  {
+    "id": "vaupes",
+    "code": "97",
+    "name": "Vaupés",
+    "capital": "Mitú",
+    "latitude": 1.0504,
+    "longitude": -70.7617,
+    "description": "Cuna de etnias indígenas amazónicas y raudales majestuosos."
+  },
+  {
+    "id": "vichada",
+    "code": "99",
+    "name": "Vichada",
+    "capital": "Puerto Carreño",
+    "latitude": 4.4237,
+    "longitude": -69.2877,
+    "description": "Parque Nacional Natural El Tuparro sobre el río Orinoco."
+  }
+]

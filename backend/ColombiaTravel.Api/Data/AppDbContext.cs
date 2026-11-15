@@ -1,5 +1,6 @@
-using Microsoft.EntityFrameworkCore;
+using ColombiaTravel.Api.Dtos;
 using ColombiaTravel.Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ColombiaTravel.Api.Data;
 
@@ -18,103 +19,109 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // User constraints
-        modelBuilder.Entity<ApplicationUser>(entity =>
+        modelBuilder.Entity<ApplicationUser>(e =>
         {
-            entity.HasIndex(u => u.Email).IsUnique();
+            e.HasIndex(u => u.Email).IsUnique();
+            e.HasIndex(u => u.RefreshTokenHash);
+
+            // "Mi hogar": si se borra el municipio, solo se limpia la referencia
+            e.HasOne<Municipality>()
+             .WithMany()
+             .HasForeignKey(u => u.HomeMunicipalityId)
+             .OnDelete(DeleteBehavior.SetNull);
         });
 
-        // Department indexes
-        modelBuilder.Entity<Department>(entity =>
+        modelBuilder.Entity<Department>(e =>
         {
-            entity.HasIndex(d => d.DivipolaCode).IsUnique();
+            e.HasIndex(d => d.Code).IsUnique();
         });
 
-        // Municipality indexes
-        modelBuilder.Entity<Municipality>(entity =>
+        modelBuilder.Entity<Municipality>(e =>
         {
-            entity.HasIndex(m => m.DivipolaCode).IsUnique();
-            entity.HasIndex(m => m.DepartmentId);
+            e.HasIndex(m => m.DepartmentId);
+            e.HasOne(m => m.Department)
+             .WithMany(d => d.Municipalities)
+             .HasForeignKey(m => m.DepartmentId)
+             .OnDelete(DeleteBehavior.Restrict);
         });
 
-        // TripEntry performance indexes for Fast IsVisited calculations
-        modelBuilder.Entity<TripEntry>(entity =>
+        modelBuilder.Entity<TripEntry>(e =>
         {
-            entity.HasIndex(t => new { t.UserId, t.MunicipalityId });
-            entity.HasIndex(t => t.TripDate);
+            e.HasIndex(t => new { t.UserId, t.MunicipalityId });
+            e.HasIndex(t => t.TripDate);
 
-            entity.HasOne(t => t.Municipality)
-                  .WithMany(m => m.TripEntries)
-                  .HasForeignKey(t => t.MunicipalityId)
-                  .OnDelete(DeleteBehavior.Cascade);
+            // Restrict: no se debe poder borrar un municipio del catálogo con viajes
+            e.HasOne(t => t.Municipality)
+             .WithMany(m => m.TripEntries)
+             .HasForeignKey(t => t.MunicipalityId)
+             .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(t => t.User)
-                  .WithMany(u => u.TripEntries)
-                  .HasForeignKey(t => t.UserId)
-                  .OnDelete(DeleteBehavior.Cascade);
+            // Si se borra el usuario, se borran sus viajes
+            e.HasOne(t => t.User)
+             .WithMany(u => u.TripEntries)
+             .HasForeignKey(t => t.UserId)
+             .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // ExpenseLog cascading
-        modelBuilder.Entity<ExpenseLog>(entity =>
+        modelBuilder.Entity<ExpenseLog>(e =>
         {
-            entity.HasIndex(e => e.TripEntryId);
-            entity.HasOne(e => e.TripEntry)
-                  .WithMany(t => t.Expenses)
-                  .HasForeignKey(e => e.TripEntryId)
-                  .OnDelete(DeleteBehavior.Cascade);
+            e.HasIndex(x => x.TripEntryId);
+            e.HasOne(x => x.TripEntry)
+             .WithMany(t => t.Expenses)
+             .HasForeignKey(x => x.TripEntryId)
+             .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // TripPhoto cascading
-        modelBuilder.Entity<TripPhoto>(entity =>
+        modelBuilder.Entity<TripPhoto>(e =>
         {
-            entity.HasIndex(p => p.TripEntryId);
-            entity.HasOne(p => p.TripEntry)
-                  .WithMany(t => t.Photos)
-                  .HasForeignKey(p => p.TripEntryId)
-                  .OnDelete(DeleteBehavior.Cascade);
+            e.HasIndex(p => p.TripEntryId);
+            e.HasOne(p => p.TripEntry)
+             .WithMany(t => t.Photos)
+             .HasForeignKey(p => p.TripEntryId)
+             .OnDelete(DeleteBehavior.Cascade);
         });
     }
 
     /// <summary>
-    /// Optimized single-roundtrip query with SQL GROUP BY & EXISTS projections.
-    /// Avoids N+1 queries and memory bloat when retrieving country department explorer status.
+    /// Departamentos con el progreso del usuario (visitados / total), en una sola consulta SQL.
+    /// Un municipio cuenta como visitado si el usuario tiene al menos un viaje ahí o es su hogar.
     /// </summary>
-    public async Task<List<DepartmentDto>> GetDepartmentsForUserAsync(Guid userId, CancellationToken ct = default)
+    public async Task<List<DepartmentDto>> GetDepartmentsForUserAsync(
+        Guid userId, string? homeMunicipalityId, CancellationToken ct = default)
     {
-        return await Departments
+        var rows = await Departments
             .AsNoTracking()
-            .Select(d => new DepartmentDto
-            {
-                Id = d.Id,
-                DivipolaCode = d.DivipolaCode,
-                Name = d.Name,
-                Capital = d.Capital,
-                Latitude = d.Latitude,
-                Longitude = d.Longitude,
-                TotalMunicipalities = d.TotalMunicipalities,
-                VisitedMunicipalities = d.Municipalities
-                    .Count(m => m.TripEntries.Any(t => t.UserId == userId)),
-                IsVisited = d.Municipalities
-                    .Any(m => m.TripEntries.Any(t => t.UserId == userId)),
-                ProgressPercentage = d.TotalMunicipalities > 0
-                    ? (int)Math.Round((double)d.Municipalities.Count(m => m.TripEntries.Any(t => t.UserId == userId)) / d.TotalMunicipalities * 100)
-                    : 0
-            })
             .OrderBy(d => d.Name)
+            .Select(d => new
+            {
+                d.Id,
+                d.Code,
+                d.Name,
+                d.Capital,
+                d.Latitude,
+                d.Longitude,
+                d.Description,
+                Total = d.Municipalities.Count(),
+                Visited = d.Municipalities.Count(m =>
+                    m.Id == homeMunicipalityId ||
+                    m.TripEntries.Any(t => t.UserId == userId))
+            })
             .ToListAsync(ct);
-    }
-}
 
-public record DepartmentDto
-{
-    public string Id { get; init; } = string.Empty;
-    public string DivipolaCode { get; init; } = string.Empty;
-    public string Name { get; init; } = string.Empty;
-    public string Capital { get; init; } = string.Empty;
-    public double Latitude { get; init; }
-    public double Longitude { get; init; }
-    public int TotalMunicipalities { get; init; }
-    public int VisitedMunicipalities { get; init; }
-    public bool IsVisited { get; init; }
-    public int ProgressPercentage { get; init; }
+        return rows.Select(r => new DepartmentDto
+        {
+            Id = r.Id,
+            Code = r.Code,
+            Name = r.Name,
+            Capital = r.Capital,
+            Latitude = r.Latitude,
+            Longitude = r.Longitude,
+            Description = r.Description,
+            TotalMunicipalities = r.Total,
+            VisitedMunicipalities = r.Visited,
+            RemainingMunicipalities = r.Total - r.Visited,
+            IsVisited = r.Visited > 0,
+            ProgressPercentage = r.Total > 0 ? (int)Math.Round(r.Visited * 100.0 / r.Total) : 0
+        }).ToList();
+    }
 }

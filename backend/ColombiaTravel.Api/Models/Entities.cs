@@ -11,28 +11,31 @@ public class ApplicationUser
     [Required, MaxLength(100)]
     public string Name { get; set; } = string.Empty;
 
-    [Required, EmailAddress, MaxLength(150)]
-    public string Email { get; set; } = string.Empty;
+    [Required, MaxLength(150)]
+    public string Email { get; set; } = string.Empty; // siempre en minúscula
 
     [Required]
     public string PasswordHash { get; set; } = string.Empty;
 
-    public string? RefreshToken { get; set; }
+    // Solo guardamos el HASH del refresh token (nunca el token en claro)
+    public string? RefreshTokenHash { get; set; }
     public DateTime? RefreshTokenExpiryTime { get; set; }
+
+    // Municipio donde vive el usuario ("Mi hogar"). Cuenta como visitado.
+    public string? HomeMunicipalityId { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    // Navigation
     public ICollection<TripEntry> TripEntries { get; set; } = new List<TripEntry>();
 }
 
 public class Department
 {
     [Key]
-    public string Id { get; set; } = string.Empty; // e.g. "quindio"
+    public string Id { get; set; } = string.Empty; // slug del front: "quindio"
 
-    [Required, MaxLength(10)]
-    public string DivipolaCode { get; set; } = string.Empty; // e.g. "63"
+    [Required, MaxLength(2)]
+    public string Code { get; set; } = string.Empty; // DIVIPOLA: "63"
 
     [Required, MaxLength(100)]
     public string Name { get; set; } = string.Empty;
@@ -46,19 +49,16 @@ public class Department
     public int TotalMunicipalities { get; set; }
     public string? Description { get; set; }
 
-    // Navigation
     public ICollection<Municipality> Municipalities { get; set; } = new List<Municipality>();
 }
 
 public class Municipality
 {
-    [Key]
-    public string Id { get; set; } = string.Empty; // e.g. "salento"
+    // Código DIVIPOLA de 5 dígitos: "63690". Es la llave primaria.
+    [Key, MaxLength(5)]
+    public string Id { get; set; } = string.Empty;
 
-    [Required, MaxLength(10)]
-    public string DivipolaCode { get; set; } = string.Empty; // e.g. "63690"
-
-    [Required, MaxLength(100)]
+    [Required, MaxLength(150)]
     public string Name { get; set; } = string.Empty;
 
     [Required]
@@ -70,10 +70,6 @@ public class Municipality
     public double Latitude { get; set; }
     public double Longitude { get; set; }
 
-    public string? Description { get; set; }
-    public string? CoverPhoto { get; set; }
-
-    // Navigation
     public ICollection<TripEntry> TripEntries { get; set; } = new List<TripEntry>();
 }
 
@@ -82,23 +78,21 @@ public class TripEntry
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    [Required]
+    [Required, MaxLength(5)]
     public string MunicipalityId { get; set; } = string.Empty;
 
     [ForeignKey(nameof(MunicipalityId))]
     public Municipality Municipality { get; set; } = null!;
 
-    [Required]
     public Guid UserId { get; set; }
 
     [ForeignKey(nameof(UserId))]
     public ApplicationUser User { get; set; } = null!;
 
-    [Required]
     public DateOnly TripDate { get; set; }
 
     [MaxLength(100)]
-    public string Label { get; set; } = string.Empty; // "Visita 1: 15/Mar/2023"
+    public string Label { get; set; } = string.Empty; // "Visita 1"
 
     [Range(1, 5)]
     public int Rating { get; set; } = 5;
@@ -106,15 +100,16 @@ public class TripEntry
     public string? Summary { get; set; }
     public string? FoodReview { get; set; }
     public string? FavoriteDish { get; set; }
-    public string? TransportNotes { get; set; }
-    public string? RoadCondition { get; set; }
-    public bool HasTolls { get; set; }
-    public int TollCount { get; set; }
     public string? DoNotForgetNotes { get; set; }
+
+    // Transporte
+    public string? TransportMode { get; set; }
+    public string? RoadCondition { get; set; }
+    public string? TransportNotes { get; set; }
+    public int TollCount { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    // Navigation
     public ICollection<ExpenseLog> Expenses { get; set; } = new List<ExpenseLog>();
     public ICollection<TripPhoto> Photos { get; set; } = new List<TripPhoto>();
 }
@@ -124,19 +119,20 @@ public class ExpenseLog
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    [Required]
     public Guid TripEntryId { get; set; }
 
     [ForeignKey(nameof(TripEntryId))]
     public TripEntry TripEntry { get; set; } = null!;
 
     [Required, MaxLength(50)]
-    public string Category { get; set; } = "Comida"; // Comida, Peajes, Hospedaje, Otros
+    public string Category { get; set; } = "Comida";
 
-    [Column(TypeName = "decimal(18,2)")]
+    [Column(TypeName = "numeric(18,2)")]
     public decimal AmountCop { get; set; }
 
     public DateOnly Date { get; set; }
+
+    [MaxLength(500)]
     public string? Notes { get; set; }
 }
 
@@ -145,7 +141,6 @@ public class TripPhoto
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    [Required]
     public Guid TripEntryId { get; set; }
 
     [ForeignKey(nameof(TripEntryId))]

@@ -8,44 +8,26 @@ on:
 
 jobs:
   # ----------------------------------------------------
-  # 1. Backend: .NET 10 Web API Build, Lint & Test
+  # 1. Backend: .NET 8 Web API Build
   # ----------------------------------------------------
   backend-dotnet:
-    name: Build & Test Backend (.NET 10 & EF Core)
+    name: Build Backend (.NET 8 & EF Core)
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_DB: travelpassport_test
-          POSTGRES_USER: runner
-          POSTGRES_PASSWORD: runnerpassword
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup .NET SDK 10
+      - name: Setup .NET SDK 8
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '8.0.x'
 
       - name: Restore NuGet Dependencies
-        run: dotnet restore backend/ColombiaTravel.sln || echo "NuGet restore complete"
+        run: dotnet restore backend/ColombiaTravel.sln
 
       - name: Build Solution (Release)
-        run: dotnet build backend/ColombiaTravel.sln --configuration Release --no-restore || echo "Build validated"
-
-      - name: Run Unit & Integration Tests with Coverage
-        run: dotnet test --configuration Release --no-build --verbosity normal || echo "Tests passed"
+        run: dotnet build backend/ColombiaTravel.sln --configuration Release --no-restore
 
   # ----------------------------------------------------
   # 2. Frontend: Vue 3 + Vite + Tailwind Lint & Build

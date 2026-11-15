@@ -61,7 +61,24 @@ public class TripsController : ApiControllerBase
             return BadRequest(new { message = "El municipio no existe." });
 
         var userId = CurrentUserId;
+
+        // Si el front reintenta una creación que ya se guardó, no duplicamos: actualizamos el mismo viaje.
+        if (req.Id is { } clientId)
+        {
+            var existing = await _db.TripEntries.FirstOrDefaultAsync(t => t.Id == clientId, ct);
+            if (existing is not null)
+            {
+                if (existing.UserId != userId) return Conflict(new { message = "Ese Id ya está en uso." });
+                existing.MunicipalityId = req.MunicipalityId;
+                Apply(existing, req);
+                await _db.SaveChangesAsync(ct);
+                var existingDto = await GetDtoAsync(clientId, ct);
+                return existingDto is null ? NotFound() : existingDto;
+            }
+        }
+
         var trip = new TripEntry { UserId = userId, MunicipalityId = req.MunicipalityId };
+        if (req.Id is { } newId) trip.Id = newId;
         Apply(trip, req);
 
         if (string.IsNullOrWhiteSpace(trip.Label))
@@ -119,19 +136,53 @@ public class TripsController : ApiControllerBase
         var trip = await MyTrips().Where(t => t.Id == id).Select(t => new { t.TripDate }).FirstOrDefaultAsync(ct);
         if (trip is null) return NotFound();
 
-        var expense = new ExpenseLog
+        // Reintento de una creación que ya se guardó: actualizamos en vez de duplicar.
+        if (req.Id is { } clientId)
         {
-            TripEntryId = id,
-            Category = req.Category.Trim(),
-            AmountCop = req.AmountCop,
-            Date = req.Date ?? trip.TripDate,
-            Notes = req.Notes
-        };
+            var existing = await _db.Expenses.FirstOrDefaultAsync(e => e.Id == clientId, ct);
+            if (existing is not null)
+            {
+                if (existing.TripEntryId != id) return Conflict(new { message = "Ese Id ya está en uso." });
+                ApplyExpense(existing, req, trip.TripDate);
+                await _db.SaveChangesAsync(ct);
+                return Ok(ToDto(existing));
+            }
+        }
+
+        var expense = new ExpenseLog { TripEntryId = id };
+        if (req.Id is { } newId) expense.Id = newId;
+        ApplyExpense(expense, req, trip.TripDate);
         _db.Expenses.Add(expense);
         await _db.SaveChangesAsync(ct);
 
-        return Ok(new ExpenseDto(expense.Id, id, expense.Category, expense.AmountCop, expense.Date, expense.Notes));
+        return Ok(ToDto(expense));
     }
+
+    [HttpPut("{id:guid}/expenses/{expenseId:guid}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<ExpenseDto>> UpdateExpense(
+        Guid id, Guid expenseId, ExpenseWriteRequest req, CancellationToken ct)
+    {
+        var expense = await _db.Expenses
+            .Include(e => e.TripEntry)
+            .FirstOrDefaultAsync(e => e.Id == expenseId && e.TripEntryId == id && e.TripEntry.UserId == CurrentUserId, ct);
+        if (expense is null) return NotFound();
+
+        ApplyExpense(expense, req, expense.TripEntry.TripDate);
+        await _db.SaveChangesAsync(ct);
+        return Ok(ToDto(expense));
+    }
+
+    private static void ApplyExpense(ExpenseLog expense, ExpenseWriteRequest req, DateOnly fallbackDate)
+    {
+        expense.Category = req.Category.Trim();
+        expense.AmountCop = req.AmountCop;
+        expense.Date = req.Date ?? fallbackDate;
+        expense.Notes = req.Notes;
+    }
+
+    private static ExpenseDto ToDto(ExpenseLog e) =>
+        new(e.Id, e.TripEntryId, e.Category, e.AmountCop, e.Date, e.Notes);
 
     [HttpDelete("{id:guid}/expenses/{expenseId:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

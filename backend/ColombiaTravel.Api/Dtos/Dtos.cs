@@ -55,6 +55,8 @@ public record MunicipalityDto(
 
 public class TripWriteRequest
 {
+    /// <summary>Opcional: el front genera el Id (GUID) para poder reintentar sin duplicar.</summary>
+    public Guid? Id { get; set; }
     [Required, MaxLength(5)] public string MunicipalityId { get; set; } = string.Empty;
     [Required] public DateOnly? TripDate { get; set; }
     [MaxLength(100)] public string? Label { get; set; }
@@ -71,6 +73,8 @@ public class TripWriteRequest
 
 public class ExpenseWriteRequest
 {
+    /// <summary>Opcional: Id generado por el front (GUID).</summary>
+    public Guid? Id { get; set; }
     [Required, MaxLength(50)] public string Category { get; set; } = "Comida";
     [Range(0, 1_000_000_000)] public decimal AmountCop { get; set; }
     public DateOnly? Date { get; set; }

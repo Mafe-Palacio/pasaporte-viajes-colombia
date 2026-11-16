@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Municipality, TripEntry, ExpenseLog, TripPhoto } from '../types';
+import { useMunicipalityImage } from '../hooks/useMunicipalityImage';
 
 interface MunicipalityDetailProps {
     municipality: Municipality;
@@ -94,6 +95,29 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
     // Clamp index safely
     const safeIndex = trips.length > 0 ? Math.min(selectedTripIndex, trips.length - 1) : 0;
     const currentTrip = trips[safeIndex];
+
+    const firstTripPhotoUrl = useMemo(() => {
+        if (currentTrip?.photos && currentTrip.photos.length > 0 && currentTrip.photos[0]?.url) {
+            return currentTrip.photos[0].url;
+        }
+        const anyPhotoTrip = trips.find((t) => t.photos && t.photos.length > 0 && t.photos[0]?.url);
+        return anyPhotoTrip?.photos?.[0]?.url;
+    }, [currentTrip, trips]);
+
+    const {
+        ref: storyImageRef,
+        imageUrl: storyImageUrl,
+        description: storyDescription,
+        isLoading: storyImageLoading,
+        onImageError: onStoryImageError
+    } = useMunicipalityImage({
+        municipalityId: municipality.id,
+        municipalityName: municipality.name,
+        departmentName: municipality.departmentName,
+        userPhotoUrl: firstTripPhotoUrl,
+        curatedDescription: municipality.description,
+        disabled: !showStoryModal
+    });
 
     // Adjust selected index reactively if trips count changes
     React.useEffect(() => {
@@ -413,7 +437,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                 : `¡Aún no has registrado visitas a ${municipality.name}!`}
                         </h2>
                         <p className="text-xs text-slate-600 dark:text-zinc-400 mb-6 leading-relaxed">
-                            {municipality.description}
+                            {municipality.description || storyDescription}
                         </p>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                             {/* Botón secundario en píldora: Establecer como ciudad actual */}
@@ -1620,18 +1644,44 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                                 {/* Featured Photo */}
                                 <div className="relative z-10 my-2">
-                                    <div className="w-full h-44 rounded-2xl overflow-hidden shadow-lg border-2 border-white bg-slate-100">
-                                        <img
-                                            src={
-                                                currentTrip.photos && currentTrip.photos.length > 0
-                                                    ? currentTrip.photos[0].url
-                                                    : municipality.coverPhoto || 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?w=800&auto=format&fit=crop&q=80'
-                                            }
-                                            alt={municipality.name}
-                                            crossOrigin="anonymous"
-                                            referrerPolicy="no-referrer"
-                                            className="w-full h-full object-cover"
-                                        />
+                                    <div
+                                        ref={storyImageRef}
+                                        className="w-full h-44 rounded-2xl overflow-hidden shadow-lg border-2 border-white bg-white"
+                                    >
+                                        {storyImageLoading ? (
+                                            <div className="w-full h-full animate-pulse bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 flex items-center justify-center">
+                                                <div className="w-12 h-12 rounded-full bg-white/60" />
+                                            </div>
+                                        ) : storyImageUrl ? (
+                                            <img
+                                                src={storyImageUrl}
+                                                alt={municipality.name}
+                                                crossOrigin="anonymous"
+                                                referrerPolicy="no-referrer"
+                                                onError={onStoryImageError}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <div
+                                                className="w-full h-full relative flex items-center justify-center overflow-hidden select-none"
+                                                style={{
+                                                    background:
+                                                        'linear-gradient(135deg, var(--color-accent-soft) 0%, var(--color-accent-light) 100%)'
+                                                }}
+                                            >
+                                                <div
+                                                    className="absolute -right-5 -bottom-5 w-28 h-28 rounded-full opacity-20 pointer-events-none"
+                                                    style={{ backgroundColor: 'var(--color-accent)' }}
+                                                />
+                                                <span
+                                                    className="text-7xl font-black tracking-tight opacity-25"
+                                                    style={{ color: 'var(--color-accent)' }}
+                                                    aria-hidden="true"
+                                                >
+                                                    {municipality.name.trim().charAt(0).toUpperCase() || 'M'}
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="mt-3 text-center">

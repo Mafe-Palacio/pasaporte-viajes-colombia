@@ -85,114 +85,128 @@ export const KNOWN_ID_BY_CODE: Record<string, string> = {
   '25175': 'chia'
 };
 
-export const CURATED_MUNICIPALITY_METADATA: Record<string, { coverPhoto: string; description: string; tags: string[] }> = {
+export const DEPARTMENT_NATURAL_REGION: Record<string, string> = {
+  antioquia: 'Andina',
+  atlantico: 'Caribe',
+  bogota: 'Andina',
+  bolivar: 'Caribe',
+  boyaca: 'Andina',
+  caldas: 'Andina',
+  caqueta: 'Amazonía',
+  cauca: 'Pacífica',
+  cesar: 'Caribe',
+  cordoba: 'Caribe',
+  cundinamarca: 'Andina',
+  choco: 'Pacífica',
+  huila: 'Andina',
+  'la-guajira': 'Caribe',
+  magdalena: 'Caribe',
+  meta: 'Orinoquía',
+  narino: 'Pacífica',
+  'norte-de-santander': 'Andina',
+  quindio: 'Andina',
+  risaralda: 'Andina',
+  santander: 'Andina',
+  sucre: 'Caribe',
+  tolima: 'Andina',
+  'valle-del-cauca': 'Pacífica',
+  arauca: 'Orinoquía',
+  casanare: 'Orinoquía',
+  putumayo: 'Amazonía',
+  'san-andres': 'Insular',
+  amazonas: 'Amazonía',
+  guainia: 'Amazonía',
+  guaviare: 'Amazonía',
+  vaupes: 'Amazonía',
+  vichada: 'Orinoquía'
+};
+
+export const CURATED_MUNICIPALITY_METADATA: Record<string, { description: string; tags: string[] }> = {
   'salento': {
-    coverPhoto: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?w=800&auto=format&fit=crop&q=80',
     description: 'Valle de Cocora, palmas de cera gigantes y arquitectura colonial de bahareque.',
     tags: ['Palmas de Cera', 'Café', 'Valle de Cocora', 'Trucha al Ajillo']
   },
   'filandia': {
-    coverPhoto: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&auto=format&fit=crop&q=80',
     description: 'Mirador Colina Iluminada, artesanías de bejuco y balcones multicolores.',
     tags: ['Mirador', 'Cestería', 'Mirador Iluminado', 'Artesanías']
   },
   'armenia': {
-    coverPhoto: 'https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?w=800&auto=format&fit=crop&q=80',
     description: 'Capital del Quindío, corazón de la cultura cafetera y museo del oro Quimbaya.',
     tags: ['Capital', 'Museo del Oro', 'Parque de la Vida', 'Cultura Cafetera']
   },
   'circasia': {
-    coverPhoto: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80',
     description: 'Pueblo libre con su histórico Cementerio Libre y miradores hacia la cordillera central.',
     tags: ['Cementerio Libre', 'Miradores', 'Café Cordillerano']
   },
   'montenegro': {
-    coverPhoto: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop&q=80',
     description: 'Cuna del Parque Nacional del Café y senderos entre cafetales ondulantes.',
     tags: ['Parque del Café', 'Montaña Rusa', 'Senderismo']
   },
   'quimbaya': {
-    coverPhoto: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop&q=80',
     description: 'Famoso por el Festival de Velas y Faroles y experiencias de agroturismo en Panaca.',
     tags: ['Panaca', 'Alumbrado', 'Velas y Faroles']
   },
   'calarca': {
-    coverPhoto: 'https://images.unsplash.com/photo-1511497584788-87676104235f?w=800&auto=format&fit=crop&q=80',
     description: 'Jardín Botánico del Quindío con mariposario y desfile del Yipao tradicional.',
     tags: ['Mariposario', 'Jardín Botánico', 'Yipao']
   },
   'la-tebaida': {
-    coverPhoto: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&auto=format&fit=crop&q=80',
     description: 'El edén tropical del Quindío con clima cálido y paseos a orillas del río La Vieja.',
     tags: ['Clima Cálido', 'Río La Vieja', 'Paseo en Balsa']
   },
   'genova': {
-    coverPhoto: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&auto=format&fit=crop&q=80',
     description: 'El rincón bello del Quindío, pueblo Slow City con arquitectura intacta y cañones de niebla.',
     tags: ['Slow City', 'Páramo', 'Cascadas']
   },
   'pijao': {
-    coverPhoto: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&auto=format&fit=crop&q=80',
     description: 'Primera Ciudad sin Prisa de América Latina, arquitectura de bahareque y cuna de café especial.',
     tags: ['Cittaslow', 'Bahareque', 'Café Especial']
   },
   'buenavista': {
-    coverPhoto: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&auto=format&fit=crop&q=80',
     description: 'Mirador natural sobre el valle y plataforma ideal para vuelos en parapente.',
     tags: ['Parapente', 'Mirador', 'Café San Alberto']
   },
   'cordoba': {
-    coverPhoto: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&auto=format&fit=crop&q=80',
     description: 'Capital del bambú y la guadua, cascadas ocultas y paisajes boscosos vírgenes.',
     tags: ['Guadua', 'Cascada de Río Verde', 'Naturaleza']
   },
   'medellin': {
-    coverPhoto: 'https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?w=800&auto=format&fit=crop&q=80',
     description: 'La Ciudad de la Eterna Primavera, Comuna 13, Metrocable y Parque Arví.',
     tags: ['Innovación', 'Metrocable', 'Flores', 'Arte']
   },
   'guatape': {
-    coverPhoto: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?w=800&auto=format&fit=crop&q=80',
     description: 'El pueblo de los zócalos coloridos y el imponente monolito de la Piedra del Peñol.',
     tags: ['Piedra del Peñol', 'Embalse', 'Zócalos']
   },
   'santa-fe-de-antioquia': {
-    coverPhoto: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&auto=format&fit=crop&q=80',
     description: 'Pueblo Patrimonio colonial con calles empedradas y el monumental Puente de Occidente.',
     tags: ['Puente de Occidente', 'Patrimonio', 'Clima Cálido']
   },
   'jardin': {
-    coverPhoto: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80',
     description: 'Plaza de sillas pintadas a mano, Basílica Menor y cueva del esplendor.',
     tags: ['Cafeterías de plaza', 'Flores', 'Cascadas']
   },
   'jerico': {
-    coverPhoto: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop&q=80',
     description: 'Cuna de la Santa Laura Montoya y capital del auténtico carriel antioqueño.',
     tags: ['Carriel', 'Santa Laura', 'Mirador Cristo Redentor']
   },
   'cartagena': {
-    coverPhoto: 'https://images.unsplash.com/photo-1583997052103-b4a1cb974ce3?w=800&auto=format&fit=crop&q=80',
     description: 'La Ciudad Amurallada, Castillo de San Felipe y atardeceres sobre el Mar Caribe.',
     tags: ['Ciudad Amurallada', 'Caribe', 'Patrimonio UNESCO', 'Historia']
   },
   'santa-marta': {
-    coverPhoto: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=800&auto=format&fit=crop&q=80',
     description: 'Bahía más linda de América, Parque Tayrona y Ciudad Perdida.',
     tags: ['Tayrona', 'Playas', 'Sierra Nevada']
   },
   'barichara': {
-    coverPhoto: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?w=800&auto=format&fit=crop&q=80',
     description: 'El pueblo más lindo de Colombia, tallado en piedra amarilla con tapia pisada.',
     tags: ['Pueblo Patrimonio', 'Tapia Pisada', 'Camino Real']
   },
   'villa-de-leyva': {
-    coverPhoto: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80',
     description: 'Monumental plaza mayor empedrada, fósiles prehistóricos y viñedos de altura.',
     tags: ['Plaza Mayor', 'Fósiles', 'Pueblo Patrimonio']
   },
   'bogota': {
-    coverPhoto: 'https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?w=800&auto=format&fit=crop&q=80',
     description: 'Distrito Capital de Colombia. Cerro de Monserrate, La Candelaria y vibrante escena cultural.',
     tags: ['Distrito Capital', 'Monserrate', 'La Candelaria', 'Museo del Oro']
   }
@@ -630,6 +644,30 @@ export function formatMunicipalityName(rawName: string): string {
     .join(' ');
 }
 
+function normalizeComparisonText(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isDepartmentCapital(municipalityName: string, departmentCapital?: string): boolean {
+  if (!municipalityName || !departmentCapital) return false;
+  const normMuni = normalizeComparisonText(municipalityName);
+  const normCap = normalizeComparisonText(departmentCapital);
+  if (!normMuni || !normCap) return false;
+
+  if (normMuni === normCap) return true;
+  if (normCap === 'cucuta' && normMuni === 'san jose de cucuta') return true;
+  if (normCap === 'cali' && normMuni === 'santiago de cali') return true;
+  if (normCap === 'cartagena' && normMuni === 'cartagena de indias') return true;
+  if (normCap === 'bogota' && normMuni.startsWith('bogota')) return true;
+  return false;
+}
+
 export function normalizeDivipolaRecord(item: any): Municipality {
   const deptCode = String(item.c_digo_dane_del_departamento || item.cod_dpto || '').padStart(2, '0');
   const muniCode = String(item.c_digo_dane_del_municipio || item.cod_mpio || '').padStart(5, '0');
@@ -647,6 +685,21 @@ export function normalizeDivipolaRecord(item: any): Municipality {
   const friendlyId = KNOWN_ID_BY_CODE[muniCode] || muniCode;
   const curated = CURATED_MUNICIPALITY_METADATA[friendlyId];
 
+  let tags: string[];
+  if (curated?.tags) {
+    tags = curated.tags;
+  } else {
+    const derivedTags: string[] = [];
+    if (isDepartmentCapital(name, matchedDept?.capital)) {
+      derivedTags.push('Capital');
+    }
+    const region = DEPARTMENT_NATURAL_REGION[deptId];
+    if (region) {
+      derivedTags.push(region);
+    }
+    tags = derivedTags.slice(0, 2);
+  }
+
   return {
     id: friendlyId,
     code: muniCode,
@@ -659,9 +712,9 @@ export function normalizeDivipolaRecord(item: any): Municipality {
     lng: Number(lng.toFixed(5)),
     isVisited: false,
     trips: [],
-    coverPhoto: curated?.coverPhoto || 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?w=800&auto=format&fit=crop&q=80',
-    description: curated?.description || `Municipio histórico y patrimonio cultural del departamento de ${deptName}.`,
-    tags: curated?.tags || ['Patrimonio', 'Naturaleza']
+    coverPhoto: '',
+    description: curated?.description || '',
+    tags
   };
 }
 

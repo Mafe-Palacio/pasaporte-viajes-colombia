@@ -504,6 +504,7 @@ export default function App() {
                         department={activeDepartment}
                         departments={departments}
                         municipalities={activeDepartmentMunicipalities}
+                        trips={trips}
                         homeMunicipalityId={homeMunicipalityId}
                         onBackToCountry={() => navigateTo('/explorador')}
                         onSelectMunicipality={handleSelectMunicipality}
@@ -550,13 +551,15 @@ export default function App() {
                 )}
             </main>
 
-            <ConnectionBanner
-                online={serverOnline}
-                pendingChanges={pendingChanges}
-                errorMessage={errorMessage}
-                onRetry={() => void api.checkHealth()}
-                onDismissError={() => setErrorMessage(null)}
-            />
+            {phase !== 'offline' && phase !== 'checking' && (
+                <ConnectionBanner
+                    online={serverOnline}
+                    pendingChanges={pendingChanges}
+                    errorMessage={errorMessage}
+                    onRetry={() => void api.checkHealth()}
+                    onDismissError={() => setErrorMessage(null)}
+                />
+            )}
 
             {/* Full Technical Architecture & Code Deliverables Modal */}
             <ArchitectureModal

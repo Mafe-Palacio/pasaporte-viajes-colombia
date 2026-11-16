@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Compass, Heart, LogOut, Code2, BarChart3 } from 'lucide-react';
+import { Compass, Heart, LogOut, Code2, BarChart3, ArrowLeft } from 'lucide-react';
 
 interface VisitStats {
   visitedCount: number;
@@ -27,8 +27,11 @@ export function syncPassportVisitStats(visitedCount: number, totalCount: number)
 export interface PassportDesktopHeaderProps {
   activeTab: 'explorador' | 'recuerdos' | 'reportes' | 'other';
   sectionTitle?: string;
+  eyebrowLabel?: string;
   visitedCount: number;
   totalCount: number;
+  onBack?: () => void;
+  backTitle?: string;
   onSelectExplorador: () => void;
   onSelectRecuerdos?: () => void;
   onSelectReportes?: () => void;
@@ -38,8 +41,11 @@ export interface PassportDesktopHeaderProps {
 export const PassportDesktopHeader: React.FC<PassportDesktopHeaderProps> = ({
   activeTab,
   sectionTitle = 'Explorador Nacional',
+  eyebrowLabel = 'Pasaporte Colombia',
   visitedCount,
   totalCount,
+  onBack,
+  backTitle = 'Volver al mapa nacional',
   onSelectExplorador,
   onSelectRecuerdos,
   onSelectReportes,
@@ -50,15 +56,28 @@ export const PassportDesktopHeader: React.FC<PassportDesktopHeaderProps> = ({
   return (
     <header className="hidden md:block w-full bg-white/85 dark:bg-[#1E2228]/90 backdrop-blur-md border-b border-rose-100 dark:border-zinc-800 flex-shrink-0 z-40 px-4 md:px-6 transition-colors">
       <div className="w-full h-[60px] grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3">
-        {/* Izquierda: Bandera + PASAPORTE COLOMBIA X/32 visitados + Título */}
+        {/* Izquierda: Volver o Bandera + Eyebrow X/Y visitados + Título */}
         <div className="flex items-center gap-2.5 min-w-0 justify-self-start">
-          <span className="text-lg leading-none flex-shrink-0" aria-hidden="true">
-            🇨🇴
-          </span>
+          {onBack ? (
+            <button
+              id="back-to-country-desktop-btn"
+              type="button"
+              onClick={onBack}
+              className="p-1.5 bg-white dark:bg-[#282D35] rounded-full shadow-xs hover:bg-rose-50 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-200 hover:text-accent-primary transition-colors border border-[#FFE4EA] dark:border-zinc-700 cursor-pointer flex-shrink-0"
+              title={backTitle}
+              aria-label={backTitle}
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          ) : (
+            <span className="text-lg leading-none flex-shrink-0" aria-hidden="true">
+              🇨🇴
+            </span>
+          )}
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 whitespace-nowrap">
               <span className="text-[10px] lg:text-[11px] font-bold text-accent-primary tracking-wider uppercase leading-tight">
-                Pasaporte Colombia
+                {eyebrowLabel}
               </span>
               <span
                 style={{

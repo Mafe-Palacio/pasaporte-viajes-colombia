@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
-import { Search, MapPin, Compass, AlertCircle, RefreshCw, ChevronRight, Layers, Heart, LogOut, BarChart3 } from 'lucide-react';
+import { Search, MapPin, Compass, AlertCircle, RefreshCw, ChevronRight, Heart, LogOut, BarChart3 } from 'lucide-react';
 import { Department } from '../types';
 import { COLOMBIA_GEOJSON } from '../data/geoJsonData';
 import { DestinationRouletteModal, RouletteItem } from './DestinationRouletteModal';
@@ -34,6 +34,8 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
   const mapInstanceRef = useRef<L.Map | null>(null);
   const geoJsonLayerRef = useRef<L.GeoJSON | null>(null);
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
+  const onSelectDeptRef = useRef(onSelectDepartment);
+  onSelectDeptRef.current = onSelectDepartment;
 
   const visitedCount = departments.filter((d) => d.isVisited).length;
   const totalCount = departments.length;
@@ -55,9 +57,9 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
     return true; // Default: show all 32 departments of Colombia
   });
 
-  // Initialize Leaflet Map (only on desktop screens to save mobile resources)
+  // Initialize Leaflet Map (only on desktop/tablet screens >= 768px)
   useEffect(() => {
-    if (viewMode !== 'map' || !mapContainerRef.current) return;
+    if (viewMode !== 'map' || mapFailed || !mapContainerRef.current) return;
     if (typeof window !== 'undefined' && window.innerWidth < 768) {
       return;
     }
@@ -80,16 +82,17 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
         }
       }, 3500);
 
-      // Create map centered on Colombia
+      // Create map centered on Colombia with zoom moved to bottom-left to avoid top-left segmented toggle
       const map = L.map(mapContainerRef.current, {
         center: [4.5709, -74.2973],
         zoom: 6,
         minZoom: 5,
         maxZoom: 9,
-        zoomControl: true,
+        zoomControl: false,
         attributionControl: false
       });
 
+      L.control.zoom({ position: 'bottomleft' }).addTo(map);
       mapInstanceRef.current = map;
 
       // Ensure Leaflet resizes correctly when container bounds stabilize
@@ -122,57 +125,11 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
           stroke: false
         }
       });
-      // Conservar referencia sin agregarlo visualmente al mapa
       geoJsonLayerRef.current = geoLayer;
 
-      // Add Centroid Circle Button Markers (32 departamentos de Colombia)
+      // Layer group for reactive centroid markers
       const markersGroup = L.layerGroup().addTo(map);
       markersLayerRef.current = markersGroup;
-
-      departments.forEach((dept) => {
-        const isHomeDept = homeDepartmentId === dept.id;
-        const statusClass = isHomeDept ? 'home' : dept.isVisited ? 'visited' : 'pending';
-
-        // Custom circular button marker (100% circular, sin recuadros oscuros)
-        const customIcon = L.divIcon({
-          className: 'custom-centroid-marker',
-          html: `
-            <div class="centroid-dot ${statusClass}" 
-                 id="dept-centroid-${dept.id}"
-                 title="${dept.name} (${dept.visitedMunicipalities}/${dept.totalMunicipalities} municipios)${isHomeDept ? ' • Departamento Hogar' : ''}">
-              ${isHomeDept ? '🏠' : ''}
-            </div>
-          `,
-          iconSize: isHomeDept ? [28, 28] : [24, 24],
-          iconAnchor: isHomeDept ? [14, 14] : [12, 12]
-        });
-
-        const marker = L.marker([dept.latitude, dept.longitude], {
-          icon: customIcon
-        });
-
-        marker.on('click', () => {
-          onSelectDepartment(dept.id);
-        });
-
-        marker.on('mouseover', () => {
-          setHoveredDept(dept);
-        });
-
-        marker.on('mouseout', () => {
-          setHoveredDept(null);
-        });
-
-        marker.bindTooltip(
-          `<strong>${dept.name}</strong>${isHomeDept ? ' 🏠 (Tu Departamento Hogar)' : ''}<br/>${dept.visitedMunicipalities} de ${dept.totalMunicipalities} municipios visitados`,
-          {
-            direction: 'top',
-            offset: [0, -10]
-          }
-        );
-
-        markersGroup.addLayer(marker);
-      });
 
       // Fit map to Colombia bounds safely
       map.fitBounds([
@@ -190,12 +147,65 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
     return () => {
       if (resizeObserver) resizeObserver.disconnect();
       if (timer) clearTimeout(timer);
+      markersLayerRef.current = null;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
     };
-  }, [viewMode, departments]);
+  }, [viewMode, mapFailed]);
+
+  // Update map centroid markers dynamically whenever filters, search query, or departments change
+  useEffect(() => {
+    const markersGroup = markersLayerRef.current;
+    if (viewMode !== 'map' || mapFailed || !markersGroup) return;
+
+    markersGroup.clearLayers();
+
+    displayedDepartments.forEach((dept) => {
+      const isHomeDept = homeDepartmentId === dept.id;
+      const statusClass = isHomeDept ? 'home' : dept.isVisited ? 'visited' : 'pending';
+
+      const customIcon = L.divIcon({
+        className: 'custom-centroid-marker',
+        html: `
+          <div class="centroid-dot ${statusClass}" 
+               id="dept-centroid-${dept.id}"
+               title="${dept.name} (${dept.visitedMunicipalities}/${dept.totalMunicipalities} municipios)${isHomeDept ? ' • Departamento Hogar' : ''}">
+            ${isHomeDept ? '🏠' : ''}
+          </div>
+        `,
+        iconSize: isHomeDept ? [28, 28] : [24, 24],
+        iconAnchor: isHomeDept ? [14, 14] : [12, 12]
+      });
+
+      const marker = L.marker([dept.latitude, dept.longitude], {
+        icon: customIcon
+      });
+
+      marker.on('click', () => {
+        onSelectDeptRef.current(dept.id);
+      });
+
+      marker.on('mouseover', () => {
+        setHoveredDept(dept);
+      });
+
+      marker.on('mouseout', () => {
+        setHoveredDept(null);
+      });
+
+      marker.bindTooltip(
+        `<strong>${dept.name}</strong>${isHomeDept ? ' 🏠 (Tu Departamento Hogar)' : ''}<br/>${dept.visitedMunicipalities} de ${dept.totalMunicipalities} municipios visitados`,
+        {
+          direction: 'top',
+          offset: [0, -10]
+        }
+      );
+
+      markersGroup.addLayer(marker);
+    });
+  }, [displayedDepartments, homeDepartmentId, viewMode, mapFailed]);
 
   return (
     <div
@@ -311,8 +321,58 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
 
       {/* Main Content Area: Map Canvas (hidden on mobile) and Department Cards Panel */}
       <div className="flex-1 px-3 sm:px-6 md:px-8 pt-3 sm:pt-4 pb-4 sm:pb-6 min-h-0 flex flex-col md:flex-row gap-4 sm:gap-6">
-        {/* Left: Map Canvas - Oculto en pantallas móviles (< md) para máximo rendimiento */}
+        {/* Left: Map / Grid Area - Oculto en pantallas móviles (< md) para máximo rendimiento */}
         <div className="hidden md:flex flex-1 h-full min-h-0 bg-white dark:bg-[#1E2228] rounded-3xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.15)] border border-[#FFF0F3] dark:border-zinc-800 relative flex-col">
+          {/* Interruptor segmentado flotante arriba a la izquierda: Ver Mapa / Ver Cuadrícula */}
+          <div className="absolute top-3.5 left-3.5 z-20 inline-flex items-center gap-1 p-1 rounded-full bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md shadow-[0_10px_25px_-10px_rgba(0,0,0,0.22)] border border-[#FFE4EA] dark:border-zinc-700">
+            <button
+              id="country-view-mode-map-btn"
+              type="button"
+              aria-pressed={viewMode === 'map' && !mapFailed}
+              onClick={() => {
+                setMapFailed(false);
+                setViewMode('map');
+              }}
+              style={
+                viewMode === 'map' && !mapFailed
+                  ? { backgroundColor: 'var(--color-accent)', color: '#ffffff' }
+                  : undefined
+              }
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                viewMode === 'map' && !mapFailed
+                  ? 'shadow-sm'
+                  : 'text-slate-700 dark:text-zinc-300 hover:text-accent-primary hover:bg-[#FFF5F7] dark:hover:bg-zinc-800'
+              }`}
+              title="Ver mapa interactivo"
+            >
+              <span>🗺️</span>
+              <span>Ver Mapa</span>
+            </button>
+            <button
+              id="country-view-mode-grid-btn"
+              type="button"
+              aria-pressed={viewMode === 'grid' || mapFailed}
+              onClick={() => {
+                setMapFailed(false);
+                setViewMode('grid');
+              }}
+              style={
+                viewMode === 'grid' || mapFailed
+                  ? { backgroundColor: 'var(--color-accent)', color: '#ffffff' }
+                  : undefined
+              }
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                viewMode === 'grid' || mapFailed
+                  ? 'shadow-sm'
+                  : 'text-slate-700 dark:text-zinc-300 hover:text-accent-primary hover:bg-[#FFF5F7] dark:hover:bg-zinc-800'
+              }`}
+              title="Ver cuadrícula de departamentos"
+            >
+              <span>🗂️</span>
+              <span>Ver Cuadrícula</span>
+            </button>
+          </div>
+
           {viewMode === 'map' && !mapFailed ? (
             <div 
               id="colombia-leaflet-map"
@@ -322,7 +382,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
             />
           ) : (
             /* Directory Grid (user-selected or real map fallback) */
-            <div className="w-full h-full overflow-y-auto px-6 py-6 pb-28 sm:pb-20 z-10 animate-in fade-in">
+            <div className="w-full h-full overflow-y-auto px-6 pt-[72px] pb-28 sm:pb-20 z-10 animate-in fade-in">
               {mapFailed && (
                 <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 p-4 rounded-2xl mb-6 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200 text-xs font-medium">
@@ -346,7 +406,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
                 Directorio Departamental de Colombia ({visitedCount}/{totalCount})
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {displayedDepartments.map((dept) => (
                   <div
                     key={dept.id}
@@ -391,12 +451,33 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
                   </div>
                 ))}
               </div>
+
+              {displayedDepartments.length === 0 && (
+                <div className="text-center py-12 px-4 bg-[#FFFBFB] dark:bg-[#282D35] rounded-2xl border border-dashed border-[#FFE4EA] dark:border-zinc-700 mt-4">
+                  <MapPin className="w-8 h-8 text-slate-300 dark:text-zinc-500 mx-auto mb-2" />
+                  <p className="text-xs text-slate-500 dark:text-zinc-300 font-medium">
+                    No se encontraron departamentos con ese criterio.
+                  </p>
+                  {(searchQuery || filterTab !== 'all') && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearchQuery('');
+                        setFilterTab('all');
+                      }}
+                      className="mt-2 text-xs font-bold text-accent-primary hover:underline cursor-pointer"
+                    >
+                      Restablecer filtros
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
-          {/* Map Legend at bottom-left */}
+          {/* Map Legend at bottom-left, offset beside the zoom control */}
           {viewMode === 'map' && !mapFailed && (
-            <div className="absolute bottom-4 left-4 z-20 bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-md border border-[#FFE4EA] dark:border-zinc-700 flex flex-wrap items-center gap-3 text-xs pointer-events-none">
+            <div className="absolute bottom-3 left-14 right-3 sm:right-auto w-fit max-w-[calc(100%-4.5rem)] z-20 bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md px-3 py-2 rounded-2xl shadow-md border border-[#FFE4EA] dark:border-zinc-700 flex flex-wrap items-center gap-2.5 text-xs pointer-events-none">
               <div className="flex items-center gap-1.5">
                 <span className="w-3.5 h-3.5 rounded-full bg-[#FEA38E] border border-white inline-block shadow-sm" />
                 <span className="text-slate-600 dark:text-zinc-200 font-medium">Explorado</span>
@@ -405,7 +486,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
                 <span className="w-3.5 h-3.5 rounded-full bg-[#E2E8F0] dark:bg-zinc-600 border border-white inline-block shadow-sm" />
                 <span className="text-slate-600 dark:text-zinc-200 font-medium">Pendiente</span>
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="hidden lg:flex items-center gap-1.5">
                 <span
                   className="w-3.5 h-3.5 rounded-full bg-white border-2 inline-block shadow-sm"
                   style={{ borderColor: 'var(--color-accent)' }}
@@ -425,216 +506,204 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
         </div>
 
         {/* Panel de Departamentos (100% de ancho en móvil, panel lateral en desktop) */}
-        <div className="w-full md:w-96 flex-1 md:flex-initial h-full flex flex-col bg-white dark:bg-[#1E2228] rounded-3xl p-4 sm:p-6 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.18)] border border-[#FFF0F3] dark:border-zinc-800 min-h-0 animate-in slide-in-from-right-5 duration-300">
-          {/* Buscador en píldora superior */}
-          <div className="relative mb-3 sm:mb-4 flex-shrink-0">
-            <input
-              id="search-department-input"
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar departamento o capital..."
-              className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-full text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 shadow-sm transition-all"
-            />
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3 sm:top-3.5 pointer-events-none" />
-          </div>
-
-          {/* Tarjeta de progreso pastel: "X / 32 Departamentos" */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%)'
-            }}
-            className="text-white p-4 sm:p-5 rounded-3xl shadow-md mb-3 sm:mb-4 text-center relative overflow-hidden flex-shrink-0"
-          >
-            <div className="relative z-10">
-              <span className="block text-2xl sm:text-4xl font-extrabold tracking-tight">
-                {visitedCount} / {totalCount}
-              </span>
-              <span className="text-[11px] sm:text-xs font-semibold tracking-wide uppercase opacity-95">
-                Departamentos visitados
-              </span>
-            </div>
-            {/* Soft decorative background ring */}
-            <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-white/15 pointer-events-none" />
-          </div>
-
-          {/* Píldoras de filtro (Todos / Visitados / Pendientes) y Ruleta */}
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-3 px-1 flex-shrink-0">
-            <div className="flex items-center gap-1 bg-[#FFF5F7] dark:bg-[#282D35] p-1 rounded-full text-[10px] sm:text-[11px] font-semibold border border-[#FFE4EA] dark:border-zinc-700 overflow-x-auto no-scrollbar">
-              <button
-                type="button"
-                onClick={() => setFilterTab('all')}
-                style={
-                  filterTab === 'all'
-                    ? { backgroundColor: 'var(--color-accent)', borderColor: 'var(--color-accent-soft)' }
-                    : undefined
-                }
-                className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
-                  filterTab === 'all'
-                    ? 'text-white shadow-xs font-bold'
-                    : 'text-slate-600 dark:text-zinc-300 hover:text-accent-primary'
-                }`}
-              >
-                Todos ({departments.length})
-              </button>
-              <button
-                type="button"
-                onClick={() => setFilterTab('visited')}
-                style={
-                  filterTab === 'visited'
-                    ? { backgroundColor: 'var(--color-accent)', borderColor: 'var(--color-accent-soft)' }
-                    : undefined
-                }
-                className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
-                  filterTab === 'visited'
-                    ? 'text-white shadow-xs font-bold'
-                    : 'text-slate-600 dark:text-zinc-300 hover:text-accent-primary'
-                }`}
-              >
-                Visitados ({visitedCount})
-              </button>
-              <button
-                type="button"
-                onClick={() => setFilterTab('pending')}
-                style={
-                  filterTab === 'pending'
-                    ? { backgroundColor: 'var(--color-accent)', borderColor: 'var(--color-accent-soft)' }
-                    : undefined
-                }
-                className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
-                  filterTab === 'pending'
-                    ? 'text-white shadow-xs font-bold'
-                    : 'text-slate-600 dark:text-zinc-300 hover:text-accent-primary'
-                }`}
-              >
-                Pendientes ({totalCount - visitedCount})
-              </button>
+        <div className="w-full md:w-[340px] lg:w-96 flex-1 md:flex-initial h-full flex flex-col bg-white dark:bg-[#1E2228] rounded-3xl p-4 sm:p-5 md:p-0 md:overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.18)] border border-[#FFF0F3] dark:border-zinc-800 min-h-0 animate-in slide-in-from-right-5 duration-300">
+          {/* Fila fija arriba: Buscador (flex-1) + Botón Ruleta "¿A dónde ir?" (auto) con fondo sólido del panel */}
+          <div className="flex items-center gap-2 mb-3 md:mb-0 md:px-5 lg:px-6 md:pt-5 lg:pt-6 md:pb-3 bg-white dark:bg-[#1E2228] md:z-10 flex-shrink-0">
+            <div className="relative flex-1 min-w-0">
+              <input
+                id="search-department-input"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar departamento o capital..."
+                className="w-full pl-9 pr-3 py-2.5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-full text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 shadow-sm transition-all"
+              />
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
             </div>
 
-            <div className="flex items-center gap-1.5 ml-auto">
-              {/* Botón Píldora: 🎰 ¿A dónde ir? (Ruleta de Departamentos) */}
-              <button
-                id="country-roulette-trigger-btn"
-                type="button"
-                onClick={() => setIsRouletteOpen(true)}
-                className="px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold bg-white dark:bg-[#282D35] text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50 shadow-2xs hover:shadow-md hover:bg-rose-50 dark:hover:bg-zinc-800 transition-all duration-200 flex items-center gap-1.5 cursor-pointer whitespace-nowrap group hover:-translate-y-0.5 active:translate-y-0"
-                title="🎰 ¿A dónde ir? (Ruleta de Departamentos)"
-              >
-                <span className="text-xs transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">🎰</span>
-                <span>¿A dónde ir?</span>
-              </button>
+            {/* Botón Píldora: 🎰 ¿A dónde ir? (Ruleta de Departamentos) */}
+            <button
+              id="country-roulette-trigger-btn"
+              type="button"
+              onClick={() => setIsRouletteOpen(true)}
+              className="px-3 py-2.5 rounded-full text-xs font-bold bg-[#FFF0F3] dark:bg-[#282D35] text-rose-600 dark:text-rose-400 border border-rose-200/90 dark:border-rose-900/60 shadow-2xs hover:shadow-md hover:bg-rose-100/60 dark:hover:bg-zinc-750 transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap group hover:-translate-y-0.5 active:translate-y-0 flex-shrink-0"
+              title="🎰 ¿A dónde ir? (Ruleta de Departamentos)"
+            >
+              <span className="text-xs transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">🎰</span>
+              <span>¿A dónde ir?</span>
+            </button>
+          </div>
 
-              {/* Toggle 'Ver Mapa / Ver Cuadrícula' oculto en versión móvil con hidden md:flex */}
-              <button
-                type="button"
-                onClick={() => {
-                  if (viewMode === 'grid') {
-                    setMapFailed(false);
-                    setViewMode('map');
-                  } else {
-                    setMapFailed(false);
-                    setViewMode('grid');
+          {/* Contenedor debajo del buscador: en >= 768 px todo hace scroll junto en un único contenedor; en < 768 px lo superior queda estático y solo la lista hace scroll */}
+          <div className="flex-1 min-h-0 flex flex-col md:block md:overflow-y-auto md:px-5 lg:px-6 md:pt-1 md:pb-24">
+            {/* Tarjeta de progreso pastel: "X / 32 Departamentos" */}
+            <div
+              style={{
+                background: 'linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%)'
+              }}
+              className="text-white p-4 sm:p-5 rounded-3xl shadow-md mb-3 text-center relative overflow-hidden flex-shrink-0"
+            >
+              <div className="relative z-10">
+                <span className="block text-2xl sm:text-4xl font-extrabold tracking-tight">
+                  {visitedCount} / {totalCount}
+                </span>
+                <span className="text-[11px] sm:text-xs font-semibold tracking-wide uppercase opacity-95">
+                  Departamentos visitados
+                </span>
+              </div>
+              {/* Soft decorative background ring */}
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-white/15 pointer-events-none" />
+            </div>
+
+            {/* Píldoras de filtro justo debajo del recuadro rosa (Todos / Visitados / Pendientes) */}
+            <div className="mb-3 flex-shrink-0">
+              <div className="grid grid-cols-3 gap-1 bg-[#FFF5F7] dark:bg-[#282D35] p-1 rounded-full text-[11px] font-semibold border border-[#FFE4EA] dark:border-zinc-700">
+                <button
+                  id="country-filter-all-btn"
+                  type="button"
+                  onClick={() => setFilterTab('all')}
+                  style={
+                    filterTab === 'all'
+                      ? { backgroundColor: 'var(--color-accent)', color: '#ffffff' }
+                      : undefined
                   }
-                }}
-                className="hidden md:flex text-[11px] font-semibold text-accent-primary hover:underline items-center gap-1 cursor-pointer flex-shrink-0 ml-1"
-              >
-                <Layers className="w-3 h-3" />
-                {viewMode === 'grid' ? 'Ver Mapa' : 'Ver Cuadrícula'}
-              </button>
-            </div>
-          </div>
-
-          {/* Listado vertical de tarjetas de todos los departamentos (con clic directo) */}
-          <div className="overflow-y-auto space-y-2 sm:space-y-2.5 pr-2.5 sm:pr-3 pb-28 sm:pb-20 flex-1 min-h-0">
-            {displayedDepartments.map((dept) => (
-              <div
-                key={dept.id}
-                onClick={() => onSelectDepartment(dept.id)}
-                className="p-3 bg-[#FFFBFB] dark:bg-[#282D35] hover:bg-[#FFF3F5] dark:hover:bg-[#2c323b] rounded-2xl border border-[#FFE8ED] dark:border-zinc-700 transition-all cursor-pointer flex items-center gap-3 group shadow-xs"
-              >
-                {/* Icono / Mini badge del departamento */}
-                <div
-                  className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-105 ${
-                    dept.isVisited
-                      ? 'bg-[#FFE4EA] dark:bg-zinc-700 text-accent-primary'
-                      : 'bg-slate-100 dark:bg-zinc-700/70 text-slate-500 dark:text-zinc-300'
+                  className={`px-2 py-1.5 rounded-full transition-all cursor-pointer truncate text-center ${
+                    filterTab === 'all'
+                      ? 'shadow-xs font-bold'
+                      : 'text-slate-600 dark:text-zinc-300 hover:text-accent-primary'
                   }`}
                 >
-                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
+                  Todos ({departments.length})
+                </button>
+                <button
+                  id="country-filter-visited-btn"
+                  type="button"
+                  onClick={() => setFilterTab('visited')}
+                  style={
+                    filterTab === 'visited'
+                      ? { backgroundColor: 'var(--color-accent)', color: '#ffffff' }
+                      : undefined
+                  }
+                  className={`px-2 py-1.5 rounded-full transition-all cursor-pointer truncate text-center ${
+                    filterTab === 'visited'
+                      ? 'shadow-xs font-bold'
+                      : 'text-slate-600 dark:text-zinc-300 hover:text-accent-primary'
+                  }`}
+                >
+                  Visitados ({visitedCount})
+                </button>
+                <button
+                  id="country-filter-pending-btn"
+                  type="button"
+                  onClick={() => setFilterTab('pending')}
+                  style={
+                    filterTab === 'pending'
+                      ? { backgroundColor: 'var(--color-accent)', color: '#ffffff' }
+                      : undefined
+                  }
+                  className={`px-2 py-1.5 rounded-full transition-all cursor-pointer truncate text-center ${
+                    filterTab === 'pending'
+                      ? 'shadow-xs font-bold'
+                      : 'text-slate-600 dark:text-zinc-300 hover:text-accent-primary'
+                  }`}
+                >
+                  Pendientes ({totalCount - visitedCount})
+                </button>
+              </div>
+            </div>
 
-                {/* Nombre, Capital y Progreso */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-center mb-0.5 gap-1.5">
-                    <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-zinc-100 truncate group-hover:text-accent-primary transition-colors flex items-center gap-1.5">
-                      <span className="truncate">{dept.name}</span>
-                      {homeDepartmentId === dept.id && (
-                        <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex items-center gap-0.5 flex-shrink-0">
-                          🏠 Hogar
-                        </span>
-                      )}
-                    </span>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${
+            {/* Listado vertical de tarjetas de todos los departamentos (scroll propio solo en móvil < 768 px) */}
+            <div className="overflow-y-auto md:overflow-visible space-y-2 sm:space-y-2.5 pr-2.5 sm:pr-3 md:pr-0 pb-28 sm:pb-20 md:pb-0 flex-1 md:flex-none min-h-0">
+              {displayedDepartments.map((dept) => (
+                <div
+                  key={dept.id}
+                  onClick={() => onSelectDepartment(dept.id)}
+                  className="p-3 bg-[#FFFBFB] dark:bg-[#282D35] hover:bg-[#FFF3F5] dark:hover:bg-[#2c323b] rounded-2xl border border-[#FFE8ED] dark:border-zinc-700 transition-all cursor-pointer flex items-center gap-3 group shadow-xs"
+                >
+                  {/* Icono / Mini badge del departamento */}
+                  <div
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-105 ${
                       dept.isVisited
-                        ? 'bg-[#FFE8ED] dark:bg-zinc-700 text-accent-primary'
-                        : 'bg-slate-100 dark:bg-zinc-700 text-slate-600 dark:text-zinc-200'
-                    }`}>
-                      {dept.isVisited ? 'Explorado' : 'Pendiente'}
-                    </span>
+                        ? 'bg-[#FFE4EA] dark:bg-zinc-700 text-accent-primary'
+                        : 'bg-slate-100 dark:bg-zinc-700/70 text-slate-500 dark:text-zinc-300'
+                    }`}
+                  >
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
 
-                  <div className="flex justify-between items-center text-[10px] text-slate-500 dark:text-zinc-300 mb-1">
-                    <span className="truncate">Capital: {dept.capital}</span>
-                    <span className="flex-shrink-0 font-medium">
-                      {dept.visitedMunicipalities}/{dept.totalMunicipalities} ({dept.progressPercentage}%)
-                    </span>
+                  {/* Nombre, Capital y Progreso */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-center mb-0.5 gap-1.5">
+                      <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-zinc-100 truncate group-hover:text-accent-primary transition-colors flex items-center gap-1.5">
+                        <span className="truncate">{dept.name}</span>
+                        {homeDepartmentId === dept.id && (
+                          <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex items-center gap-0.5 flex-shrink-0">
+                            🏠 Hogar
+                          </span>
+                        )}
+                      </span>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${
+                        dept.isVisited
+                          ? 'bg-[#FFE8ED] dark:bg-zinc-700 text-accent-primary'
+                          : 'bg-slate-100 dark:bg-zinc-700 text-slate-600 dark:text-zinc-200'
+                      }`}>
+                        {dept.isVisited ? 'Explorado' : 'Pendiente'}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-[10px] text-slate-500 dark:text-zinc-300 mb-1">
+                      <span className="truncate">Capital: {dept.capital}</span>
+                      <span className="flex-shrink-0 font-medium">
+                        {dept.visitedMunicipalities}/{dept.totalMunicipalities} ({dept.progressPercentage}%)
+                      </span>
+                    </div>
+
+                    <div className="w-full h-1.5 bg-slate-100 dark:bg-zinc-700 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-300"
+                        style={{
+                          width: `${dept.progressPercentage}%`,
+                          backgroundColor: 'var(--color-accent)'
+                        }}
+                      />
+                    </div>
                   </div>
 
-                  <div className="w-full h-1.5 bg-slate-100 dark:bg-zinc-700 rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all duration-300"
-                      style={{
-                        width: `${dept.progressPercentage}%`,
-                        backgroundColor: 'var(--color-accent)'
-                      }}
-                    />
-                  </div>
+                  <ChevronRight className="w-4 h-4 text-slate-400 dark:text-zinc-400 group-hover:text-accent-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                 </div>
+              ))}
 
-                <ChevronRight className="w-4 h-4 text-slate-400 dark:text-zinc-400 group-hover:text-accent-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
-              </div>
-            ))}
-
-            {displayedDepartments.length === 0 && (
-              <div className="text-center py-12 px-4 bg-[#FFFBFB] dark:bg-[#282D35] rounded-2xl border border-dashed border-[#FFE4EA] dark:border-zinc-700">
-                <MapPin className="w-8 h-8 text-slate-300 dark:text-zinc-500 mx-auto mb-2" />
-                {searchQuery.trim() !== '' ? (
-                  <p className="text-xs text-slate-500 dark:text-zinc-300 font-medium">
-                    No se encontraron departamentos que coincidan con "{searchQuery}".
-                  </p>
-                ) : filterTab === 'visited' ? (
-                  <div className="space-y-2">
-                    <p className="text-xs font-semibold text-slate-700 dark:text-zinc-100">
-                      Aún no tienes departamentos visitados
+              {displayedDepartments.length === 0 && (
+                <div className="text-center py-12 px-4 bg-[#FFFBFB] dark:bg-[#282D35] rounded-2xl border border-dashed border-[#FFE4EA] dark:border-zinc-700">
+                  <MapPin className="w-8 h-8 text-slate-300 dark:text-zinc-500 mx-auto mb-2" />
+                  {searchQuery.trim() !== '' ? (
+                    <p className="text-xs text-slate-500 dark:text-zinc-300 font-medium">
+                      No se encontraron departamentos que coincidan con "{searchQuery}".
                     </p>
-                    <p className="text-[11px] text-slate-500 dark:text-zinc-400">
-                      Selecciona la pestaña "Todos" para comenzar a explorar y registrar tus viajes en Colombia.
+                  ) : filterTab === 'visited' ? (
+                    <div className="space-y-2">
+                      <p className="text-xs font-semibold text-slate-700 dark:text-zinc-100">
+                        Aún no tienes departamentos visitados
+                      </p>
+                      <p className="text-[11px] text-slate-500 dark:text-zinc-400">
+                        Selecciona la pestaña "Todos" para comenzar a explorar y registrar tus viajes en Colombia.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setFilterTab('all')}
+                        className="text-xs font-bold text-[#F44566] hover:underline pt-1 inline-block cursor-pointer"
+                      >
+                        Ver todos los 32 departamentos
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-slate-500 dark:text-zinc-300 font-medium">
+                      No hay departamentos disponibles en este filtro.
                     </p>
-                    <button
-                      type="button"
-                      onClick={() => setFilterTab('all')}
-                      className="text-xs font-bold text-[#F44566] hover:underline pt-1 inline-block cursor-pointer"
-                    >
-                      Ver todos los 32 departamentos
-                    </button>
-                  </div>
-                ) : (
-                  <p className="text-xs text-slate-500 dark:text-zinc-300 font-medium">
-                    No hay departamentos disponibles en este filtro.
-                  </p>
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

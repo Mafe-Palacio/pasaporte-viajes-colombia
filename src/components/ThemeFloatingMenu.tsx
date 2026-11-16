@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Palette, Sun, Moon } from 'lucide-react';
+import { Settings, Sun, Moon, ChevronRight, ArrowLeft } from 'lucide-react';
 import {
   RGB,
   HSV,
@@ -15,6 +15,7 @@ import {
 
 export const ThemeFloatingMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [activeView, setActiveView] = useState<'menu' | 'color'>('menu');
   const [inputFormat, setInputFormat] = useState<'HEX' | 'RGB'>('HEX');
 
   // Dark Mode state
@@ -50,6 +51,7 @@ export const ThemeFloatingMenu: React.FC = () => {
   const [hexInputString, setHexInputString] = useState<string>(currentHex.replace('#', ''));
 
   const menuContainerRef = useRef<HTMLDivElement>(null);
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
   const spectrumRef = useRef<HTMLDivElement>(null);
   const isDraggingSpectrum = useRef<boolean>(false);
 
@@ -133,25 +135,39 @@ export const ThemeFloatingMenu: React.FC = () => {
     } catch {}
   };
 
-  // Click outside to close popover
+  const closeMenu = () => {
+    setIsOpen(false);
+    setActiveView('menu');
+  };
+
+  // Click/touch outside & Escape key to close popover
   useEffect(() => {
     const handlePointerDown = (e: MouseEvent | TouchEvent) => {
       if (
         menuContainerRef.current &&
         !menuContainerRef.current.contains(e.target as Node)
       ) {
-        setIsOpen(false);
+        closeMenu();
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+        triggerButtonRef.current?.focus();
       }
     };
 
     if (isOpen) {
       document.addEventListener('mousedown', handlePointerDown);
       document.addEventListener('touchstart', handlePointerDown);
+      document.addEventListener('keydown', handleKeyDown);
     }
 
     return () => {
       document.removeEventListener('mousedown', handlePointerDown);
       document.removeEventListener('touchstart', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen]);
 
@@ -168,74 +184,141 @@ export const ThemeFloatingMenu: React.FC = () => {
   return (
     <div
       ref={menuContainerRef}
-      className="fixed bottom-5 right-4 sm:bottom-auto sm:top-4 sm:right-4 z-50 select-none font-sans"
+      className="fixed bottom-5 right-4 z-[210] select-none font-sans"
     >
-      {/* Cápsula Flotante Compacta (Inferior en Móvil, Superior en Escritorio) */}
-      <div className="rounded-full bg-white/95 dark:bg-zinc-850/95 dark:bg-zinc-800/95 backdrop-blur-md px-3 py-1.5 shadow-lg border border-gray-100 dark:border-zinc-700 flex items-center gap-2 transition-all">
-        {/* Toggle Modo Oscuro con icono Sol/Luna */}
-        <button
-          id="theme-toggle-dark-btn"
-          type="button"
-          onClick={toggleDarkMode}
-          title={isDarkMode ? 'Cambiar a modo claro (☀️)' : 'Cambiar a modo oscuro (🌙)'}
-          aria-label="Alternar modo oscuro o claro"
-          className="p-1 rounded-full text-slate-600 dark:text-amber-400 hover:bg-slate-100 dark:hover:bg-zinc-700/80 transition-colors cursor-pointer flex items-center justify-center active:scale-90"
-        >
-          {isDarkMode ? (
-            <span className="text-sm leading-none select-none">☀️</span>
-          ) : (
-            <span className="text-sm leading-none select-none">🌙</span>
-          )}
-        </button>
+      {/* Botón Único Circular con Icono de Tuerca */}
+      <button
+        ref={triggerButtonRef}
+        id="theme-settings-trigger"
+        type="button"
+        onClick={() => {
+          if (isOpen) {
+            closeMenu();
+          } else {
+            setActiveView('menu');
+            setIsOpen(true);
+          }
+        }}
+        title="Configuración de apariencia"
+        aria-label="Abrir configuración de apariencia"
+        aria-expanded={isOpen}
+        aria-controls="theme-color-picker-popover"
+        className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/95 dark:bg-zinc-800/95 backdrop-blur-md shadow-lg hover:shadow-xl border border-gray-200/80 dark:border-zinc-700 flex items-center justify-center transition-all cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 dark:focus-visible:ring-zinc-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-900"
+      >
+        <Settings
+          className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-90' : 'rotate-0'}`}
+          style={{ color: 'var(--color-accent, ' + currentHex + ')' }}
+          aria-hidden="true"
+        />
+      </button>
 
-        {/* Divisor vertical suave */}
-        <div className="h-4 w-px bg-gray-200 dark:bg-zinc-700" />
-
-        {/* Botón Paleta / Selector con icono 🎨 */}
-        <button
-          id="theme-color-picker-trigger"
-          type="button"
-          onClick={() => setIsOpen((prev) => !prev)}
-          title="Personalizar color de acento"
-          aria-label="Abrir selector de color personalizado"
-          className="p-1 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-700/80 transition-colors cursor-pointer flex items-center gap-1.5 active:scale-95 group relative"
-        >
-          <span className="text-sm leading-none transition-transform group-hover:scale-110">🎨</span>
-          {/* Microindicador del color activo */}
-          <span
-            className="w-3 h-3 rounded-full ring-1 ring-white dark:ring-zinc-800 shadow-xs inline-block"
-            style={{ backgroundColor: currentHex }}
-          />
-        </button>
-      </div>
-
-      {/* Popover con Selector de Color Completo (Se abre hacia arriba en móvil y hacia abajo en desktop) */}
+      {/* Popover Unificado (siempre hacia arriba desde la esquina inferior derecha) */}
       {isOpen && (
         <div
           id="theme-color-picker-popover"
-          className="absolute right-0 bottom-full mb-2 sm:bottom-auto sm:top-full sm:mt-2 w-72 max-h-[80vh] overflow-y-auto no-scrollbar rounded-3xl p-4 shadow-2xl bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-700 animate-in fade-in zoom-in-95 duration-200 z-50 text-slate-800 dark:text-zinc-100"
+          role="dialog"
+          aria-label="Configuración de apariencia"
+          className="absolute right-0 bottom-full mb-2.5 w-[min(18rem,calc(100vw-2rem))] max-h-[80vh] overflow-y-auto no-scrollbar rounded-3xl p-4 shadow-2xl bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-700 animate-in fade-in zoom-in-95 duration-200 z-[210] text-slate-800 dark:text-zinc-100"
         >
-          {/* Header del Popover con Nombre de Tono */}
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-slate-700 dark:text-zinc-200 flex items-center gap-1.5">
-              <span
-                className="w-2.5 h-2.5 rounded-full inline-block"
-                style={{ backgroundColor: currentHex }}
-              />
-              Color de Acento
-            </span>
-            {/* Badge con el nombre del tono seleccionado */}
-            <span
-              className="text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs"
-              style={{
-                backgroundColor: 'var(--color-accent-light)',
-                color: currentHex,
-                border: '1px solid var(--color-accent-soft)'
-              }}
-            >
-              {toneName}
-            </span>
-          </div>
+          {activeView === 'menu' ? (
+            <div className="space-y-2.5">
+              <div className="px-1 pb-1 border-b border-gray-100 dark:border-zinc-800">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-400">
+                  Apariencia
+                </span>
+              </div>
+
+              {/* Opción a: Modo oscuro con interruptor deslizable tipo pill */}
+              <div className="flex items-center justify-between gap-3 p-2.5 rounded-2xl bg-slate-50/80 dark:bg-zinc-800/70 border border-slate-100 dark:border-zinc-700/70">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-full bg-white dark:bg-zinc-900 border border-slate-200/70 dark:border-zinc-700 flex items-center justify-center flex-shrink-0 shadow-2xs">
+                    {isDarkMode ? (
+                      <Moon className="w-4 h-4 text-amber-400" aria-hidden="true" />
+                    ) : (
+                      <Sun className="w-4 h-4 text-amber-500" aria-hidden="true" />
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <span className="block text-xs font-bold text-slate-800 dark:text-zinc-100 leading-tight">
+                      Modo oscuro
+                    </span>
+                    <span className="block text-[11px] text-slate-500 dark:text-zinc-400 mt-0.5">
+                      {isDarkMode ? 'Activado' : 'Desactivado'}
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  id="theme-toggle-dark-btn"
+                  type="button"
+                  role="switch"
+                  aria-checked={isDarkMode}
+                  aria-label="Modo oscuro"
+                  onClick={toggleDarkMode}
+                  style={isDarkMode ? { backgroundColor: currentHex } : undefined}
+                  className={`relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full p-0.5 transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 dark:focus-visible:ring-zinc-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-900 ${
+                    isDarkMode ? '' : 'bg-slate-300 dark:bg-zinc-600'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform duration-200 ${
+                      isDarkMode ? 'translate-x-5' : 'translate-x-0'
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* Opción b: Color de acento */}
+              <button
+                id="theme-accent-nav-btn"
+                type="button"
+                onClick={() => setActiveView('color')}
+                className="w-full flex items-center justify-between gap-3 p-2.5 rounded-2xl bg-slate-50/80 hover:bg-slate-100/90 dark:bg-zinc-800/70 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-700/70 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 dark:focus-visible:ring-zinc-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-900"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span
+                    className="w-8 h-8 rounded-full border-2 border-white dark:border-zinc-700 shadow-xs flex-shrink-0"
+                    style={{ backgroundColor: currentHex }}
+                    aria-hidden="true"
+                  />
+                  <div className="min-w-0">
+                    <span className="block text-xs font-bold text-slate-800 dark:text-zinc-100 leading-tight">
+                      Color de acento
+                    </span>
+                    <span className="block text-[11px] text-slate-500 dark:text-zinc-400 truncate mt-0.5">
+                      {toneName}
+                    </span>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-slate-400 dark:text-zinc-400 flex-shrink-0" aria-hidden="true" />
+              </button>
+            </div>
+          ) : (
+            <div>
+              {/* Header del Selector de Color con botón ← Volver y Nombre de Tono */}
+              <div className="flex items-center justify-between gap-2 mb-3 pb-2 border-b border-gray-100 dark:border-zinc-800">
+                <button
+                  id="theme-color-back-btn"
+                  type="button"
+                  onClick={() => setActiveView('menu')}
+                  className="inline-flex items-center gap-1 px-2 py-1 -ml-1 rounded-full text-xs font-bold text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 dark:focus-visible:ring-zinc-300"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Volver</span>
+                </button>
+
+                {/* Badge con el nombre del tono seleccionado */}
+                <span
+                  className="text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs truncate max-w-[130px]"
+                  style={{
+                    backgroundColor: 'var(--color-accent-light)',
+                    color: currentHex,
+                    border: '1px solid var(--color-accent-soft)'
+                  }}
+                >
+                  {toneName}
+                </span>
+              </div>
 
           {/* Lienzo de Color / Gradiente (Área 2D) con Espectro */}
           <div
@@ -265,7 +348,7 @@ export const ThemeFloatingMenu: React.FC = () => {
 
           {/* Barra Deslizadora (Slider de Matiz / Hue) */}
           <div className="mb-3.5 space-y-1">
-            <div className="flex justify-between items-center text-[10px] text-slate-400 font-semibold px-0.5">
+            <div className="flex justify-between items-center text-[10px] text-slate-500 dark:text-zinc-400 font-semibold px-0.5">
               <span>Matiz</span>
               <span className="font-mono">{hsv.h}°</span>
             </div>
@@ -289,7 +372,7 @@ export const ThemeFloatingMenu: React.FC = () => {
           {/* Inputs de Precisión con Selector Desplegable / Tabs (HEX / RGB) */}
           <div className="mb-3.5">
             <div className="flex items-center justify-between mb-1.5 px-0.5">
-              <span className="text-[10px] font-semibold text-slate-400">Valores de precisión</span>
+              <span className="text-[10px] font-semibold text-slate-500 dark:text-zinc-400">Valores de precisión</span>
               {/* Selector de formato HEX / RGB */}
               <div className="flex items-center bg-slate-100 dark:bg-zinc-800 rounded-lg p-0.5 border border-slate-200 dark:border-zinc-700 text-[10px]">
                 <button
@@ -353,7 +436,7 @@ export const ThemeFloatingMenu: React.FC = () => {
               <div className="grid grid-cols-3 gap-1.5 text-xs">
                 {/* R */}
                 <div className="flex flex-col items-center bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-xl px-1.5 py-1">
-                  <span className="text-[10px] text-slate-400 font-semibold">R</span>
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-semibold">R</span>
                   <input
                     type="number"
                     min={0}
@@ -365,7 +448,7 @@ export const ThemeFloatingMenu: React.FC = () => {
                 </div>
                 {/* G */}
                 <div className="flex flex-col items-center bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-xl px-1.5 py-1">
-                  <span className="text-[10px] text-slate-400 font-semibold">G</span>
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-semibold">G</span>
                   <input
                     type="number"
                     min={0}
@@ -377,7 +460,7 @@ export const ThemeFloatingMenu: React.FC = () => {
                 </div>
                 {/* B */}
                 <div className="flex flex-col items-center bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-xl px-1.5 py-1">
-                  <span className="text-[10px] text-slate-400 font-semibold">B</span>
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-400 font-semibold">B</span>
                   <input
                     type="number"
                     min={0}
@@ -393,10 +476,10 @@ export const ThemeFloatingMenu: React.FC = () => {
 
           {/* Presets Rápidos en Píldora (Tonos Pasteles Favoritos) */}
           <div>
-            <span className="block text-[10px] font-semibold text-slate-400 mb-1.5 px-0.5">
+            <span className="block text-[10px] font-semibold text-slate-500 dark:text-zinc-400 mb-1.5 px-0.5">
               Tonos Pasteles Favoritos
             </span>
-            <div className="flex items-center justify-between gap-1.5 bg-slate-50 dark:bg-zinc-800/80 p-1.5 rounded-2xl border border-slate-100 dark:border-zinc-750">
+            <div className="flex items-center justify-between gap-1.5 bg-slate-50 dark:bg-zinc-800/80 p-1.5 rounded-2xl border border-slate-100 dark:border-zinc-700">
               {PRESET_PASTEL_COLORS.map((preset) => {
                 const isSelected = currentHex.toUpperCase() === preset.hex.toUpperCase();
                 return (
@@ -421,6 +504,8 @@ export const ThemeFloatingMenu: React.FC = () => {
               })}
             </div>
           </div>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -34,9 +34,8 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
   const [filter, setFilter] = useState<'all' | 'visited' | 'pending'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'map' | 'grid'>('map');
-  const [isFallbackMode, setIsFallbackMode] = useState(false);
+  const [mapFailed, setMapFailed] = useState(false);
   const [isRouletteOpen, setIsRouletteOpen] = useState(false);
-  const [mapError, setMapError] = useState(false);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
 
@@ -80,7 +79,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
   }, [effectiveMunicipalities, department.name]);
 
   useEffect(() => {
-    if (viewMode !== 'map' || isFallbackMode) return;
+    if (viewMode !== 'map') return;
     if (!mapContainerRef.current) return;
     let resizeObserver: ResizeObserver | null = null;
     let timer: NodeJS.Timeout | null = null;
@@ -95,7 +94,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
       timer = setTimeout(() => {
         if (!mapInstanceRef.current && viewMode === 'map') {
           console.warn('Map initialization timeout in regional view, triggering fallback grid.');
-          setIsFallbackMode(true);
+          setMapFailed(true);
           setViewMode('grid');
         }
       }, 3500);
@@ -223,8 +222,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
       if (timer) clearTimeout(timer);
     } catch (err) {
       console.error('Error initializing Regional Leaflet map:', err);
-      setMapError(true);
-      setIsFallbackMode(true);
+      setMapFailed(true);
       setViewMode('grid');
     }
 
@@ -236,11 +234,11 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
         mapInstanceRef.current = null;
       }
     };
-  }, [department, effectiveMunicipalities, viewMode, isFallbackMode]);
+  }, [department, effectiveMunicipalities, viewMode]);
 
   return (
     <div
-      className="min-h-screen bg-[#FDF8F7] dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 pt-4 sm:pt-6 pb-28 sm:pb-16 px-4 sm:px-8 transition-colors"
+      className="min-h-screen bg-[#FDF8F7] dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 pt-4 sm:pt-6 pb-28 sm:pb-24 px-4 sm:px-8 transition-colors"
       style={{
         backgroundImage: 'linear-gradient(180deg, var(--color-accent-soft) 0%, transparent 45%)'
       }}
@@ -408,16 +406,16 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
               id="view-mode-map-btn"
               type="button"
               onClick={() => {
-                setIsFallbackMode(false);
+                setMapFailed(false);
                 setViewMode('map');
               }}
               style={
-                viewMode === 'map' && !isFallbackMode
+                viewMode === 'map' && !mapFailed
                   ? { backgroundColor: 'var(--color-accent)', borderColor: 'var(--color-accent-soft)' }
                   : undefined
               }
               className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
-                viewMode === 'map' && !isFallbackMode
+                viewMode === 'map' && !mapFailed
                   ? 'text-white shadow-md'
                   : 'text-slate-700 dark:text-zinc-300 hover:text-accent-primary hover:bg-[#FFF5F7] dark:hover:bg-zinc-800'
               }`}
@@ -429,14 +427,17 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
             <button
               id="view-mode-grid-btn"
               type="button"
-              onClick={() => setViewMode('grid')}
+              onClick={() => {
+                setMapFailed(false);
+                setViewMode('grid');
+              }}
               style={
-                viewMode === 'grid' || isFallbackMode
+                viewMode === 'grid'
                   ? { backgroundColor: 'var(--color-accent)', borderColor: 'var(--color-accent-soft)' }
                   : undefined
               }
               className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
-                viewMode === 'grid' || isFallbackMode
+                viewMode === 'grid'
                   ? 'text-white shadow-md'
                   : 'text-slate-700 dark:text-zinc-300 hover:text-accent-primary hover:bg-[#FFF5F7] dark:hover:bg-zinc-800'
               }`}
@@ -475,19 +476,20 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
         )}
       </div>
 
-      {/* Contingency Mode Banner when map fails or is fallback mode */}
-      {isFallbackMode && (
-        <div className="max-w-7xl mx-auto bg-amber-50 border border-amber-200 p-4 rounded-2xl mb-6 flex items-center justify-between shadow-xs">
-          <div className="flex items-center gap-2 text-amber-800 text-xs font-medium">
-            <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0" />
-            <span>Modo de contingencia activo (Despliegue automático de cuadrícula de municipios).</span>
+      {/* Contingency Mode Banner ONLY when map actually fails */}
+      {mapFailed && (
+        <div className="max-w-7xl mx-auto bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 p-4 rounded-2xl mb-6 flex flex-wrap items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200 text-xs font-medium">
+            <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+            <span>No se pudo cargar el mapa. Te mostramos el directorio de municipios.</span>
           </div>
           <button
+            type="button"
             onClick={() => {
-              setIsFallbackMode(false);
+              setMapFailed(false);
               setViewMode('map');
             }}
-            className="flex items-center gap-1 text-xs font-bold text-[#F44566] hover:underline cursor-pointer"
+            className="flex items-center gap-1 text-xs font-bold text-accent-primary hover:underline cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" /> Reintentar Mapa
           </button>
@@ -495,7 +497,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
       )}
 
       {/* Main Content Area: Conditional rendering based on viewMode */}
-      {viewMode === 'map' && !isFallbackMode ? (
+      {viewMode === 'map' && !mapFailed ? (
         <>
           {/* Panel Lateral Separado del Mapa matching Layout Instructions */}
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 mb-8">
@@ -508,17 +510,17 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                 style={{ filter: 'saturate(0.7) brightness(1.05)' }}
               />
               {/* Map Legend Overlay */}
-              <div className="absolute bottom-4 left-4 z-20 bg-white/95 dark:bg-zinc-850/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-md border border-[#FFE4EA] dark:border-zinc-750 flex items-center gap-3 text-xs pointer-events-none">
+              <div className="absolute bottom-4 left-4 z-20 bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-md border border-[#FFE4EA] dark:border-zinc-700 flex items-center gap-3 text-xs pointer-events-none">
                 <div className="flex items-center gap-1.5">
                   <span
                     className="w-3.5 h-3.5 rounded-full border border-white inline-block shadow-sm"
                     style={{ backgroundColor: 'var(--color-accent)' }}
                   />
-                  <span className="text-slate-600 dark:text-zinc-300 font-medium">Visitado</span>
+                  <span className="text-slate-600 dark:text-zinc-200 font-medium">Visitado</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="w-3.5 h-3.5 rounded-full bg-white dark:bg-zinc-700 border-2 border-dashed border-[#D1D5DB] dark:border-zinc-500 inline-block shadow-sm" />
-                  <span className="text-slate-600 dark:text-zinc-300 font-medium">Pendiente</span>
+                  <span className="text-slate-600 dark:text-zinc-200 font-medium">Pendiente</span>
                 </div>
                 <div className="hidden sm:flex items-center gap-1.5">
                   <span className="text-[11px] text-accent-primary font-medium">● Clic para ver ficha</span>
@@ -546,7 +548,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                   id="regional-roulette-sidebar-btn"
                   type="button"
                   onClick={() => setIsRouletteOpen(true)}
-                  className="px-3 py-2.5 rounded-full text-xs font-bold bg-[#FFF0F3] dark:bg-zinc-850 text-rose-600 dark:text-rose-400 border border-rose-200/90 dark:border-rose-900/60 shadow-2xs hover:shadow-md hover:bg-rose-100/60 dark:hover:bg-zinc-750 transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap group hover:-translate-y-0.5 active:translate-y-0 flex-shrink-0"
+                  className="px-3 py-2.5 rounded-full text-xs font-bold bg-[#FFF0F3] dark:bg-[#282D35] text-rose-600 dark:text-rose-400 border border-rose-200/90 dark:border-rose-900/60 shadow-2xs hover:shadow-md hover:bg-rose-100/60 dark:hover:bg-zinc-750 transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap group hover:-translate-y-0.5 active:translate-y-0 flex-shrink-0"
                   title="🎰 Ruleta de Pueblos"
                 >
                   <span className="text-xs transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">🎰</span>
@@ -602,13 +604,13 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
               </div>
 
               {/* Scrollable list */}
-              <div className="overflow-y-auto space-y-2 pr-2.5 sm:pr-3 pb-28 sm:pb-12 flex-1 min-h-0">
+              <div className="overflow-y-auto space-y-2 pr-2.5 sm:pr-3 pb-28 sm:pb-20 flex-1 min-h-0">
                 {filteredMunicipalities.length > 0 ? (
                   filteredMunicipalities.map((muni) => (
                     <div
                       key={muni.id}
                       onClick={() => onSelectMunicipality(muni.id)}
-                      className="p-2.5 bg-[#FFFBFB] dark:bg-zinc-800/80 hover:bg-[#FFF3F5] dark:hover:bg-zinc-800 rounded-2xl border border-[#FFE8ED] dark:border-zinc-750 transition-all cursor-pointer flex items-center justify-between group"
+                      className="p-2.5 bg-[#FFFBFB] dark:bg-zinc-800/80 hover:bg-[#FFF3F5] dark:hover:bg-zinc-800 rounded-2xl border border-[#FFE8ED] dark:border-zinc-700 transition-all cursor-pointer flex items-center justify-between group"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         <div
@@ -617,7 +619,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                               ? 'bg-rose-500 text-white shadow-xs'
                               : muni.isVisited
                               ? 'bg-[#FFE4EA] dark:bg-zinc-700 text-accent-primary'
-                              : 'bg-slate-100 dark:bg-zinc-700 text-slate-400 dark:text-zinc-500'
+                              : 'bg-slate-100 dark:bg-zinc-700 text-slate-500 dark:text-zinc-300'
                           }`}
                         >
                           {(muni.isHome || (homeMunicipalityId && (homeMunicipalityId === muni.id || homeMunicipalityId === muni.code))) ? (
@@ -634,12 +636,12 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                               {muni.name}
                             </span>
                             {(muni.isHome || (homeMunicipalityId && (homeMunicipalityId === muni.id || homeMunicipalityId === muni.code))) && (
-                              <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 text-rose-700 border border-rose-200 flex-shrink-0">
+                              <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex-shrink-0">
                                 Hogar
                               </span>
                             )}
                           </div>
-                          <p className="text-[10px] text-slate-400 dark:text-zinc-400">
+                          <p className="text-[10px] text-slate-500 dark:text-zinc-400">
                             {(muni.isHome || (homeMunicipalityId && (homeMunicipalityId === muni.id || homeMunicipalityId === muni.code)))
                               ? 'Ciudad Hogar / Residencia'
                               : muni.isVisited
@@ -655,7 +657,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                   ))
                 ) : (
                   <div className="text-center py-8 px-4">
-                    <p className="text-xs text-slate-400 dark:text-zinc-500">
+                    <p className="text-xs text-slate-500 dark:text-zinc-300">
                       No se encontraron municipios con ese criterio en {department.name}.
                     </p>
                     {(searchQuery || filter !== 'all') && (
@@ -824,7 +826,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                           <span className="text-xs" title="Tu Ciudad Hogar">🏠</span>
                         )}
                       </h3>
-                      <p className="text-[11px] text-slate-400 dark:text-zinc-500 font-medium">
+                      <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-medium">
                         {department.name} {muni.code ? `• Cód. ${muni.code}` : ''}
                       </p>
                     </div>
@@ -839,7 +841,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                           ? 'bg-rose-500 text-white'
                           : muni.isVisited
                           ? 'text-white'
-                          : 'bg-[#F6EBD0] dark:bg-zinc-800 text-slate-700 dark:text-zinc-300'
+                          : 'bg-[#F6EBD0] dark:bg-zinc-800 text-slate-700 dark:text-zinc-200'
                       }`}
                     >
                       {(muni.isHome || (homeMunicipalityId && (homeMunicipalityId === muni.id || homeMunicipalityId === muni.code)))
@@ -861,7 +863,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                       {muni.tags.slice(0, 3).map((tag, idx) => (
                         <span
                           key={idx}
-                          className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-[#FFF5F7] dark:bg-zinc-800 text-accent-primary border border-[#FFE4EA] dark:border-zinc-750"
+                          className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-[#FFF5F7] dark:bg-zinc-800 text-accent-primary border border-[#FFE4EA] dark:border-zinc-700"
                         >
                           #{tag}
                         </span>

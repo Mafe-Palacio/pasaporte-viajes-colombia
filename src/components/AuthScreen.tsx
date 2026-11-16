@@ -11,9 +11,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
     const [mode, setMode] = useState<'login' | 'register'>('login');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [name, setName] = useState('');
     const [emailTouched, setEmailTouched] = useState(false);
+    const [confirmTouched, setConfirmTouched] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [formError, setFormError] = useState<string | null>(null);
     const [showForgotModal, setShowForgotModal] = useState(false);
@@ -26,6 +29,28 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
 
     // Check if email is invalid when touched, or if empty and touched
     const showEmailError = emailTouched && !isValidEmail(email);
+
+    // Live confirmation validation in register mode
+    const showConfirmMismatch =
+        mode === 'register' &&
+        (confirmPassword.length > 0 || confirmTouched) &&
+        confirmPassword !== password;
+    const passwordsMatch =
+        mode === 'register' &&
+        confirmPassword.length > 0 &&
+        confirmPassword === password;
+    const isRegisterSubmitDisabled =
+        mode === 'register' && (!confirmPassword || confirmPassword !== password);
+
+    const switchMode = (nextMode: 'login' | 'register') => {
+        setMode(nextMode);
+        setFormError(null);
+        setEmailTouched(false);
+        setConfirmPassword('');
+        setConfirmTouched(false);
+        setShowPassword(false);
+        setShowConfirmPassword(false);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,12 +66,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
         }
 
         if (mode === 'register') {
+            setConfirmTouched(true);
             if (!name.trim()) {
                 setFormError('Escribe el nombre de tu familia o el tuyo.');
                 return;
             }
             if (password.length < 8) {
                 setFormError('La contraseña debe tener al menos 8 caracteres.');
+                return;
+            }
+            if (password !== confirmPassword) {
                 return;
             }
         }
@@ -70,7 +99,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
 
     return (
         <div
-            className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-8 sm:py-12 bg-[#FFF0F3] dark:bg-[#121417] text-slate-800 dark:text-zinc-100 relative overflow-hidden transition-colors"
+            className="min-h-screen w-full flex flex-col items-center justify-center px-4 pt-8 pb-24 sm:py-12 bg-[#FFF0F3] dark:bg-[#121417] text-slate-800 dark:text-zinc-100 relative overflow-x-hidden overflow-y-auto transition-colors"
             style={{
                 backgroundImage: 'linear-gradient(180deg, var(--color-accent-soft) 0%, transparent 45%)'
             }}
@@ -93,7 +122,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
             )}
 
             {/* Main Floating Auth Card */}
-            <div className="w-full max-w-[430px] bg-white dark:bg-[#1E2228] rounded-3xl p-8 sm:p-10 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white dark:border-zinc-800/80 relative z-10 animate-in fade-in zoom-in-95 duration-300">
+            <div className="my-auto w-full max-w-[430px] bg-white dark:bg-[#1E2228] rounded-3xl p-6 sm:p-10 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white dark:border-zinc-800/80 relative z-10 animate-in fade-in zoom-in-95 duration-300">
 
                 {/* Animated Toggle Switch Pill */}
                 <div className="flex justify-center mb-8">
@@ -102,11 +131,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
                         <button
                             id="auth-toggle-login"
                             type="button"
-                            onClick={() => {
-                                setMode('login');
-                                setFormError(null);
-                                setEmailTouched(false);
-                            }}
+                            onClick={() => switchMode('login')}
                             style={
                                 mode === 'login'
                                     ? { backgroundColor: 'var(--color-accent)' }
@@ -128,11 +153,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
                         <button
                             id="auth-toggle-register"
                             type="button"
-                            onClick={() => {
-                                setMode('register');
-                                setFormError(null);
-                                setEmailTouched(false);
-                            }}
+                            onClick={() => switchMode('register')}
                             style={
                                 mode === 'register'
                                     ? { backgroundColor: 'var(--color-accent)' }
@@ -218,6 +239,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
                             <input
                                 id="auth-input-password"
                                 type={showPassword ? 'text' : 'password'}
+                                autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Contraseña"
@@ -246,19 +268,94 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
                                 )}
                             </button>
                         </div>
+                        {mode === 'register' && (
+                            <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-1.5 ml-1">
+                                Mínimo 8 caracteres
+                            </p>
+                        )}
                     </div>
 
-                    {/* Forgot Password Link */}
-                    <div className="flex justify-end pt-0.5">
-                        <button
-                            id="auth-forgot-password-link"
-                            type="button"
-                            onClick={() => setShowForgotModal(true)}
-                            className="text-xs font-medium text-gray-700 dark:text-zinc-200 hover:underline transition-colors cursor-pointer"
-                        >
-                            ¿Olvidaste tu contraseña?
-                        </button>
-                    </div>
+                    {/* Confirm Password Input Field (Register mode only) */}
+                    {mode === 'register' && (
+                        <div>
+                            <label className="block text-xs font-semibold text-gray-700 dark:text-zinc-200 mb-1.5 ml-1">
+                                Confirmar contraseña
+                            </label>
+                            <div className="relative flex items-center">
+                                <input
+                                    id="auth-input-confirm-password"
+                                    type={showConfirmPassword ? 'text' : 'password'}
+                                    autoComplete="new-password"
+                                    value={confirmPassword}
+                                    onBlur={() => {
+                                        if (confirmPassword.length > 0) setConfirmTouched(true);
+                                    }}
+                                    onChange={(e) => {
+                                        setConfirmPassword(e.target.value);
+                                        if (e.target.value.length > 0) setConfirmTouched(true);
+                                    }}
+                                    placeholder="Confirmar contraseña"
+                                    style={
+                                        showConfirmMismatch
+                                            ? { borderColor: 'var(--color-accent)' }
+                                            : undefined
+                                    }
+                                    className={`w-full pl-4 pr-11 py-3 bg-white dark:bg-[#282D35] text-gray-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-2xl text-sm focus:outline-none transition-all ${showConfirmMismatch
+                                            ? 'border ring-1 ring-accent bg-accent-light'
+                                            : 'border border-rose-200 dark:border-zinc-700 focus:border-accent focus:ring-2 focus:ring-accent-soft'
+                                        }`}
+                                    required
+                                />
+                                <button
+                                    id="auth-toggle-confirm-password-btn"
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-slate-600 dark:hover:text-zinc-200 transition-colors p-1 focus:outline-none cursor-pointer"
+                                    title={showConfirmPassword ? 'Ocultar confirmación' : 'Ver confirmación'}
+                                    aria-label={showConfirmPassword ? 'Ocultar confirmación de contraseña' : 'Ver confirmación de contraseña'}
+                                >
+                                    {showConfirmPassword ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
+                            {showConfirmMismatch && (
+                                <p
+                                    className="text-[11px] mt-1.5 ml-1 font-medium animate-in fade-in"
+                                    style={{ color: 'var(--color-accent)' }}
+                                >
+                                    Las contraseñas no coinciden.
+                                </p>
+                            )}
+                            {passwordsMatch && (
+                                <p className="text-[11px] mt-1.5 ml-1 font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1 animate-in fade-in">
+                                    <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0" />
+                                    <span>Las contraseñas coinciden.</span>
+                                </p>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Forgot Password Link (Login mode only) */}
+                    {mode === 'login' && (
+                        <div className="flex justify-end pt-0.5">
+                            <button
+                                id="auth-forgot-password-link"
+                                type="button"
+                                onClick={() => setShowForgotModal(true)}
+                                className="text-xs font-medium text-gray-700 dark:text-zinc-200 hover:underline transition-colors cursor-pointer"
+                            >
+                                ¿Olvidaste tu contraseña?
+                            </button>
+                        </div>
+                    )}
 
                     {formError && (
                         <div
@@ -274,12 +371,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLoginSuccess, authRequ
                     <button
                         id="auth-submit-btn"
                         type="submit"
-                        disabled={isLoading}
+                        disabled={isLoading || isRegisterSubmitDisabled}
                         style={{
                             backgroundColor: 'var(--color-accent)',
                             borderColor: 'var(--color-accent-soft)'
                         }}
-                        className="w-full py-3.5 px-6 rounded-full active:scale-[0.98] text-white font-bold text-sm sm:text-base shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer mt-4"
+                        className="w-full py-3.5 px-6 rounded-full active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 disabled:shadow-none text-white font-bold text-sm sm:text-base shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer mt-4"
                     >
                         {isLoading ? (
                             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

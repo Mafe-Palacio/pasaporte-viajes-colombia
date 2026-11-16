@@ -254,7 +254,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
           type="button"
           onClick={onClose}
           disabled={isSpinning}
-          className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-rose-50 dark:hover:bg-zinc-800 transition-colors disabled:opacity-30 cursor-pointer"
+          className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 dark:text-zinc-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-rose-50 dark:hover:bg-zinc-800 transition-colors disabled:opacity-30 cursor-pointer"
           aria-label="Cerrar ruleta"
         >
           <X className="w-5 h-5" />
@@ -280,7 +280,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer select-none ${
               onlyPending
                 ? 'bg-rose-50 dark:bg-zinc-800 border-rose-200 dark:border-zinc-700 text-rose-700 dark:text-rose-400 shadow-2xs'
-                : 'bg-slate-50 dark:bg-zinc-850 border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400'
+                : 'bg-slate-50 dark:bg-[#1E2228] border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300'
             }`}
           >
             <input
@@ -318,7 +318,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
           </button>
 
           {isFilterOpen && (
-            <div className="mt-2.5 p-3 rounded-2xl bg-slate-50/80 dark:bg-zinc-850/80 border border-slate-200 dark:border-zinc-750 text-left animate-in fade-in zoom-in-95 duration-150">
+            <div className="mt-2.5 p-3 rounded-2xl bg-slate-50/80 dark:bg-[#1E2228]/90 border border-slate-200 dark:border-zinc-700 text-left animate-in fade-in zoom-in-95 duration-150">
                 {/* Botones de acción rápida */}
                 <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
                   <button
@@ -402,7 +402,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
                       className={`flex items-center gap-1.5 px-2 py-1.5 rounded-xl text-[11px] font-medium border transition-all cursor-pointer select-none ${
                         isSelected
                           ? 'bg-white dark:bg-zinc-800 border-rose-300 dark:border-rose-900/60 text-slate-800 dark:text-zinc-100 shadow-2xs'
-                          : 'bg-slate-100/60 dark:bg-zinc-850/40 border-slate-200 dark:border-zinc-800 text-slate-400 dark:text-zinc-500 opacity-60'
+                          : 'bg-slate-100/70 dark:bg-[#1E2228]/60 border-slate-200 dark:border-zinc-700/80 text-slate-500 dark:text-zinc-300 opacity-85'
                       }`}
                     >
                       <input
@@ -443,7 +443,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
           </div>
 
           {/* Exterior Ring Frame */}
-          <div className="w-full h-full rounded-full p-2 bg-gradient-to-tr from-rose-200 via-pink-100 to-rose-200 dark:from-zinc-800 dark:via-zinc-750 dark:to-zinc-800 shadow-inner flex items-center justify-center">
+          <div className="w-full h-full rounded-full p-2 bg-gradient-to-tr from-rose-200 via-pink-100 to-rose-200 dark:from-zinc-800 dark:via-zinc-700 dark:to-zinc-800 shadow-inner flex items-center justify-center">
             {/* Rotating SVG Wheel */}
             <div
               className="w-full h-full rounded-full overflow-hidden relative shadow-md"
@@ -561,7 +561,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
           /* Tarjeta Destacada con el Destino Ganador */
           <div
             id="roulette-winner-card"
-            className="mt-4 p-4 rounded-2xl bg-gradient-to-b from-rose-50/80 to-pink-50/30 dark:from-zinc-800/80 dark:to-zinc-850/80 border border-rose-200 dark:border-rose-900/40 text-center animate-in zoom-in-95 duration-300 shadow-sm"
+            className="mt-4 p-4 rounded-2xl bg-gradient-to-b from-rose-50/80 to-pink-50/30 dark:from-zinc-800/80 dark:to-[#1E2228]/90 border border-rose-200 dark:border-rose-900/40 text-center animate-in zoom-in-95 duration-300 shadow-sm"
           >
             <div className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-accent-primary mb-1">
               <Award className="w-3.5 h-3.5" />

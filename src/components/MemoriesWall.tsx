@@ -153,44 +153,44 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
   const activeLightboxItem = activeLightboxIndex !== null ? filteredMemories[activeLightboxIndex] : null;
 
   return (
-    <div className="min-h-screen bg-[#FDF8F7] text-slate-800 pt-24 pb-28 sm:pb-20 px-4 sm:px-6 lg:px-10">
+    <div className="min-h-screen bg-[#FDF8F7] dark:bg-[#121417] text-slate-800 dark:text-zinc-100 pt-24 md:pt-8 pb-28 sm:pb-24 px-4 sm:px-6 lg:px-10 transition-colors">
       {/* Top Banner & Header */}
       <div className="max-w-7xl mx-auto mb-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-gradient-to-br from-white via-[#FFF9FA] to-[#FFF0F3] p-6 sm:p-8 rounded-3xl border border-[#FFE4EA]/80 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.1)]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 bg-gradient-to-br from-white via-[#FFF9FA] to-[#FFF0F3] dark:from-[#1E2228] dark:via-[#1E2228] dark:to-zinc-900 p-6 sm:p-8 rounded-3xl border border-[#FFE4EA]/80 dark:border-zinc-800 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.1)]">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FFE4EA] text-[#F44566]">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FFE4EA] dark:bg-zinc-800 text-[#F44566] dark:border dark:border-zinc-700">
                 <Heart className="w-3.5 h-3.5 fill-[#F44566]" />
                 Familia Palacio
               </span>
-              <span className="text-xs font-semibold text-slate-400">•</span>
-              <span className="text-xs font-medium text-slate-500">Fototeca &amp; Muro de Recuerdos</span>
+              <span className="text-xs font-semibold text-slate-400 dark:text-zinc-500">•</span>
+              <span className="text-xs font-medium text-slate-500 dark:text-zinc-400">Fototeca &amp; Muro de Recuerdos</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-zinc-100 tracking-tight">
               Muro Visual de Viajes Familiares
             </h1>
-            <p className="text-sm text-slate-600 mt-1.5 max-w-2xl">
+            <p className="text-sm text-slate-600 dark:text-zinc-300 mt-1.5 max-w-2xl">
               Colección fotográfica de cada municipio y departamento explorado por la Familia Palacio en Colombia. Haz clic en cualquier tarjeta para verla en pantalla completa o acceder a su bitácora.
             </p>
           </div>
 
           {/* Quick Metrics & Actions */}
           <div className="flex items-center gap-3 flex-wrap">
-            <div className="flex items-center gap-3 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-[#FFE4EA] shadow-sm">
+            <div className="flex items-center gap-3 bg-white/90 dark:bg-[#282D35]/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-[#FFE4EA] dark:border-zinc-700 shadow-sm">
               <div className="text-center">
                 <span className="block text-lg font-black text-[#F44566] leading-none">
                   {allMemories.length}
                 </span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
                   Fotos
                 </span>
               </div>
-              <div className="h-6 w-px bg-slate-200" />
+              <div className="h-6 w-px bg-slate-200 dark:bg-zinc-700" />
               <div className="text-center">
-                <span className="block text-lg font-black text-slate-800 leading-none">
+                <span className="block text-lg font-black text-slate-800 dark:text-zinc-100 leading-none">
                   {new Set(allMemories.map((m) => m.municipalityId)).size}
                 </span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
                   Municipios
                 </span>
               </div>
@@ -198,17 +198,17 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
 
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 px-4 py-2.5 bg-white rounded-2xl border border-[#FFE4EA] text-xs font-bold text-slate-700 hover:text-[#F44566] hover:border-[#F44566] shadow-sm transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2.5 bg-white dark:bg-[#282D35] rounded-2xl border border-[#FFE4EA] dark:border-zinc-700 text-xs font-bold text-slate-700 dark:text-zinc-200 hover:text-[#F44566] hover:border-[#F44566] shadow-sm transition-all cursor-pointer"
               title="Copiar enlace de los recuerdos"
             >
               {copiedLink ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span className="text-emerald-600">¡Copiado!</span>
+                  <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <span className="text-emerald-600 dark:text-emerald-400">¡Copiado!</span>
                 </>
               ) : (
                 <>
-                  <Share2 className="w-3.5 h-3.5 text-slate-500" />
+                  <Share2 className="w-3.5 h-3.5 text-slate-500 dark:text-zinc-300" />
                   <span>Compartir</span>
                 </>
               )}
@@ -229,7 +229,7 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
                   className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     isSelected
                       ? 'bg-[#F44566] text-white shadow-md shadow-[#F44566]/20'
-                      : 'bg-white text-slate-600 border border-[#FFE4EA] hover:border-[#F44566] hover:text-[#F44566]'
+                      : 'bg-white dark:bg-[#1E2228] text-slate-600 dark:text-zinc-300 border border-[#FFE4EA] dark:border-zinc-700 hover:border-[#F44566] hover:text-[#F44566]'
                   }`}
                 >
                   {dept === 'todos' ? 'Todos los Departamentos' : dept}
@@ -240,18 +240,18 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
 
           {/* Search Input */}
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 dark:text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Buscar por municipio o lugar..."
-              className="w-full pl-9 pr-4 py-2 text-xs rounded-full bg-white border border-[#FFE4EA] focus:outline-none focus:ring-2 focus:ring-[#F44566]/20 focus:border-[#F44566] transition-all shadow-sm"
+              className="w-full pl-9 pr-4 py-2 text-xs rounded-full bg-white dark:bg-[#282D35] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 border border-[#FFE4EA] dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#F44566]/20 focus:border-[#F44566] transition-all shadow-sm"
             />
             {searchQuery && (
               <button 
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-zinc-400 hover:text-slate-600 dark:hover:text-zinc-200 text-xs"
               >
                 ✕
               </button>
@@ -263,12 +263,12 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
       {/* Masonry / Feed Photo Grid */}
       <div className="max-w-7xl mx-auto">
         {allMemories.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl border border-[#FFE4EA] p-8 shadow-[0_15px_30px_-10px_rgba(244,69,102,0.12)] max-w-lg mx-auto">
-            <div className="w-16 h-16 rounded-full bg-[#FFF0F3] text-[#F44566] flex items-center justify-center mx-auto mb-4">
+          <div className="text-center py-20 bg-white dark:bg-[#1E2228] rounded-3xl border border-[#FFE4EA] dark:border-zinc-800 p-8 shadow-[0_15px_30px_-10px_rgba(244,69,102,0.12)] max-w-lg mx-auto">
+            <div className="w-16 h-16 rounded-full bg-[#FFF0F3] dark:bg-zinc-800 text-[#F44566] flex items-center justify-center mx-auto mb-4">
               <Camera className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold text-slate-800">¡Tu muro de recuerdos está listo!</h3>
-            <p className="text-xs text-slate-500 mt-2 max-w-sm mx-auto leading-relaxed">
+            <h3 className="text-xl font-bold text-slate-800 dark:text-zinc-100">¡Tu muro de recuerdos está listo!</h3>
+            <p className="text-xs text-slate-500 dark:text-zinc-400 mt-2 max-w-sm mx-auto leading-relaxed">
               Aún no has registrado viajes ni fotos familiares. Explora los departamentos y municipios de Colombia, registra tus visitas y guarda tus mejores momentos aquí.
             </p>
             <button
@@ -280,10 +280,10 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
             </button>
           </div>
         ) : filteredMemories.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl border border-[#FFE4EA] p-8 shadow-sm">
-            <Camera className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-slate-700">No se encontraron recuerdos</h3>
-            <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+          <div className="text-center py-20 bg-white dark:bg-[#1E2228] rounded-3xl border border-[#FFE4EA] dark:border-zinc-800 p-8 shadow-sm">
+            <Camera className="w-12 h-12 text-slate-300 dark:text-zinc-600 mx-auto mb-3" />
+            <h3 className="text-base font-bold text-slate-700 dark:text-zinc-200">No se encontraron recuerdos</h3>
+            <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1 max-w-sm mx-auto">
               Intenta cambiar el término de búsqueda o selecciona &quot;Todos los Departamentos&quot;.
             </p>
             <button
@@ -291,7 +291,7 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
                 setSearchQuery('');
                 setSelectedDeptFilter('todos');
               }}
-              className="mt-4 px-4 py-2 bg-[#FFF0F3] text-[#F44566] rounded-full text-xs font-bold hover:bg-[#FFE0E6] transition-colors cursor-pointer"
+              className="mt-4 px-4 py-2 bg-[#FFF0F3] dark:bg-zinc-800 text-[#F44566] rounded-full text-xs font-bold hover:bg-[#FFE0E6] dark:hover:bg-zinc-700 transition-colors cursor-pointer"
             >
               Restablecer Filtros
             </button>
@@ -307,10 +307,10 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
                   key={item.id}
                   id={`memory-card-${item.id}`}
                   onClick={() => setActiveLightboxIndex(index)}
-                  className="bg-white rounded-3xl overflow-hidden border border-[#FFF0F3] shadow-[0_12px_30px_-10px_rgba(244,69,102,0.12)] hover:shadow-[0_20px_45px_-10px_rgba(244,69,102,0.22)] transition-all duration-300 group hover:-translate-y-1 cursor-pointer flex flex-col"
+                  className="bg-white dark:bg-[#1E2228] rounded-3xl overflow-hidden border border-[#FFF0F3] dark:border-zinc-800 shadow-[0_12px_30px_-10px_rgba(244,69,102,0.12)] hover:shadow-[0_20px_45px_-10px_rgba(244,69,102,0.22)] transition-all duration-300 group hover:-translate-y-1 cursor-pointer flex flex-col"
                 >
                   {/* Photo Container with Rounded Corners and Subtle Pastel Badge */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 dark:bg-zinc-800">
                     <img
                       src={item.url}
                       alt={item.caption}
@@ -325,10 +325,10 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
                     {/* Subtle Pastel Badge on Top of Photo (ej. "Guatapé, Antioquia", "Villa de Leyva, Boyacá") */}
                     <div 
                       id={`memory-badge-${item.id}`}
-                      className="absolute top-3.5 left-3.5 z-10 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#FFE4EA] shadow-sm flex items-center gap-1.5 transition-transform group-hover:scale-105"
+                      className="absolute top-3.5 left-3.5 z-10 bg-white/95 dark:bg-zinc-900/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#FFE4EA] dark:border-zinc-700 shadow-sm flex items-center gap-1.5 transition-transform group-hover:scale-105"
                     >
                       <MapPin className="w-3.5 h-3.5 text-[#F44566]" />
-                      <span className="text-xs font-bold text-slate-800 tracking-tight">
+                      <span className="text-xs font-bold text-slate-800 dark:text-zinc-100 tracking-tight">
                         {item.locationBadge}
                       </span>
                     </div>
@@ -371,16 +371,16 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
                   {/* Card Content / Caption / Actions */}
                   <div className="p-4 flex-1 flex flex-col justify-between">
                     <div>
-                      <p className="text-xs font-medium text-slate-700 line-clamp-2 leading-relaxed">
+                      <p className="text-xs font-medium text-slate-700 dark:text-zinc-200 line-clamp-2 leading-relaxed">
                         {item.caption}
                       </p>
                     </div>
 
-                    <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                      <div className="flex items-center gap-1 text-amber-500 font-semibold">
+                    <div className="mt-3 pt-3 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-[11px]">
+                      <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400 font-semibold">
                         <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                         <span>5.0</span>
-                        <span className="text-slate-400 text-[10px]">• Familia Palacio</span>
+                        <span className="text-slate-400 dark:text-zinc-400 text-[10px]">• Familia Palacio</span>
                       </div>
 
                       <button
@@ -417,9 +417,9 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
           >
             {/* Location Badge pastel & Date */}
             <div className="flex items-center gap-3 flex-wrap">
-              <div className="bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-full border border-[#FFE4EA] shadow-md flex items-center gap-2">
+              <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md px-4 py-1.5 rounded-full border border-[#FFE4EA] dark:border-zinc-700 shadow-md flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#F44566]" />
-                <span className="text-xs sm:text-sm font-bold text-slate-900">
+                <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-zinc-100">
                   {activeLightboxItem.locationBadge}
                 </span>
               </div>

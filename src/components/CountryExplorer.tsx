@@ -4,6 +4,7 @@ import { Search, MapPin, Compass, AlertCircle, RefreshCw, ChevronRight, Layers, 
 import { Department } from '../types';
 import { COLOMBIA_GEOJSON } from '../data/geoJsonData';
 import { DestinationRouletteModal, RouletteItem } from './DestinationRouletteModal';
+import { PassportDesktopHeader, syncPassportVisitStats } from './AppNavbar';
 
 interface CountryExplorerProps {
   departments: Department[];
@@ -24,8 +25,8 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterTab, setFilterTab] = useState<'all' | 'visited' | 'pending'>('all');
-  const [mapError, setMapError] = useState(false);
-  const [isFallbackMode, setIsFallbackMode] = useState(false);
+  const [viewMode, setViewMode] = useState<'map' | 'grid'>('map');
+  const [mapFailed, setMapFailed] = useState(false);
   const [hoveredDept, setHoveredDept] = useState<Department | null>(null);
   const [isRouletteOpen, setIsRouletteOpen] = useState(false);
 
@@ -36,6 +37,10 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
 
   const visitedCount = departments.filter((d) => d.isVisited).length;
   const totalCount = departments.length;
+
+  useEffect(() => {
+    syncPassportVisitStats(visitedCount, totalCount);
+  }, [visitedCount, totalCount]);
 
   // Filtered list by search query
   const filteredDepartments = departments.filter((d) =>
@@ -52,7 +57,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
 
   // Initialize Leaflet Map (only on desktop screens to save mobile resources)
   useEffect(() => {
-    if (isFallbackMode || !mapContainerRef.current) return;
+    if (viewMode !== 'map' || !mapContainerRef.current) return;
     if (typeof window !== 'undefined' && window.innerWidth < 768) {
       return;
     }
@@ -67,10 +72,11 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
         mapInstanceRef.current = null;
       }
 
-      // 3-second fallback timer if map fails or hangs
+      // 3.5-second fallback timer if map fails or hangs
       timer = setTimeout(() => {
         if (!mapInstanceRef.current) {
-          setIsFallbackMode(true);
+          setMapFailed(true);
+          setViewMode('grid');
         }
       }, 3500);
 
@@ -177,8 +183,8 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
       if (timer) clearTimeout(timer);
     } catch (err) {
       console.error('Error loading Leaflet map:', err);
-      setMapError(true);
-      setIsFallbackMode(true);
+      setMapFailed(true);
+      setViewMode('grid');
     }
 
     return () => {
@@ -189,7 +195,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
         mapInstanceRef.current = null;
       }
     };
-  }, [isFallbackMode, departments]);
+  }, [viewMode, departments]);
 
   return (
     <div
@@ -198,8 +204,20 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
         backgroundImage: 'linear-gradient(180deg, var(--color-accent-soft) 0%, transparent 45%)'
       }}
     >
-      {/* Header Superior: Estructura de dos niveles en móvil para armonizar Salir con Reportes */}
-      <header className="w-full bg-white/80 dark:bg-[#1E2228]/90 backdrop-blur-md border-b border-rose-100 dark:border-zinc-800 flex-shrink-0 z-20 px-3 sm:px-6 py-2 sm:py-3 transition-colors">
+      {/* Encabezado compacto de una sola fila en Tablet/Escritorio (>= 768 px) */}
+      <PassportDesktopHeader
+        activeTab="explorador"
+        sectionTitle="Explorador Nacional"
+        visitedCount={visitedCount}
+        totalCount={totalCount}
+        onSelectExplorador={() => {}}
+        onSelectRecuerdos={onNavigateToRecuerdos}
+        onSelectReportes={onNavigateToReportes}
+        onLogout={onLogout}
+      />
+
+      {/* Header Móvil (< 768 px): se mantiene intacto en dos niveles */}
+      <header className="md:hidden w-full bg-white/80 dark:bg-[#1E2228]/90 backdrop-blur-md border-b border-rose-100 dark:border-zinc-800 flex-shrink-0 z-20 px-3 sm:px-6 py-2 sm:py-3 transition-colors">
         {/* Fila Superior (Barra de Utilidades): Título a la izquierda y Botón Salir en el extremo superior derecho */}
         <div className="flex items-center justify-between w-full mb-2 sm:mb-2.5">
           <div className="flex items-center gap-2 min-w-0">
@@ -295,7 +313,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
       <div className="flex-1 px-3 sm:px-6 md:px-8 pt-3 sm:pt-4 pb-4 sm:pb-6 min-h-0 flex flex-col md:flex-row gap-4 sm:gap-6">
         {/* Left: Map Canvas - Oculto en pantallas móviles (< md) para máximo rendimiento */}
         <div className="hidden md:flex flex-1 h-full min-h-0 bg-white dark:bg-[#1E2228] rounded-3xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,0.15)] border border-[#FFF0F3] dark:border-zinc-800 relative flex-col">
-          {!isFallbackMode ? (
+          {viewMode === 'map' && !mapFailed ? (
             <div 
               id="colombia-leaflet-map"
               ref={mapContainerRef} 
@@ -303,20 +321,26 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
               style={{ minHeight: '100%' }}
             />
           ) : (
-            /* Contingency Fallback Grid */
-            <div className="w-full h-full overflow-y-auto px-6 py-6 pb-28 sm:pb-12 z-10 animate-in fade-in">
-              <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 p-4 rounded-2xl mb-6 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-amber-800 dark:text-amber-300 text-xs font-medium">
-                  <AlertCircle className="w-4 h-4 text-amber-600" />
-                  <span>Modo de contingencia activo (Fallback visual por tarjetas departamentales).</span>
+            /* Directory Grid (user-selected or real map fallback) */
+            <div className="w-full h-full overflow-y-auto px-6 py-6 pb-28 sm:pb-20 z-10 animate-in fade-in">
+              {mapFailed && (
+                <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 p-4 rounded-2xl mb-6 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200 text-xs font-medium">
+                    <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+                    <span>No se pudo cargar el mapa. Te mostramos el directorio de departamentos.</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMapFailed(false);
+                      setViewMode('map');
+                    }}
+                    className="flex items-center gap-1 text-xs font-bold text-accent-primary hover:underline cursor-pointer"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" /> Reintentar Mapa
+                  </button>
                 </div>
-                <button
-                  onClick={() => setIsFallbackMode(false)}
-                  className="flex items-center gap-1 text-xs font-bold text-accent-primary hover:underline cursor-pointer"
-                >
-                  <RefreshCw className="w-3.5 h-3.5" /> Reintentar Mapa
-                </button>
-              </div>
+              )}
 
               <h2 className="text-xl font-bold text-slate-800 dark:text-zinc-100 mb-4">
                 Directorio Departamental de Colombia ({visitedCount}/{totalCount})
@@ -327,19 +351,19 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
                   <div
                     key={dept.id}
                     onClick={() => onSelectDepartment(dept.id)}
-                    className="bg-white dark:bg-zinc-850 rounded-3xl p-5 shadow-[0_10px_25px_-10px_rgba(0,0,0,0.1)] border border-[#FFF0F3] dark:border-zinc-750 hover:border-accent-soft hover:shadow-lg transition-all cursor-pointer group"
+                    className="bg-white dark:bg-[#282D35] rounded-3xl p-5 shadow-[0_10px_25px_-10px_rgba(0,0,0,0.1)] border border-[#FFF0F3] dark:border-zinc-700 hover:border-accent-soft hover:shadow-lg transition-all cursor-pointer group"
                   >
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
+                    <div className="flex items-start justify-between mb-3 gap-2">
+                      <div className="min-w-0">
                         <h3 className="font-bold text-slate-800 dark:text-zinc-100 group-hover:text-accent-primary transition-colors">
                           {dept.name}
                         </h3>
                         <p className="text-xs text-slate-500 dark:text-zinc-400">Capital: {dept.capital}</p>
                       </div>
-                      <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${
+                      <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full flex-shrink-0 ${
                         dept.isVisited
-                          ? 'bg-[#FFE8ED] dark:bg-zinc-750 text-accent-primary'
-                          : 'bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400'
+                          ? 'bg-[#FFE8ED] dark:bg-zinc-700 text-accent-primary'
+                          : 'bg-slate-100 dark:bg-zinc-700 text-slate-600 dark:text-zinc-200'
                       }`}>
                         {dept.isVisited ? 'Explorado' : 'Pendiente'}
                       </span>
@@ -350,7 +374,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
                     </p>
 
                     <div className="space-y-1.5">
-                      <div className="flex justify-between text-[11px] font-medium text-slate-600 dark:text-zinc-400">
+                      <div className="flex justify-between text-[11px] font-medium text-slate-600 dark:text-zinc-300">
                         <span>Municipios:</span>
                         <span>{dept.visitedMunicipalities} de {dept.totalMunicipalities} ({dept.progressPercentage}%)</span>
                       </div>
@@ -371,22 +395,22 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
           )}
 
           {/* Map Legend at bottom-left */}
-          {!isFallbackMode && (
-            <div className="absolute bottom-4 left-4 z-20 bg-white/95 dark:bg-zinc-850/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-md border border-[#FFE4EA] dark:border-zinc-750 flex flex-wrap items-center gap-3 text-xs pointer-events-none">
+          {viewMode === 'map' && !mapFailed && (
+            <div className="absolute bottom-4 left-4 z-20 bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-md border border-[#FFE4EA] dark:border-zinc-700 flex flex-wrap items-center gap-3 text-xs pointer-events-none">
               <div className="flex items-center gap-1.5">
                 <span className="w-3.5 h-3.5 rounded-full bg-[#FEA38E] border border-white inline-block shadow-sm" />
-                <span className="text-slate-600 dark:text-zinc-300 font-medium">Explorado</span>
+                <span className="text-slate-600 dark:text-zinc-200 font-medium">Explorado</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-3.5 h-3.5 rounded-full bg-[#E2E8F0] dark:bg-zinc-600 border border-white inline-block shadow-sm" />
-                <span className="text-slate-600 dark:text-zinc-300 font-medium">Pendiente</span>
+                <span className="text-slate-600 dark:text-zinc-200 font-medium">Pendiente</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span
                   className="w-3.5 h-3.5 rounded-full bg-white border-2 inline-block shadow-sm"
                   style={{ borderColor: 'var(--color-accent)' }}
                 />
-                <span className="text-slate-600 dark:text-zinc-300 font-medium">Centroide interactivo</span>
+                <span className="text-slate-600 dark:text-zinc-200 font-medium">Centroide interactivo</span>
               </div>
               {homeDepartmentId && (
                 <div className="flex items-center gap-1.5">
@@ -436,7 +460,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
 
           {/* Píldoras de filtro (Todos / Visitados / Pendientes) y Ruleta */}
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3 px-1 flex-shrink-0">
-            <div className="flex items-center gap-1 bg-[#FFF5F7] dark:bg-[#282D35] p-1 rounded-full text-[10px] sm:text-[11px] font-semibold border border-[#FFE4EA] dark:border-zinc-750 overflow-x-auto no-scrollbar">
+            <div className="flex items-center gap-1 bg-[#FFF5F7] dark:bg-[#282D35] p-1 rounded-full text-[10px] sm:text-[11px] font-semibold border border-[#FFE4EA] dark:border-zinc-700 overflow-x-auto no-scrollbar">
               <button
                 type="button"
                 onClick={() => setFilterTab('all')}
@@ -503,29 +527,37 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
               {/* Toggle 'Ver Mapa / Ver Cuadrícula' oculto en versión móvil con hidden md:flex */}
               <button
                 type="button"
-                onClick={() => setIsFallbackMode(!isFallbackMode)}
+                onClick={() => {
+                  if (viewMode === 'grid') {
+                    setMapFailed(false);
+                    setViewMode('map');
+                  } else {
+                    setMapFailed(false);
+                    setViewMode('grid');
+                  }
+                }}
                 className="hidden md:flex text-[11px] font-semibold text-accent-primary hover:underline items-center gap-1 cursor-pointer flex-shrink-0 ml-1"
               >
                 <Layers className="w-3 h-3" />
-                {isFallbackMode ? 'Ver Mapa' : 'Ver Cuadrícula'}
+                {viewMode === 'grid' ? 'Ver Mapa' : 'Ver Cuadrícula'}
               </button>
             </div>
           </div>
 
           {/* Listado vertical de tarjetas de todos los departamentos (con clic directo) */}
-          <div className="overflow-y-auto space-y-2 sm:space-y-2.5 pr-2.5 sm:pr-3 pb-28 sm:pb-12 flex-1 min-h-0">
+          <div className="overflow-y-auto space-y-2 sm:space-y-2.5 pr-2.5 sm:pr-3 pb-28 sm:pb-20 flex-1 min-h-0">
             {displayedDepartments.map((dept) => (
               <div
                 key={dept.id}
                 onClick={() => onSelectDepartment(dept.id)}
-                className="p-3 bg-[#FFFBFB] dark:bg-[#282D35] hover:bg-[#FFF3F5] dark:hover:bg-[#2c323b] rounded-2xl border border-[#FFE8ED] dark:border-zinc-750 transition-all cursor-pointer flex items-center gap-3 group shadow-xs"
+                className="p-3 bg-[#FFFBFB] dark:bg-[#282D35] hover:bg-[#FFF3F5] dark:hover:bg-[#2c323b] rounded-2xl border border-[#FFE8ED] dark:border-zinc-700 transition-all cursor-pointer flex items-center gap-3 group shadow-xs"
               >
                 {/* Icono / Mini badge del departamento */}
                 <div
                   className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-105 ${
                     dept.isVisited
                       ? 'bg-[#FFE4EA] dark:bg-zinc-700 text-accent-primary'
-                      : 'bg-slate-100 dark:bg-zinc-700/50 text-slate-400 dark:text-zinc-400'
+                      : 'bg-slate-100 dark:bg-zinc-700/70 text-slate-500 dark:text-zinc-300'
                   }`}
                 >
                   <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -533,25 +565,25 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
 
                 {/* Nombre, Capital y Progreso */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-center mb-0.5">
+                  <div className="flex justify-between items-center mb-0.5 gap-1.5">
                     <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-zinc-100 truncate group-hover:text-accent-primary transition-colors flex items-center gap-1.5">
                       <span className="truncate">{dept.name}</span>
                       {homeDepartmentId === dept.id && (
-                        <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 text-rose-700 border border-rose-200 flex items-center gap-0.5 flex-shrink-0">
+                        <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex items-center gap-0.5 flex-shrink-0">
                           🏠 Hogar
                         </span>
                       )}
                     </span>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${
                       dept.isVisited
                         ? 'bg-[#FFE8ED] dark:bg-zinc-700 text-accent-primary'
-                        : 'bg-slate-100 dark:bg-zinc-700 text-slate-500 dark:text-zinc-400'
+                        : 'bg-slate-100 dark:bg-zinc-700 text-slate-600 dark:text-zinc-200'
                     }`}>
                       {dept.isVisited ? 'Explorado' : 'Pendiente'}
                     </span>
                   </div>
 
-                  <div className="flex justify-between items-center text-[10px] text-slate-500 dark:text-zinc-400 mb-1">
+                  <div className="flex justify-between items-center text-[10px] text-slate-500 dark:text-zinc-300 mb-1">
                     <span className="truncate">Capital: {dept.capital}</span>
                     <span className="flex-shrink-0 font-medium">
                       {dept.visitedMunicipalities}/{dept.totalMunicipalities} ({dept.progressPercentage}%)
@@ -569,35 +601,35 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
                   </div>
                 </div>
 
-                <ChevronRight className="w-4 h-4 text-slate-300 dark:text-zinc-600 group-hover:text-accent-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                <ChevronRight className="w-4 h-4 text-slate-400 dark:text-zinc-400 group-hover:text-accent-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
               </div>
             ))}
 
             {displayedDepartments.length === 0 && (
-              <div className="text-center py-12 px-4 bg-[#FFFBFB] rounded-2xl border border-dashed border-[#FFE4EA]">
-                <MapPin className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+              <div className="text-center py-12 px-4 bg-[#FFFBFB] dark:bg-[#282D35] rounded-2xl border border-dashed border-[#FFE4EA] dark:border-zinc-700">
+                <MapPin className="w-8 h-8 text-slate-300 dark:text-zinc-500 mx-auto mb-2" />
                 {searchQuery.trim() !== '' ? (
-                  <p className="text-xs text-slate-500 font-medium">
+                  <p className="text-xs text-slate-500 dark:text-zinc-300 font-medium">
                     No se encontraron departamentos que coincidan con "{searchQuery}".
                   </p>
                 ) : filterTab === 'visited' ? (
                   <div className="space-y-2">
-                    <p className="text-xs font-semibold text-slate-700">
+                    <p className="text-xs font-semibold text-slate-700 dark:text-zinc-100">
                       Aún no tienes departamentos visitados
                     </p>
-                    <p className="text-[11px] text-slate-500">
+                    <p className="text-[11px] text-slate-500 dark:text-zinc-400">
                       Selecciona la pestaña "Todos" para comenzar a explorar y registrar tus viajes en Colombia.
                     </p>
                     <button
                       type="button"
                       onClick={() => setFilterTab('all')}
-                      className="text-xs font-bold text-[#F44566] hover:underline pt-1 inline-block"
+                      className="text-xs font-bold text-[#F44566] hover:underline pt-1 inline-block cursor-pointer"
                     >
                       Ver todos los 32 departamentos
                     </button>
                   </div>
                 ) : (
-                  <p className="text-xs text-slate-500 font-medium">
+                  <p className="text-xs text-slate-500 dark:text-zinc-300 font-medium">
                     No hay departamentos disponibles en este filtro.
                   </p>
                 )}

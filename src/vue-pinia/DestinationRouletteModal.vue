@@ -44,7 +44,7 @@
             'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer select-none',
             onlyPending
               ? 'bg-rose-50 dark:bg-zinc-800 border-rose-200 dark:border-zinc-700 text-rose-700 dark:text-rose-400 shadow-2xs'
-              : 'bg-slate-50 dark:bg-zinc-850 border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400'
+              : 'bg-slate-50 dark:bg-[#1E2228] border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-zinc-300'
           ]"
         >
           <input
@@ -86,7 +86,7 @@
         <!-- Contenido Desplegable del Filtro -->
         <div 
           v-if="isFilterOpen" 
-          class="mt-2.5 p-3 rounded-2xl bg-slate-50/80 dark:bg-zinc-850/80 border border-slate-200 dark:border-zinc-750 text-left animate-in fade-in zoom-in-95 duration-150"
+          class="mt-2.5 p-3 rounded-2xl bg-slate-50/80 dark:bg-[#1E2228]/90 border border-slate-200 dark:border-zinc-700 text-left animate-in fade-in zoom-in-95 duration-150"
         >
           <!-- Botones de Acción Rápida -->
           <div class="flex flex-wrap items-center gap-1.5 mb-2.5">
@@ -144,7 +144,7 @@
                 'flex items-center gap-1.5 px-2 py-1.5 rounded-xl text-[11px] font-medium border transition-all cursor-pointer select-none',
                 selectedIds.includes(item.id)
                   ? 'bg-white dark:bg-zinc-800 border-rose-300 dark:border-rose-900/60 text-slate-800 dark:text-zinc-100 shadow-2xs'
-                  : 'bg-slate-100/60 dark:bg-zinc-850/40 border-slate-200 dark:border-zinc-800 text-slate-400 dark:text-zinc-500 opacity-60'
+                  : 'bg-slate-100/70 dark:bg-[#1E2228]/60 border-slate-200 dark:border-zinc-700/80 text-slate-500 dark:text-zinc-300 opacity-85'
               ]"
             >
               <input
@@ -174,7 +174,7 @@
         </div>
 
         <!-- Exterior Ring Frame -->
-        <div class="w-full h-full rounded-full p-2 bg-gradient-to-tr from-rose-200 via-pink-100 to-rose-200 dark:from-zinc-800 dark:via-zinc-750 dark:to-zinc-800 shadow-inner flex items-center justify-center">
+        <div class="w-full h-full rounded-full p-2 bg-gradient-to-tr from-rose-200 via-pink-100 to-rose-200 dark:from-zinc-800 dark:via-zinc-700 dark:to-zinc-800 shadow-inner flex items-center justify-center">
           <!-- Rotating SVG Wheel -->
           <div
             class="w-full h-full rounded-full overflow-hidden relative shadow-md"
@@ -274,7 +274,7 @@
       <!-- Tarjeta Destacada con el Destino Ganador -->
       <div 
         v-else 
-        class="mt-4 p-4 rounded-2xl bg-gradient-to-b from-rose-50/80 to-pink-50/30 dark:from-zinc-800/80 dark:to-zinc-850/80 border border-rose-200 dark:border-rose-900/40 text-center animate-in zoom-in-95 duration-300 shadow-sm"
+        class="mt-4 p-4 rounded-2xl bg-gradient-to-b from-rose-50/80 to-pink-50/30 dark:from-zinc-800/80 dark:to-[#1E2228]/90 border border-rose-200 dark:border-rose-900/40 text-center animate-in zoom-in-95 duration-300 shadow-sm"
       >
         <div class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-accent-primary mb-1">
           <span>🏆</span>

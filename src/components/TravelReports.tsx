@@ -323,7 +323,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
     selectedCategory !== 'all';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FFF7EE] via-[#FFF0F4] to-[#FFDEE9] pt-24 pb-28 sm:pb-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#FFF7EE] via-[#FFF0F4] to-[#FFDEE9] dark:from-[#121417] dark:via-[#121417] dark:to-[#181B20] text-slate-800 dark:text-zinc-100 pt-24 md:pt-8 pb-28 sm:pb-24 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="max-w-7xl mx-auto space-y-6">
         
         {/* Header Title with Back button and Quick Overview */}
@@ -331,20 +331,20 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={onNavigateToMap}
-              className="p-2 sm:px-3 sm:py-2 bg-white/80 hover:bg-white text-slate-700 hover:text-[#F44566] rounded-full border border-rose-100 shadow-sm transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
+              className="p-2 sm:px-3 sm:py-2 bg-white/80 dark:bg-[#1E2228] hover:bg-white dark:hover:bg-[#282D35] text-slate-700 dark:text-zinc-200 hover:text-[#F44566] rounded-full border border-rose-100 dark:border-zinc-800 shadow-sm transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
               title="Volver al Explorador"
             >
               <ArrowLeft className="w-4 h-4" />
               <span className="hidden sm:inline">Explorador</span>
             </button>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2.5">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 dark:text-zinc-100 tracking-tight flex items-center gap-2.5 flex-wrap">
                 <span>Reportes Globales</span>
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#FFE8ED] text-[#F44566] border border-rose-200">
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#FFE8ED] dark:bg-zinc-800 text-[#F44566] border border-rose-200 dark:border-zinc-700">
                   Métricas de Viaje
                 </span>
               </h1>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
                 Bitácora financiera, analíticas de cobertura y estadísticas de la Familia Palacio
               </p>
             </div>
@@ -352,7 +352,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
 
           {/* Quick indicator pill */}
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 border border-rose-100 text-xs font-medium text-slate-600 shadow-xs">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-[#1E2228] border border-rose-100 dark:border-zinc-800 text-xs font-medium text-slate-600 dark:text-zinc-300 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Datos en tiempo real</span>
             </span>
@@ -362,34 +362,34 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
         {/* 1. BARRA DE FILTROS GLOBALES (Cápsulas Flotantes) */}
         <section
           aria-label="Filtros Globales"
-          className="bg-white/95 backdrop-blur-md rounded-3xl p-5 sm:p-6 border border-rose-100 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] transition-all"
+          className="bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md rounded-3xl p-5 sm:p-6 border border-rose-100 dark:border-zinc-800 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] transition-all"
         >
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
             
             {/* Fechas: Desde / Hasta */}
             <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 bg-[#FFFBFB] px-3.5 py-2 rounded-full border border-[#FAD2DA] shadow-2xs">
-                <span className="text-xs font-semibold text-slate-600">Desde:</span>
+              <div className="flex items-center gap-2 bg-[#FFFBFB] dark:bg-[#282D35] px-3.5 py-2 rounded-full border border-[#FAD2DA] dark:border-zinc-700 shadow-2xs">
+                <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300">Desde:</span>
                 <input
                   id="filter-date-desde"
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="text-xs text-slate-700 bg-transparent focus:outline-none cursor-pointer"
+                  className="text-xs text-slate-700 dark:text-zinc-100 dark:[color-scheme:dark] bg-transparent focus:outline-none cursor-pointer"
                   placeholder="Desde"
                 />
               </div>
 
-              <span className="text-slate-400 font-bold hidden sm:inline">-</span>
+              <span className="text-slate-400 dark:text-zinc-500 font-bold hidden sm:inline">-</span>
 
-              <div className="flex items-center gap-2 bg-[#FFFBFB] px-3.5 py-2 rounded-full border border-[#FAD2DA] shadow-2xs">
-                <span className="text-xs font-semibold text-slate-600">Hasta:</span>
+              <div className="flex items-center gap-2 bg-[#FFFBFB] dark:bg-[#282D35] px-3.5 py-2 rounded-full border border-[#FAD2DA] dark:border-zinc-700 shadow-2xs">
+                <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300">Hasta:</span>
                 <input
                   id="filter-date-hasta"
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="text-xs text-slate-700 bg-transparent focus:outline-none cursor-pointer"
+                  className="text-xs text-slate-700 dark:text-zinc-100 dark:[color-scheme:dark] bg-transparent focus:outline-none cursor-pointer"
                   placeholder="Hasta"
                 />
               </div>
@@ -397,7 +397,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
 
             {/* Departamento Dropdown Selector */}
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-600 whitespace-nowrap">
+              <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300 whitespace-nowrap">
                 Departamento:
               </span>
               <div className="relative min-w-[160px]">
@@ -405,7 +405,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                   id="filter-department-select"
                   value={selectedDeptFilter}
                   onChange={(e) => setSelectedDeptFilter(e.target.value)}
-                  className="w-full appearance-none bg-[#FFFBFB] text-slate-700 text-xs font-semibold px-4 py-2 pr-8 rounded-full border border-[#FAD2DA] shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#F44566]/30 cursor-pointer"
+                  className="w-full appearance-none bg-[#FFFBFB] dark:bg-[#282D35] text-slate-700 dark:text-zinc-100 text-xs font-semibold px-4 py-2 pr-8 rounded-full border border-[#FAD2DA] dark:border-zinc-700 shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#F44566]/30 cursor-pointer"
                 >
                   <option value="all">Todos los departamentos</option>
                   {departments.map((dept) => (
@@ -414,13 +414,13 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-3 pointer-events-none" />
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-400 absolute right-3 top-3 pointer-events-none" />
               </div>
             </div>
 
             {/* Categorías de Gasto: Cápsulas */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold text-slate-600 whitespace-nowrap mr-1">
+              <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300 whitespace-nowrap mr-1">
                 Categoría:
               </span>
               {(['all', 'Comida', 'Transporte', 'Hospedaje', 'Otros'] as const).map((cat) => {
@@ -435,7 +435,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                     className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       isActive
                         ? 'bg-[#F44566] text-white shadow-sm shadow-[#F44566]/30'
-                        : 'bg-[#F6EBD0]/60 hover:bg-[#F6EBD0] text-slate-700 border border-[#EEDBBA]'
+                        : 'bg-[#F6EBD0]/60 dark:bg-[#282D35] hover:bg-[#F6EBD0] dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 border border-[#EEDBBA] dark:border-zinc-700'
                     }`}
                   >
                     {label}
@@ -449,7 +449,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[#F44566] hover:bg-[#FFE8ED] transition-all cursor-pointer self-start lg:self-center"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[#F44566] hover:bg-[#FFE8ED] dark:hover:bg-zinc-800 transition-all cursor-pointer self-start lg:self-center"
                 title="Restablecer filtros"
               >
                 <RotateCcw className="w-3 h-3" />
@@ -463,12 +463,12 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
         <section aria-label="Tarjetas Resumen de Métricas" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           
           {/* KPI 1: Progreso Nacional */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-rose-100 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex items-center gap-4">
+          <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 sm:p-6 border border-rose-100 dark:border-zinc-800 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex items-center gap-4">
             {/* Donut Chart Gauge */}
             <div className="relative w-20 h-20 flex-shrink-0 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                 <path
-                  className="text-[#FFE4EA]"
+                  className="text-[#FFE4EA] dark:text-zinc-700"
                   strokeWidth="3.5"
                   stroke="currentColor"
                   fill="none"
@@ -484,69 +484,69 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                   d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                 />
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center text-sm font-extrabold text-slate-800">
+              <div className="absolute inset-0 flex items-center justify-center text-sm font-extrabold text-slate-800 dark:text-zinc-100">
                 {nationalProgressPct}%
               </div>
             </div>
 
             <div className="min-w-0">
-              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <h3 className="text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider mb-1">
                 Progreso Nacional
               </h3>
-              <p className="text-xs font-bold text-slate-800 leading-snug">
+              <p className="text-xs font-bold text-slate-800 dark:text-zinc-100 leading-snug">
                 {nationalProgressPct}% total Colombia completado
               </p>
-              <p className="text-[11px] text-slate-500 mt-1 font-medium">
-                <strong className="text-slate-800">{totalVisitedCount}</strong> / {nationalTotalMunicipalities} municipios visitados
+              <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-1 font-medium">
+                <strong className="text-slate-800 dark:text-zinc-100">{totalVisitedCount}</strong> / {nationalTotalMunicipalities} municipios visitados
               </p>
             </div>
           </div>
 
           {/* KPI 2: Presupuesto Total Invertido (Crema Suave #F6EBD0) */}
-          <div className="bg-[#F6EBD0] rounded-3xl p-5 sm:p-6 border border-[#EEDBBA] shadow-[0_10px_25px_-5px_rgba(238,219,186,0.5)] flex flex-col justify-between">
+          <div className="bg-[#F6EBD0] dark:bg-[#2A251D] rounded-3xl p-5 sm:p-6 border border-[#EEDBBA] dark:border-amber-900/50 shadow-[0_10px_25px_-5px_rgba(238,219,186,0.5)] dark:shadow-none flex flex-col justify-between">
             <div>
-              <span className="text-xs font-bold text-amber-900/80 uppercase tracking-wider block mb-1">
+              <span className="text-xs font-bold text-amber-900/80 dark:text-amber-200 uppercase tracking-wider block mb-1">
                 Presupuesto Total Invertido
               </span>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight my-1">
-                {formatCOP(totalFilteredBudget)} <span className="text-xs font-bold text-amber-900/70">COP</span>
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-amber-50 tracking-tight my-1">
+                {formatCOP(totalFilteredBudget)} <span className="text-xs font-bold text-amber-900/70 dark:text-amber-200/80">COP</span>
               </div>
             </div>
-            <p className="text-[11px] text-amber-900/70 font-medium mt-2 flex items-center gap-1.5">
+            <p className="text-[11px] text-amber-900/70 dark:text-amber-200/80 font-medium mt-2 flex items-center gap-1.5">
               <span>📊</span>
               <span>{filteredExpenses.length} movimientos financieros</span>
             </p>
           </div>
 
           {/* KPI 3: Departamentos Faltantes (Rosa Suave Pastel) */}
-          <div className="bg-[#FFF0F4] rounded-3xl p-5 sm:p-6 border border-[#FFE4EA] shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex flex-col justify-between">
+          <div className="bg-[#FFF0F4] rounded-3xl p-5 sm:p-6 border border-[#FFE4EA] dark:border-zinc-800 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex flex-col justify-between">
             <div>
               <span className="text-xs font-bold text-[#F44566] uppercase tracking-wider block mb-1">
                 Departamentos Faltantes
               </span>
-              <div className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight my-1">
+              <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-zinc-100 tracking-tight my-1">
                 {remainingDepartments}
               </div>
             </div>
-            <p className="text-[11px] text-slate-600 font-medium">
+            <p className="text-[11px] text-slate-600 dark:text-zinc-300 font-medium">
               departamentos restantes por explorar de {totalDepartments}
             </p>
           </div>
 
           {/* KPI 4: Destino Mejor Calificado */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-rose-100 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex flex-col justify-between">
+          <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 sm:p-6 border border-rose-100 dark:border-zinc-800 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex flex-col justify-between">
             <div className="flex items-start justify-between gap-2">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">
+              <span className="text-xs font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider block mb-1">
                 Destino Mejor Calificado
               </span>
               {topRatedDestination ? (
-                <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200">
+                <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 text-xs font-bold border border-amber-200 dark:border-amber-800/60">
                   <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                   <span>{topRatedDestination.rating}</span>
                 </span>
               ) : (
-                <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-50 text-slate-400 text-xs font-bold border border-slate-200">
-                  <Star className="w-3 h-3 fill-slate-300 text-slate-300" />
+                <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-50 dark:bg-zinc-800 text-slate-400 dark:text-zinc-400 text-xs font-bold border border-slate-200 dark:border-zinc-700">
+                  <Star className="w-3 h-3 fill-slate-300 dark:fill-zinc-600 text-slate-300 dark:text-zinc-600" />
                   <span>—</span>
                 </span>
               )}
@@ -555,14 +555,14 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
             {topRatedDestination ? (
               <>
                 <div className="my-2 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#FFE8ED] text-[#F44566] flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-2xl bg-[#FFE8ED] dark:bg-zinc-800 text-[#F44566] flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-sm font-extrabold text-slate-800 truncate">
+                    <h4 className="text-sm font-extrabold text-slate-800 dark:text-zinc-100 truncate">
                       {topRatedDestination.name}
                     </h4>
-                    <p className="text-xs text-slate-500 truncate font-medium">
+                    <p className="text-xs text-slate-500 dark:text-zinc-400 truncate font-medium">
                       {topRatedDestination.department}
                     </p>
                   </div>
@@ -579,20 +579,20 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
             ) : (
               <>
                 <div className="my-2 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-zinc-800 text-slate-400 dark:text-zinc-400 flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-sm font-bold text-slate-500 truncate">
+                    <h4 className="text-sm font-bold text-slate-500 dark:text-zinc-200 truncate">
                       Sin visitas aún
                     </h4>
-                    <p className="text-xs text-slate-400 truncate font-medium">
+                    <p className="text-xs text-slate-400 dark:text-zinc-400 truncate font-medium">
                       Pendiente de explorar
                     </p>
                   </div>
                 </div>
 
-                <span className="text-[11px] text-slate-400 font-medium mt-1 cursor-not-allowed">
+                <span className="text-[11px] text-slate-400 dark:text-zinc-400 font-medium mt-1 cursor-not-allowed">
                   Registra tu primera visita
                 </span>
               </>
@@ -603,10 +603,10 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
         {/* 3. CABECERA DE TABLAS CON BOTÓN DE DESCARGA EXCEL */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
           <div>
-            <h2 className="text-lg sm:text-xl font-black text-slate-800 tracking-tight">
-              Tablas de Reportes & Métricas
+            <h2 className="text-lg sm:text-xl font-black text-slate-800 dark:text-zinc-100 tracking-tight">
+              Tablas de Reportes &amp; Métricas
             </h2>
-            <p className="text-xs text-slate-500 font-medium">
+            <p className="text-xs text-slate-500 dark:text-zinc-400 font-medium">
               Detalle territorial y flujo de gastos de viaje
             </p>
           </div>
@@ -615,10 +615,10 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
             id="export-excel-btn"
             type="button"
             onClick={handleExportExcel}
-            className="px-4 py-2 rounded-full bg-white hover:bg-[#FFF5F7] border border-rose-200 text-xs font-bold text-slate-700 hover:text-[#F44566] shadow-sm transition-all flex items-center gap-2 cursor-pointer group active:scale-95"
+            className="px-4 py-2 rounded-full bg-white dark:bg-[#1E2228] hover:bg-[#FFF5F7] dark:hover:bg-[#282D35] border border-rose-200 dark:border-zinc-700 text-xs font-bold text-slate-700 dark:text-zinc-200 hover:text-[#F44566] shadow-sm transition-all flex items-center gap-2 cursor-pointer group active:scale-95"
             title="Exportar reporte completo a Microsoft Excel (.xlsx)"
           >
-            <FileSpreadsheet className="w-4 h-4 text-emerald-600 group-hover:scale-110 transition-transform" />
+            <FileSpreadsheet className="w-4 h-4 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform" />
             <span>📥 Descargar Excel (.xlsx)</span>
           </button>
         </div>
@@ -629,14 +629,14 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
           {/* TABLA 1: Cobertura por Departamento */}
           <section
             aria-label="Cobertura por Departamento"
-            className="bg-white rounded-3xl p-5 sm:p-6 border border-rose-100 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex flex-col h-full"
+            className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 sm:p-6 border border-rose-100 dark:border-zinc-800 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex flex-col h-full"
           >
             <div className="flex items-center justify-between gap-3 mb-4">
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-800">
+                <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-zinc-100">
                   Cobertura por Departamento
                 </h3>
-                <p className="text-xs text-slate-500 font-medium">
+                <p className="text-xs text-slate-500 dark:text-zinc-400 font-medium">
                   Avance territorial en los 32 departamentos ({departmentCoverageList.length} registrados)
                 </p>
               </div>
@@ -645,7 +645,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
               <button
                 type="button"
                 onClick={() => setSortOrder((prev) => (prev === 'desc' ? 'asc' : prev === 'asc' ? 'name' : 'desc'))}
-                className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-600 bg-slate-50 hover:bg-[#FFE8ED] hover:text-[#F44566] border border-slate-200 transition-all flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-zinc-200 bg-slate-50 dark:bg-[#282D35] hover:bg-[#FFE8ED] dark:hover:bg-zinc-700 hover:text-[#F44566] border border-slate-200 dark:border-zinc-700 transition-all flex items-center gap-1 cursor-pointer"
                 title="Cambiar orden de departamentos"
               >
                 <ArrowUpDown className="w-3.5 h-3.5" />
@@ -656,10 +656,10 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
             </div>
 
             {/* Table Container with sleek rounded styling & scrollable list */}
-            <div className="overflow-x-auto rounded-2xl border border-rose-100/70 max-h-[480px] overflow-y-auto">
+            <div className="overflow-x-auto rounded-2xl border border-rose-100/70 dark:border-zinc-800 max-h-[480px] overflow-y-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead className="sticky top-0 z-10">
-                  <tr className="bg-[#FDF2F4] text-slate-700 font-bold border-b border-rose-100 shadow-2xs">
+                  <tr className="bg-[#FDF2F4] dark:bg-[#282D35] text-slate-700 dark:text-zinc-200 font-bold border-b border-rose-100 dark:border-zinc-700 shadow-2xs">
                     <th className="py-3 px-3.5">Departamento</th>
                     <th className="py-3 px-2 text-center">Totales</th>
                     <th className="py-3 px-2 text-center">Visitados</th>
@@ -667,7 +667,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                     <th className="py-3 px-3.5 text-right">% Avance</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-rose-50 font-medium text-slate-700">
+                <tbody className="divide-y divide-rose-50 dark:divide-zinc-800 font-medium text-slate-700 dark:text-zinc-300">
                   {departmentCoverageList.map((dept) => {
                     const homeMuni = municipalities.find(
                       (m) => m.id === homeMunicipalityId || m.code === homeMunicipalityId
@@ -678,31 +678,31 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                       <tr
                         key={dept.id}
                         onClick={() => onNavigateToDepartment && onNavigateToDepartment(dept.id)}
-                        className="hover:bg-[#FFF5F7] transition-colors cursor-pointer group"
+                        className="hover:bg-[#FFF5F7] dark:hover:bg-[#282D35]/70 transition-colors cursor-pointer group"
                       >
-                        <td className="py-3 px-3.5 font-bold text-slate-800 group-hover:text-[#F44566] flex items-center gap-2">
+                        <td className="py-3 px-3.5 font-bold text-slate-800 dark:text-zinc-100 group-hover:text-[#F44566] flex items-center gap-2">
                           <span>{dept.name}</span>
                           {isHomeDept && (
-                            <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 text-rose-700 border border-rose-200 flex items-center gap-0.5" title="Departamento con tu ciudad hogar">
+                            <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex items-center gap-0.5" title="Departamento con tu ciudad hogar">
                               🏠 Hogar
                             </span>
                           )}
                           {dept.advancePercentage === 100 && (
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
                           )}
                         </td>
-                        <td className="py-3 px-2 text-center text-slate-500">{dept.totalMunicipalities}</td>
-                        <td className="py-3 px-2 text-center text-slate-800 font-bold">{dept.visitedMunicipalities}</td>
-                        <td className="py-3 px-2 text-center text-slate-400">{dept.pendingMunicipalities}</td>
+                        <td className="py-3 px-2 text-center text-slate-500 dark:text-zinc-400">{dept.totalMunicipalities}</td>
+                        <td className="py-3 px-2 text-center text-slate-800 dark:text-zinc-100 font-bold">{dept.visitedMunicipalities}</td>
+                        <td className="py-3 px-2 text-center text-slate-500 dark:text-zinc-400">{dept.pendingMunicipalities}</td>
                         <td className="py-3 px-3.5 text-right">
                           <div className="flex items-center justify-end gap-2">
-                            <div className="w-16 h-2 rounded-full bg-[#FFE4EA] overflow-hidden flex-shrink-0">
+                            <div className="w-16 h-2 rounded-full bg-[#FFE4EA] dark:bg-zinc-700 overflow-hidden flex-shrink-0">
                               <div
                                 className="h-full bg-[#F44566] rounded-full transition-all duration-500"
                                 style={{ width: `${dept.advancePercentage}%` }}
                               />
                             </div>
-                            <span className="text-[11px] font-bold text-slate-700 w-8 text-right">
+                            <span className="text-[11px] font-bold text-slate-700 dark:text-zinc-200 w-8 text-right">
                               {dept.advancePercentage}%
                             </span>
                           </div>
@@ -714,7 +714,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
               </table>
             </div>
 
-            <p className="text-[11px] text-slate-400 mt-2.5 text-center">
+            <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-2.5 text-center">
               Haz clic en cualquier departamento para abrir su explorador regional.
             </p>
           </section>
@@ -722,28 +722,28 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
           {/* TABLA 2: Balance Financiero y Bitácora de Gastos */}
           <section
             aria-label="Balance Financiero y Bitácora de Gastos"
-            className="bg-white rounded-3xl p-5 sm:p-6 border border-rose-100 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex flex-col h-full"
+            className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 sm:p-6 border border-rose-100 dark:border-zinc-800 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)] flex flex-col h-full"
           >
             <div className="flex items-center justify-between gap-3 mb-4">
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-800">
+                <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-zinc-100">
                   Balance Financiero y Bitácora de Gastos
                 </h3>
-                <p className="text-xs text-slate-500 font-medium">
+                <p className="text-xs text-slate-500 dark:text-zinc-400 font-medium">
                   {filteredExpenses.length} registros según los filtros activos
                 </p>
               </div>
 
-              <span className="px-3 py-1 bg-[#F6EBD0] text-amber-900 rounded-full text-xs font-bold border border-[#EEDBBA]">
+              <span className="px-3 py-1 bg-[#F6EBD0] dark:bg-[#2A251D] text-amber-900 dark:text-amber-200 rounded-full text-xs font-bold border border-[#EEDBBA] dark:border-amber-900/50">
                 {formatCOP(totalFilteredBudget)}
               </span>
             </div>
 
             {/* Table Container with sleek rounded styling & scrollable list */}
-            <div className="overflow-x-auto rounded-2xl border border-rose-100/70 max-h-[480px] overflow-y-auto">
+            <div className="overflow-x-auto rounded-2xl border border-rose-100/70 dark:border-zinc-800 max-h-[480px] overflow-y-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead className="sticky top-0 z-10">
-                  <tr className="bg-[#FDF2F4] text-slate-700 font-bold border-b border-rose-100 shadow-2xs">
+                  <tr className="bg-[#FDF2F4] dark:bg-[#282D35] text-slate-700 dark:text-zinc-200 font-bold border-b border-rose-100 dark:border-zinc-700 shadow-2xs">
                     <th className="py-3 px-3 whitespace-nowrap">Fecha</th>
                     <th className="py-3 px-3 whitespace-nowrap">Municipio</th>
                     <th className="py-3 px-2.5 whitespace-nowrap">Categoría</th>
@@ -751,27 +751,27 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                     <th className="py-3 px-3 whitespace-nowrap">Notas</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-rose-50 font-medium text-slate-700">
+                <tbody className="divide-y divide-rose-50 dark:divide-zinc-800 font-medium text-slate-700 dark:text-zinc-300">
                   {filteredExpenses.length > 0 ? (
                     filteredExpenses.map((expense) => (
                       <tr
                         key={expense.id}
                         onClick={() => onNavigateToMunicipality(expense.municipalityId)}
-                        className="hover:bg-[#FFF5F7] transition-colors cursor-pointer group"
+                        className="hover:bg-[#FFF5F7] dark:hover:bg-[#282D35]/70 transition-colors cursor-pointer group"
                       >
-                        <td className="py-3 px-3 text-slate-500 whitespace-nowrap text-[11px]">
+                        <td className="py-3 px-3 text-slate-500 dark:text-zinc-400 whitespace-nowrap text-[11px]">
                           {expense.date}
                         </td>
-                        <td className="py-3 px-3 font-bold text-slate-800 group-hover:text-[#F44566] whitespace-nowrap">
+                        <td className="py-3 px-3 font-bold text-slate-800 dark:text-zinc-100 group-hover:text-[#F44566] whitespace-nowrap">
                           <div className="flex items-center gap-1">
                             <span>{expense.municipalityName}</span>
                             {expense.municipalityId === homeMunicipalityId && (
-                              <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 text-rose-700 border border-rose-200">
+                              <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60">
                                 🏠 Hogar
                               </span>
                             )}
                           </div>
-                          <span className="block text-[10px] text-slate-400 font-normal">
+                          <span className="block text-[10px] text-slate-500 dark:text-zinc-400 font-normal">
                             {expense.departmentName}
                           </span>
                         </td>
@@ -779,21 +779,21 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                           <span
                             className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                               expense.category === 'Comida'
-                                ? 'bg-orange-100 text-orange-700'
+                                ? 'bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300'
                                 : expense.category === 'Transporte' || expense.category === 'Peajes' || expense.category === 'Transporte/Peajes'
-                                ? 'bg-blue-100 text-blue-700'
+                                ? 'bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300'
                                 : expense.category === 'Hospedaje'
-                                ? 'bg-purple-100 text-purple-700'
-                                : 'bg-slate-100 text-slate-700'
+                                ? 'bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300'
+                                : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300'
                             }`}
                           >
                             {expense.category}
                           </span>
                         </td>
-                        <td className="py-3 px-3 text-right font-bold text-slate-900 whitespace-nowrap">
+                        <td className="py-3 px-3 text-right font-bold text-slate-900 dark:text-zinc-100 whitespace-nowrap">
                           {formatCOP(expense.amountCop)}
                         </td>
-                        <td className="py-3 px-3 text-slate-500 text-[11px] max-w-[180px] truncate" title={expense.notes}>
+                        <td className="py-3 px-3 text-slate-500 dark:text-zinc-400 text-[11px] max-w-[180px] truncate" title={expense.notes}>
                           {expense.notes || '—'}
                         </td>
                       </tr>
@@ -802,13 +802,13 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                     <tr>
                       <td colSpan={5} className="py-12 px-4 text-center">
                         <div className="flex flex-col items-center justify-center max-w-sm mx-auto">
-                          <div className="w-12 h-12 rounded-full bg-[#FFE8ED] flex items-center justify-center text-[#F44566] mb-3">
+                          <div className="w-12 h-12 rounded-full bg-[#FFE8ED] dark:bg-zinc-800 flex items-center justify-center text-[#F44566] mb-3">
                             <TrendingUp className="w-6 h-6 opacity-80" />
                           </div>
-                          <p className="text-xs font-bold text-slate-800 mb-1">
+                          <p className="text-xs font-bold text-slate-800 dark:text-zinc-100 mb-1">
                             Aún no has registrado gastos de viaje
                           </p>
-                          <p className="text-[11px] text-slate-500 leading-relaxed">
+                          <p className="text-[11px] text-slate-500 dark:text-zinc-400 leading-relaxed">
                             Cuando completes una visita a un municipio, tus gastos aparecerán aquí.
                           </p>
                         </div>
@@ -817,14 +817,14 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                   )}
                 </tbody>
                 <tfoot>
-                  <tr className="bg-[#FFF8FA] font-extrabold text-slate-900 border-t-2 border-[#FAD2DA]">
-                    <td colSpan={3} className="py-3.5 px-3 text-xs uppercase tracking-wider text-slate-700">
+                  <tr className="bg-[#FFF8FA] dark:bg-[#282D35] font-extrabold text-slate-900 dark:text-zinc-100 border-t-2 border-[#FAD2DA] dark:border-zinc-700">
+                    <td colSpan={3} className="py-3.5 px-3 text-xs uppercase tracking-wider text-slate-700 dark:text-zinc-200">
                       Total
                     </td>
                     <td className="py-3.5 px-3 text-right text-sm text-[#F44566]">
                       {formatCOP(totalFilteredBudget)}
                     </td>
-                    <td className="py-3.5 px-3 text-[11px] text-slate-400 font-normal">
+                    <td className="py-3.5 px-3 text-[11px] text-slate-500 dark:text-zinc-400 font-normal">
                       {filteredExpenses.length} movimientos
                     </td>
                   </tr>

@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas';
 import {
     ArrowLeft, Plus, Camera, Utensils, DollarSign,
     Car, BookMarked, Star, X, Check, Upload, ChevronRight,
-    Sparkles, MapPin, Calendar, Heart, BarChart3, FileText, Share2, Download, Printer
+    Sparkles, MapPin, Calendar, Heart, BarChart3, FileText, Share2, Download, Printer, Trash2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Municipality, TripEntry, ExpenseLog, TripPhoto } from '../types';
@@ -185,7 +185,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
     // Dynamic calculation of accumulated expenses
     const totalExpensesCop = useMemo(() => {
         if (!currentTrip || !currentTrip.expenses) return 0;
-        return currentTrip.expenses.reduce((sum, exp) => sum + (exp.amountCop || 0), 0);
+        return currentTrip.expenses.reduce((sum, exp) => sum + (Number(exp.amountCop) || 0), 0);
     }, [currentTrip]);
 
     // Formatter for Colombian Pesos (COP)
@@ -316,7 +316,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
     return (
         <div
-            className="min-h-screen bg-[#FDF8F7] dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 pt-20 pb-28 sm:pb-20 px-4 sm:px-8 print:p-0 print:bg-white transition-colors"
+            className="min-h-screen bg-[#FDF8F7] dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 pt-20 md:pt-6 pb-28 sm:pb-24 px-4 sm:px-8 print:p-0 print:bg-white transition-colors"
             style={{
                 backgroundImage: 'linear-gradient(180deg, var(--color-accent-soft) 0%, transparent 45%)'
             }}
@@ -541,8 +541,8 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                 type="button"
                                                 onClick={() => setSelectedTripIndex(idx)}
                                                 className={`transition-all duration-200 cursor-pointer ${isSelected
-                                                        ? 'px-4 py-2 rounded-full bg-[#1E293B] text-white text-xs font-bold shadow-md shadow-slate-800/25'
-                                                        : 'px-3.5 py-2 rounded-full bg-white/90 hover:bg-white text-slate-600 hover:text-slate-900 border border-[#FFE4EA] text-xs font-semibold shadow-sm'
+                                                        ? 'px-4 py-2 rounded-full bg-[#1E293B] dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-bold shadow-md shadow-slate-800/25'
+                                                        : 'px-3.5 py-2 rounded-full bg-white/90 dark:bg-zinc-800 hover:bg-white dark:hover:bg-zinc-700 text-slate-600 dark:text-zinc-200 hover:text-slate-900 dark:hover:text-white border border-[#FFE4EA] dark:border-zinc-700 text-xs font-semibold shadow-sm'
                                                     }`}
                                                 title={`Visita ${idx + 1}: ${trip.tripDate}`}
                                             >
@@ -679,7 +679,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                     <button
                                         id="tab-global-reportes-btn"
                                         onClick={onNavigateToReportes}
-                                        className="px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap text-rose-600 bg-rose-50 hover:bg-rose-100 flex items-center gap-1.5 cursor-pointer border border-rose-200"
+                                        className="px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap text-rose-600 bg-rose-50 hover:bg-rose-100 dark:hover:bg-zinc-800 flex items-center gap-1.5 cursor-pointer border border-rose-200 dark:border-zinc-700"
                                         title="Ver Balance Financiero y Reportes Globales"
                                     >
                                         <BarChart3 className="w-3.5 h-3.5 text-rose-500" />
@@ -694,18 +694,18 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                             <div className="space-y-6 animate-in fade-in duration-200">
                                 {/* Banner informativo de Residencia / Ciudad Hogar */}
                                 {isHome && (
-                                    <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50/90 via-teal-50/60 to-rose-50/50 border border-emerald-200 flex items-start gap-3 shadow-xs">
+                                    <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50/90 via-teal-50/60 to-rose-50/50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-zinc-900 border border-emerald-200 dark:border-emerald-800/60 flex items-start gap-3 shadow-xs">
                                         <span className="text-xl flex-shrink-0">🏠</span>
                                         <div className="flex-1">
                                             <div className="flex items-center gap-2 flex-wrap">
-                                                <h4 className="text-xs font-bold text-emerald-800">
+                                                <h4 className="text-xs font-bold text-emerald-800 dark:text-emerald-300">
                                                     Base de Operaciones y Residencia Actual
                                                 </h4>
-                                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-200/70 text-emerald-900 border border-emerald-300">
+                                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-200/70 dark:bg-emerald-900/60 text-emerald-900 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700/60">
                                                     Balance $0 COP Válido
                                                 </span>
                                             </div>
-                                            <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                                            <p className="text-[11px] text-slate-600 dark:text-zinc-300 mt-1 leading-relaxed">
                                                 En tu ciudad hogar no aplican gastos turísticos obligatorios de peajes ni hospedajes. Tu balance puede permanecer en $0 COP sin considerarse incompleto. Si tienes consumos o salidas especiales, puedes registrarlas opcionalmente.
                                             </p>
                                         </div>
@@ -715,7 +715,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                 {/* Main 2-column layout matching Screenshot 4 */}
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                                     {/* Left Column: Categorized Expenses Inputs matching Screenshot 4 */}
-                                    <div className="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] space-y-4">
+                                    <div className="lg:col-span-2 bg-white dark:bg-[#1E2228] rounded-3xl p-6 sm:p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800/80 space-y-4">
                                         {['Comida', 'Peajes', 'Hospedaje', 'Otros'].map((category) => {
                                             const exp = currentTrip.expenses.find((e) => e.category === category);
                                             const amount = exp ? exp.amountCop : 0;
@@ -727,7 +727,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                     key={category}
                                                     className="flex flex-col sm:flex-row items-center gap-3 text-xs"
                                                 >
-                                                    <span className="w-24 font-bold text-slate-800 text-sm">
+                                                    <span className="w-24 font-bold text-slate-800 dark:text-zinc-100 text-sm self-start sm:self-center">
                                                         {category}
                                                     </span>
 
@@ -735,33 +735,37 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                     <div className="relative flex-1 w-full">
                                                         <input
                                                             type="number"
+                                                            min={0}
                                                             value={amount || ''}
                                                             onChange={(e) => {
-                                                                const newAmount = parseFloat(e.target.value) || 0;
-                                                                const updatedExpenses = currentTrip.expenses.map((item) =>
-                                                                    item.category === category
-                                                                        ? { ...item, amountCop: newAmount }
-                                                                        : item
-                                                                );
-                                                                if (!updatedExpenses.some((i) => i.category === category)) {
-                                                                    updatedExpenses.push({
-                                                                        id: newId(),
-                                                                        tripEntryId: currentTrip.id,
-                                                                        category: category as any,
-                                                                        amountCop: newAmount,
-                                                                        date: currentTrip.tripDate,
-                                                                        notes: ''
-                                                                    });
-                                                                }
+                                                                const parsed = parseFloat(e.target.value);
+                                                                const newAmount = Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+                                                                const updatedExpenses = exp
+                                                                    ? currentTrip.expenses.map((item) =>
+                                                                          item.id === exp.id
+                                                                              ? { ...item, amountCop: newAmount }
+                                                                              : item
+                                                                      )
+                                                                    : [
+                                                                          ...currentTrip.expenses,
+                                                                          {
+                                                                              id: newId(),
+                                                                              tripEntryId: currentTrip.id,
+                                                                              category: category as ExpenseLog['category'],
+                                                                              amountCop: newAmount,
+                                                                              date: currentTrip.tripDate,
+                                                                              notes: ''
+                                                                          }
+                                                                      ];
                                                                 onSaveTrip({ ...currentTrip, expenses: updatedExpenses });
                                                             }}
                                                             placeholder="COP"
-                                                            className="w-full px-4 py-2.5 bg-[#FFFBFB] border border-[#FAD2DA] rounded-full text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-[#F44566]"
+                                                            className="w-full px-4 py-2.5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-full text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 text-xs focus:outline-none focus:ring-2 focus:ring-[#F44566]"
                                                         />
                                                     </div>
 
                                                     {/* Date tag pill */}
-                                                    <div className="px-3 py-2.5 bg-[#FFFBFB] border border-[#FAD2DA] rounded-full text-slate-600 text-xs whitespace-nowrap min-w-[100px] text-center">
+                                                    <div className="px-3 py-2.5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-full text-slate-600 dark:text-zinc-300 text-xs whitespace-nowrap min-w-[100px] text-center w-full sm:w-auto">
                                                         {date}
                                                     </div>
 
@@ -769,39 +773,191 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                     <div className="flex-1 w-full">
                                                         <input
                                                             type="text"
+                                                            maxLength={500}
                                                             value={notes}
                                                             onChange={(e) => {
-                                                                const newNotes = e.target.value;
-                                                                const updatedExpenses = currentTrip.expenses.map((item) =>
-                                                                    item.category === category
-                                                                        ? { ...item, notes: newNotes }
-                                                                        : item
-                                                                );
+                                                                const newNotes = e.target.value.slice(0, 500);
+                                                                const updatedExpenses = exp
+                                                                    ? currentTrip.expenses.map((item) =>
+                                                                          item.id === exp.id
+                                                                              ? { ...item, notes: newNotes }
+                                                                              : item
+                                                                      )
+                                                                    : [
+                                                                          ...currentTrip.expenses,
+                                                                          {
+                                                                              id: newId(),
+                                                                              tripEntryId: currentTrip.id,
+                                                                              category: category as ExpenseLog['category'],
+                                                                              amountCop: 0,
+                                                                              date: currentTrip.tripDate,
+                                                                              notes: newNotes
+                                                                          }
+                                                                      ];
                                                                 onSaveTrip({ ...currentTrip, expenses: updatedExpenses });
                                                             }}
                                                             placeholder="Notes"
-                                                            className="w-full px-4 py-2.5 bg-[#FFFBFB] border border-[#FAD2DA] rounded-full text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-[#F44566]"
+                                                            className="w-full px-4 py-2.5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-full text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 text-xs focus:outline-none focus:ring-2 focus:ring-[#F44566]"
                                                         />
                                                     </div>
                                                 </div>
                                             );
                                         })}
+
+                                        {/* Sección de Gastos adicionales */}
+                                        {(() => {
+                                            const firstOtrosExpense = currentTrip.expenses.find((e) => e.category === 'Otros');
+                                            const additionalExpenses = currentTrip.expenses.filter(
+                                                (e) => e.category === 'Otros' && e.id !== firstOtrosExpense?.id
+                                            );
+
+                                            const handleAddExtraExpense = () => {
+                                                const nextExpenses = [...currentTrip.expenses];
+                                                if (!firstOtrosExpense) {
+                                                    nextExpenses.push({
+                                                        id: newId(),
+                                                        tripEntryId: currentTrip.id,
+                                                        category: 'Otros',
+                                                        amountCop: 0,
+                                                        date: currentTrip.tripDate,
+                                                        notes: ''
+                                                    });
+                                                }
+                                                nextExpenses.push({
+                                                    id: newId(),
+                                                    tripEntryId: currentTrip.id,
+                                                    category: 'Otros',
+                                                    amountCop: 0,
+                                                    date: currentTrip.tripDate,
+                                                    notes: ''
+                                                });
+                                                onSaveTrip({ ...currentTrip, expenses: nextExpenses });
+                                            };
+
+                                            const handleUpdateExtraExpense = (
+                                                expenseId: string,
+                                                patch: Partial<Pick<ExpenseLog, 'amountCop' | 'notes'>>
+                                            ) => {
+                                                const updatedExpenses = currentTrip.expenses.map((item) =>
+                                                    item.id === expenseId ? { ...item, ...patch } : item
+                                                );
+                                                onSaveTrip({ ...currentTrip, expenses: updatedExpenses });
+                                            };
+
+                                            const handleDeleteExtraExpense = (expenseId: string) => {
+                                                const updatedExpenses = currentTrip.expenses.filter((item) => item.id !== expenseId);
+                                                onSaveTrip({ ...currentTrip, expenses: updatedExpenses });
+                                            };
+
+                                            return (
+                                                <div className="pt-4 mt-2 border-t border-[#FFE4EA] dark:border-zinc-800 space-y-3">
+                                                    <div className="flex flex-wrap items-center justify-between gap-2">
+                                                        <div>
+                                                            <h4 className="text-sm font-bold text-slate-800 dark:text-zinc-100">
+                                                                Gastos adicionales
+                                                            </h4>
+                                                            <p className="text-[11px] text-slate-500 dark:text-zinc-400">
+                                                                Agrega entradas, recuerdos, parqueaderos u otros gastos de esta visita
+                                                            </p>
+                                                        </div>
+                                                        <button
+                                                            id="add-extra-expense-btn"
+                                                            type="button"
+                                                            onClick={handleAddExtraExpense}
+                                                            style={{
+                                                                backgroundColor: 'var(--color-accent)',
+                                                                borderColor: 'var(--color-accent-soft)'
+                                                            }}
+                                                            className="flex items-center gap-1.5 px-4 py-2 active:scale-95 text-white text-xs font-bold rounded-full shadow-md transition-all cursor-pointer whitespace-nowrap"
+                                                        >
+                                                            <Plus className="w-3.5 h-3.5" />
+                                                            <span>Agregar gasto</span>
+                                                        </button>
+                                                    </div>
+
+                                                    {additionalExpenses.length > 0 && (
+                                                        <div className="space-y-2.5 pt-1">
+                                                            {additionalExpenses.map((expense) => (
+                                                                <div
+                                                                    key={expense.id}
+                                                                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 text-xs p-3 sm:p-0 rounded-2xl sm:rounded-none bg-[#FFFBFB]/60 sm:bg-transparent dark:bg-[#282D35]/40 sm:dark:bg-transparent border border-[#FFE4EA] sm:border-0 dark:border-zinc-800"
+                                                                >
+                                                                    {/* Descripción (texto, máximo 500 caracteres) */}
+                                                                    <div className="flex-1 w-full">
+                                                                        <input
+                                                                            type="text"
+                                                                            maxLength={500}
+                                                                            value={expense.notes}
+                                                                            onChange={(e) =>
+                                                                                handleUpdateExtraExpense(expense.id, {
+                                                                                    notes: e.target.value.slice(0, 500)
+                                                                                })
+                                                                            }
+                                                                            placeholder="Descripción del gasto"
+                                                                            aria-label="Descripción del gasto adicional"
+                                                                            className="w-full px-4 py-2.5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-full text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 text-xs focus:outline-none focus:ring-2 focus:ring-[#F44566]"
+                                                                        />
+                                                                    </div>
+
+                                                                    {/* Monto en COP (número >= 0) */}
+                                                                    <div className="w-full sm:w-36">
+                                                                        <input
+                                                                            type="number"
+                                                                            min={0}
+                                                                            value={expense.amountCop || ''}
+                                                                            onChange={(e) => {
+                                                                                const parsed = parseFloat(e.target.value);
+                                                                                const amountCop = Number.isFinite(parsed)
+                                                                                    ? Math.max(0, parsed)
+                                                                                    : 0;
+                                                                                handleUpdateExtraExpense(expense.id, { amountCop });
+                                                                            }}
+                                                                            placeholder="COP"
+                                                                            aria-label="Monto en COP del gasto adicional"
+                                                                            className="w-full px-4 py-2.5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-full text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 text-xs focus:outline-none focus:ring-2 focus:ring-[#F44566]"
+                                                                        />
+                                                                    </div>
+
+                                                                    <div className="flex items-center justify-between sm:justify-start gap-2">
+                                                                        {/* Fecha de la visita (solo informativa) */}
+                                                                        <div className="px-3 py-2.5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-full text-slate-600 dark:text-zinc-300 text-xs whitespace-nowrap min-w-[100px] text-center flex-1 sm:flex-initial">
+                                                                            {expense.date || currentTrip.tripDate}
+                                                                        </div>
+
+                                                                        {/* Botón de papelera para eliminar */}
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() => handleDeleteExtraExpense(expense.id)}
+                                                                            title="Eliminar gasto adicional"
+                                                                            aria-label="Eliminar gasto adicional"
+                                                                            className="p-2.5 rounded-full bg-white dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 text-rose-500 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-zinc-700 transition-colors cursor-pointer flex-shrink-0 active:scale-95"
+                                                                        >
+                                                                            <Trash2 className="w-4 h-4" />
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            );
+                                        })()}
                                     </div>
 
                                     {/* Right Column: Pastel Cream Total Acumulado Card matching Screenshot 4 */}
-                                    <div className="bg-[#F6EBD0] rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#EEDBBA] flex flex-col items-center justify-center text-center">
-                                        <span className="text-xl sm:text-2xl font-bold text-slate-800 mb-3 leading-snug">
+                                    <div className="bg-[#F6EBD0] dark:bg-[#2A251D] rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] dark:shadow-none border border-[#EEDBBA] dark:border-amber-900/50 flex flex-col items-center justify-center text-center">
+                                        <span className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-amber-100 mb-3 leading-snug">
                                             Total Acumulado<br />de la Visita
                                         </span>
-                                        <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                                        <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-amber-50 tracking-tight">
                                             COP {formatCOP(totalExpensesCop)}
                                         </span>
                                         {isHome && totalExpensesCop === 0 ? (
-                                            <span className="mt-3 px-3 py-1 rounded-full bg-white/80 text-emerald-800 border border-emerald-300 text-[11px] font-bold shadow-2xs">
+                                            <span className="mt-3 px-3 py-1 rounded-full bg-white/80 dark:bg-zinc-800/90 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700/60 text-[11px] font-bold shadow-2xs">
                                                 ✓ Presupuesto de hogar al día ($0 COP)
                                             </span>
                                         ) : (
-                                            <p className="text-[11px] text-slate-600 mt-3 font-medium">
+                                            <p className="text-[11px] text-slate-600 dark:text-amber-200/80 mt-3 font-medium">
                                                 Calculado automáticamente por categoría
                                             </p>
                                         )}
@@ -811,12 +967,12 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                 {/* Bottom Row Widgets matching Screenshot 4: Fotos, Recomendaciones de Transporte, Quick Notes */}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
                                     {/* Widget 1: Fotos preview slider */}
-                                    <div className="bg-white rounded-3xl p-5 shadow-[0_10px_25px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3]">
+                                    <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 shadow-[0_10px_25px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800">
                                         <div className="flex items-center justify-between mb-3">
-                                            <h4 className="text-xs font-bold text-slate-800">Fotos</h4>
+                                            <h4 className="text-xs font-bold text-slate-800 dark:text-zinc-100">Fotos</h4>
                                             <button
                                                 onClick={() => setActiveTab('fotos')}
-                                                className="text-[11px] font-semibold text-[#F44566] hover:underline"
+                                                className="text-[11px] font-semibold text-[#F44566] hover:underline cursor-pointer"
                                             >
                                                 Ver todas
                                             </button>
@@ -825,7 +981,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                             {(!currentTrip.photos || currentTrip.photos.length === 0) ? (
                                                 <div
                                                     onClick={() => setActiveTab('fotos')}
-                                                    className="w-full py-4 text-center text-xs text-slate-400 cursor-pointer hover:text-[#F44566] transition-colors rounded-xl border border-dashed border-rose-100 bg-[#FFFBFB]"
+                                                    className="w-full py-4 text-center text-xs text-slate-500 dark:text-zinc-400 cursor-pointer hover:text-[#F44566] transition-colors rounded-xl border border-dashed border-rose-100 dark:border-zinc-700 bg-[#FFFBFB] dark:bg-[#282D35]"
                                                 >
                                                     📸 Sin fotos registradas • Haz clic para agregar
                                                 </div>
@@ -837,13 +993,13 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                             src={p.url}
                                                             alt={p.caption || 'Foto de viaje'}
                                                             onClick={() => setLightboxPhoto(p.url)}
-                                                            className="w-20 h-20 rounded-2xl object-cover cursor-pointer hover:opacity-90 transition-opacity border border-slate-100 flex-shrink-0"
+                                                            className="w-20 h-20 rounded-2xl object-cover cursor-pointer hover:opacity-90 transition-opacity border border-slate-100 dark:border-zinc-700 flex-shrink-0"
                                                             referrerPolicy="no-referrer"
                                                         />
                                                     ))}
                                                     <button
                                                         onClick={() => setActiveTab('fotos')}
-                                                        className="w-10 h-20 rounded-2xl bg-[#FFF5F7] text-[#F44566] flex items-center justify-center hover:bg-[#FFE8ED] flex-shrink-0"
+                                                        className="w-10 h-20 rounded-2xl bg-[#FFF5F7] dark:bg-zinc-800 text-[#F44566] flex items-center justify-center hover:bg-[#FFE8ED] dark:hover:bg-zinc-700 flex-shrink-0 cursor-pointer"
                                                     >
                                                         <ChevronRight className="w-4 h-4" />
                                                     </button>
@@ -853,38 +1009,38 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                     </div>
 
                                     {/* Widget 2: Recomendaciones de Transporte with mini map preview */}
-                                    <div className="bg-white rounded-3xl p-5 shadow-[0_10px_25px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3]">
+                                    <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 shadow-[0_10px_25px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800">
                                         <div className="flex items-center justify-between mb-3">
-                                            <h4 className="text-xs font-bold text-slate-800">
+                                            <h4 className="text-xs font-bold text-slate-800 dark:text-zinc-100">
                                                 Recomendaciones de transporte
                                             </h4>
                                             <button
                                                 onClick={() => setActiveTab('transporte')}
-                                                className="text-[11px] font-semibold text-[#F44566] hover:underline"
+                                                className="text-[11px] font-semibold text-[#F44566] hover:underline cursor-pointer"
                                             >
                                                 Detalle
                                             </button>
                                         </div>
-                                        <div className="bg-[#FFFBFB] p-3 rounded-2xl border border-[#FAD2DA]/60 text-xs text-slate-700 space-y-1.5">
+                                        <div className="bg-[#FFFBFB] dark:bg-[#282D35] p-3 rounded-2xl border border-[#FAD2DA]/60 dark:border-zinc-700 text-xs text-slate-700 dark:text-zinc-300 space-y-1.5">
                                             <p className="font-semibold text-[#F44566]">
                                                 Estado: {currentTrip.roadCondition || 'Óptima (Vía pavimentada)'}
                                             </p>
-                                            <p className="line-clamp-2 text-slate-600 text-[11px]">
+                                            <p className="line-clamp-2 text-slate-600 dark:text-zinc-300 text-[11px]">
                                                 {currentTrip.transportNotes || 'Ruta sin contratiempos reportados.'}
                                             </p>
                                         </div>
                                     </div>
 
                                     {/* Widget 3: Quick notes textarea */}
-                                    <div className="bg-white rounded-3xl p-5 shadow-[0_10px_25px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3]">
-                                        <h4 className="text-xs font-bold text-slate-800 mb-2">Quick notes</h4>
+                                    <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 shadow-[0_10px_25px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800">
+                                        <h4 className="text-xs font-bold text-slate-800 dark:text-zinc-100 mb-2">Quick notes</h4>
                                         <textarea
                                             value={currentTrip.doNotForgetNotes}
                                             onChange={(e) => {
                                                 onSaveTrip({ ...currentTrip, doNotForgetNotes: e.target.value });
                                             }}
                                             placeholder="Quick notes..."
-                                            className="w-full h-20 p-3 bg-[#FFFBFB] border border-[#FAD2DA] rounded-2xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F44566] resize-none"
+                                            className="w-full h-20 p-3 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566] resize-none"
                                         />
                                     </div>
                                 </div>
@@ -893,13 +1049,13 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                         {/* TAB CONTENT: FOTOS (Full Lightbox & Upload) */}
                         {activeTab === 'fotos' && (
-                            <div className="bg-white rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] space-y-6 animate-in fade-in">
+                            <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800 space-y-6 animate-in fade-in">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <h3 className="text-lg font-bold text-slate-800">
+                                        <h3 className="text-lg font-bold text-slate-800 dark:text-zinc-100">
                                             Galería Fotográfica de la Visita ({currentTrip.photos?.length || 0})
                                         </h3>
-                                        <p className="text-xs text-slate-500">
+                                        <p className="text-xs text-slate-500 dark:text-zinc-400">
                                             Recuerdos capturados en {municipality.name}
                                         </p>
                                     </div>
@@ -935,12 +1091,12 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                                 {/* Empty State when photos.length === 0 */}
                                 {(!currentTrip.photos || currentTrip.photos.length === 0) ? (
-                                    <div className="border-2 border-dashed border-rose-200 rounded-3xl p-8 text-center bg-white/50 flex flex-col items-center justify-center my-6 space-y-3">
+                                    <div className="border-2 border-dashed border-rose-200 dark:border-zinc-700 rounded-3xl p-8 text-center bg-white/50 dark:bg-[#282D35]/60 flex flex-col items-center justify-center my-6 space-y-3">
                                         <span className="text-4xl select-none" role="img" aria-label="cámara">📸</span>
-                                        <h4 className="text-base font-bold text-slate-800">
+                                        <h4 className="text-base font-bold text-slate-800 dark:text-zinc-100">
                                             Aún no has agregado fotos de este viaje
                                         </h4>
-                                        <p className="text-xs text-slate-500 max-w-sm leading-relaxed">
+                                        <p className="text-xs text-slate-500 dark:text-zinc-400 max-w-sm leading-relaxed">
                                             Sube las fotos familiares de tu visita para empezar a llenar tu álbum de recuerdos
                                         </p>
                                         <label className="mt-2 cursor-pointer py-2.5 px-6 bg-[#F44566] hover:bg-[#e03757] text-white rounded-full text-xs font-bold transition-all flex items-center gap-2 shadow-md shadow-[#F44566]/25 active:scale-95">
@@ -976,7 +1132,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                             <div
                                                 key={photo.id}
                                                 onClick={() => setLightboxPhoto(photo.url)}
-                                                className="group relative h-48 rounded-2xl overflow-hidden bg-slate-100 cursor-pointer shadow-sm hover:shadow-md transition-all"
+                                                className="group relative h-48 rounded-2xl overflow-hidden bg-slate-100 dark:bg-zinc-800 cursor-pointer shadow-sm hover:shadow-md transition-all"
                                             >
                                                 <img
                                                     src={photo.url}
@@ -998,12 +1154,12 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                         {/* TAB CONTENT: COMIDA */}
                         {activeTab === 'comida' && (
-                            <div className="bg-white rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] space-y-6 animate-in fade-in">
+                            <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800 space-y-6 animate-in fade-in">
                                 <div>
-                                    <h3 className="text-lg font-bold text-slate-800">
+                                    <h3 className="text-lg font-bold text-slate-800 dark:text-zinc-100">
                                         Reseña Gastronómica &amp; Platos Típicos
                                     </h3>
-                                    <p className="text-xs text-slate-500">
+                                    <p className="text-xs text-slate-500 dark:text-zinc-400">
                                         Sabores y restaurantes degustados en {municipality.name}
                                     </p>
                                 </div>
@@ -1011,7 +1167,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-4">
                                         <div>
-                                            <label className="block text-xs font-bold text-slate-700 mb-1">
+                                            <label className="block text-xs font-bold text-slate-700 dark:text-zinc-200 mb-1">
                                                 Plato Estrella de la Visita
                                             </label>
                                             <input
@@ -1019,40 +1175,40 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                 value={currentTrip.favoriteDish || ''}
                                                 onChange={(e) => onSaveTrip({ ...currentTrip, favoriteDish: e.target.value })}
                                                 placeholder="Ej: Trucha al ajillo con patacón"
-                                                className="w-full px-4 py-2.5 bg-[#FFFBFB] border border-[#FAD2DA] rounded-2xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#F44566]"
+                                                className="w-full px-4 py-2.5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566]"
                                             />
                                         </div>
 
                                         <div>
-                                            <label className="block text-xs font-bold text-slate-700 mb-1">
+                                            <label className="block text-xs font-bold text-slate-700 dark:text-zinc-200 mb-1">
                                                 Reseña del Restaurante y Experiencia
                                             </label>
                                             <textarea
                                                 value={currentTrip.foodReview}
                                                 onChange={(e) => onSaveTrip({ ...currentTrip, foodReview: e.target.value })}
                                                 rows={5}
-                                                className="w-full p-4 bg-[#FFFBFB] border border-[#FAD2DA] rounded-2xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#F44566] leading-relaxed"
+                                                className="w-full p-4 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566] leading-relaxed"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="bg-[#F6EBD0]/70 p-6 rounded-3xl border border-[#EEDBBA] flex flex-col justify-between">
+                                    <div className="bg-[#F6EBD0]/70 dark:bg-[#2A251D] p-6 rounded-3xl border border-[#EEDBBA] dark:border-amber-900/50 flex flex-col justify-between">
                                         <div>
-                                            <span className="text-xs font-bold text-amber-900 uppercase tracking-wider block mb-2">
+                                            <span className="text-xs font-bold text-amber-900 dark:text-amber-300 uppercase tracking-wider block mb-2">
                                                 Recomendación Gourmet
                                             </span>
-                                            <p className="text-sm font-semibold text-slate-800 mb-2">
+                                            <p className="text-sm font-semibold text-slate-800 dark:text-zinc-100 mb-2">
                                                 {currentTrip.favoriteDish || 'Gastronomía Tradicional'}
                                             </p>
-                                            <p className="text-xs text-slate-600 leading-relaxed">
+                                            <p className="text-xs text-slate-600 dark:text-zinc-300 leading-relaxed">
                                                 &quot;{currentTrip.foodReview}&quot;
                                             </p>
                                         </div>
-                                        <div className="mt-4 pt-4 border-t border-[#EEDBBA] flex items-center gap-1 text-[#F44566]">
+                                        <div className="mt-4 pt-4 border-t border-[#EEDBBA] dark:border-amber-900/50 flex items-center gap-1 text-[#F44566]">
                                             {[1, 2, 3, 4, 5].map((s) => (
                                                 <Star key={s} className="w-4 h-4 fill-current" />
                                             ))}
-                                            <span className="text-xs font-bold text-slate-700 ml-2">5.0 / 5.0</span>
+                                            <span className="text-xs font-bold text-slate-700 dark:text-zinc-200 ml-2">5.0 / 5.0</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1061,22 +1217,22 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                         {/* TAB CONTENT: TRANSPORTE */}
                         {activeTab === 'transporte' && (
-                            <div className="bg-white rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] space-y-6 animate-in fade-in">
+                            <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800 space-y-6 animate-in fade-in">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                     <div>
-                                        <h3 className="text-lg font-bold text-slate-800">
+                                        <h3 className="text-lg font-bold text-slate-800 dark:text-zinc-100">
                                             {isHome
                                                 ? `Movilidad Urbana y Rutas Locales en ${municipality.name}`
                                                 : `Ruta, Vías y Peajes hacia ${municipality.name}`}
                                         </h3>
-                                        <p className="text-xs text-slate-500">
+                                        <p className="text-xs text-slate-500 dark:text-zinc-400">
                                             {isHome
                                                 ? 'Tu base de operaciones y residencia. No aplican peajes ni traslados turísticos.'
                                                 : 'Información de acceso, peajes y recomendaciones viales'}
                                         </p>
                                     </div>
                                     {isTransportSavedFeedback && (
-                                        <div className="px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold flex items-center gap-1.5 animate-in fade-in">
+                                        <div className="px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 text-xs font-bold flex items-center gap-1.5 animate-in fade-in">
                                             <Check className="w-3.5 h-3.5" />
                                             <span>¡Cambios de ruta guardados!</span>
                                         </div>
@@ -1085,13 +1241,13 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                                 {/* Banner limpio para Ciudad Hogar / Residencia */}
                                 {isHome && (
-                                    <div className="p-4 rounded-2xl bg-gradient-to-r from-rose-50/80 via-peach-50/50 to-amber-50/50 border border-rose-200/80 flex items-start gap-3 shadow-2xs">
+                                    <div className="p-4 rounded-2xl bg-gradient-to-r from-rose-50/80 via-peach-50/50 to-amber-50/50 dark:from-rose-950/30 dark:via-zinc-900 dark:to-amber-950/20 border border-rose-200/80 dark:border-zinc-700 flex items-start gap-3 shadow-2xs">
                                         <span className="text-xl flex-shrink-0">🏠</span>
                                         <div className="flex-1">
-                                            <h4 className="text-xs font-bold text-rose-700">
+                                            <h4 className="text-xs font-bold text-rose-700 dark:text-rose-300">
                                                 Tu base de operaciones y residencia. No aplican peajes ni traslados turísticos.
                                             </h4>
-                                            <p className="text-[11px] text-slate-600 mt-0.5 leading-relaxed">
+                                            <p className="text-[11px] text-slate-600 dark:text-zinc-300 mt-0.5 leading-relaxed">
                                                 Utiliza este espacio para guardar notas libres de movilidad local: rutas de transporte urbano, líneas de metro, ciclorrutas, parqueaderos o atajos para moverte por tu ciudad.
                                             </p>
                                         </div>
@@ -1100,15 +1256,15 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     {/* 1. Estado de la vía */}
-                                    <div className="bg-[#FFFBFB] p-5 rounded-2xl border border-[#FFE4EA] space-y-3">
-                                        <label className="text-xs font-bold text-slate-600 uppercase tracking-wide block">
+                                    <div className="bg-[#FFFBFB] dark:bg-[#282D35] p-5 rounded-2xl border border-[#FFE4EA] dark:border-zinc-700 space-y-3">
+                                        <label className="text-xs font-bold text-slate-600 dark:text-zinc-300 uppercase tracking-wide block">
                                             {isHome ? 'Vías Urbanas y Accesos' : 'Estado de la Vía'}
                                         </label>
                                         <select
                                             id="transporte-road-condition-select"
                                             value={transportRoadCondition}
                                             onChange={(e) => setTransportRoadCondition(e.target.value)}
-                                            className="w-full px-3 py-2 bg-white border border-rose-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#F44566]/25 focus:border-[#F44566]"
+                                            className="w-full px-3 py-2 bg-white dark:bg-[#1E2228] border border-rose-200 dark:border-zinc-700 rounded-xl text-xs font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-[#F44566]/25 focus:border-[#F44566]"
                                         >
                                             <option value="Excelente">Excelente</option>
                                             <option value="Buena">Buena</option>
@@ -1123,7 +1279,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                     onClick={() => setTransportRoadCondition(cond)}
                                                     className={`text-[10px] px-2.5 py-1 rounded-full font-semibold transition-all cursor-pointer ${transportRoadCondition === cond
                                                             ? 'bg-[#F44566] text-white shadow-sm'
-                                                            : 'bg-white text-slate-600 border border-rose-100 hover:border-rose-300'
+                                                            : 'bg-white dark:bg-[#1E2228] text-slate-600 dark:text-zinc-300 border border-rose-100 dark:border-zinc-700 hover:border-rose-300'
                                                         }`}
                                                 >
                                                     {cond}
@@ -1133,15 +1289,15 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                     </div>
 
                                     {/* 2. Peajes en ruta */}
-                                    <div className="bg-[#FFFBFB] p-5 rounded-2xl border border-[#FFE4EA] space-y-3">
-                                        <label className="text-xs font-bold text-slate-600 uppercase tracking-wide block">
+                                    <div className="bg-[#FFFBFB] dark:bg-[#282D35] p-5 rounded-2xl border border-[#FFE4EA] dark:border-zinc-700 space-y-3">
+                                        <label className="text-xs font-bold text-slate-600 dark:text-zinc-300 uppercase tracking-wide block">
                                             Peajes en Ruta
                                         </label>
                                         <div className="flex items-center gap-2">
                                             <button
                                                 type="button"
                                                 onClick={() => setTransportTollCount((prev) => Math.max(0, prev - 1))}
-                                                className="w-9 h-9 rounded-xl bg-white border border-rose-200 hover:bg-rose-50 text-slate-700 font-bold text-base flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+                                                className="w-9 h-9 rounded-xl bg-white dark:bg-[#1E2228] border border-rose-200 dark:border-zinc-700 hover:bg-rose-50 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 font-bold text-base flex items-center justify-center transition-colors shadow-sm cursor-pointer"
                                                 title="Disminuir peajes"
                                             >
                                                 -
@@ -1152,18 +1308,18 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                 min="0"
                                                 value={transportTollCount}
                                                 onChange={(e) => setTransportTollCount(Math.max(0, parseInt(e.target.value, 10) || 0))}
-                                                className="w-full text-center py-2 bg-white border border-rose-200 rounded-xl text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#F44566]/25 focus:border-[#F44566]"
+                                                className="w-full text-center py-2 bg-white dark:bg-[#1E2228] border border-rose-200 dark:border-zinc-700 rounded-xl text-sm font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-[#F44566]/25 focus:border-[#F44566]"
                                             />
                                             <button
                                                 type="button"
                                                 onClick={() => setTransportTollCount((prev) => prev + 1)}
-                                                className="w-9 h-9 rounded-xl bg-white border border-rose-200 hover:bg-rose-50 text-slate-700 font-bold text-base flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+                                                className="w-9 h-9 rounded-xl bg-white dark:bg-[#1E2228] border border-rose-200 dark:border-zinc-700 hover:bg-rose-50 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 font-bold text-base flex items-center justify-center transition-colors shadow-sm cursor-pointer"
                                                 title="Aumentar peajes"
                                             >
                                                 +
                                             </button>
                                         </div>
-                                        <span className="text-[11px] text-slate-500 font-medium block">
+                                        <span className="text-[11px] text-slate-500 dark:text-zinc-400 font-medium block">
                                             {isHome && transportTollCount === 0
                                                 ? '0 peajes • Exento por residencia local'
                                                 : transportTollCount === 0
@@ -1173,8 +1329,8 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                     </div>
 
                                     {/* 3. Medio utilizado */}
-                                    <div className="bg-[#FFFBFB] p-5 rounded-2xl border border-[#FFE4EA] space-y-3">
-                                        <label className="text-xs font-bold text-slate-600 uppercase tracking-wide block">
+                                    <div className="bg-[#FFFBFB] dark:bg-[#282D35] p-5 rounded-2xl border border-[#FFE4EA] dark:border-zinc-700 space-y-3">
+                                        <label className="text-xs font-bold text-slate-600 dark:text-zinc-300 uppercase tracking-wide block">
                                             {isHome ? 'Medio de Movilidad Habitual' : 'Medio Utilizado'}
                                         </label>
                                         <input
@@ -1184,7 +1340,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                             value={transportMode}
                                             onChange={(e) => setTransportMode(e.target.value)}
                                             placeholder={isHome ? "Metro, Carro, Bicicleta, Caminando..." : "Carro propio, Moto, Autobús..."}
-                                            className="w-full px-3 py-2 bg-white border border-rose-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#F44566]/25 focus:border-[#F44566]"
+                                            className="w-full px-3 py-2 bg-white dark:bg-[#1E2228] border border-rose-200 dark:border-zinc-700 rounded-xl text-xs font-bold text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566]/25 focus:border-[#F44566]"
                                         />
                                         <datalist id="transporte-modes-list">
                                             <option value="Carro propio" />
@@ -1203,7 +1359,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                     onClick={() => setTransportMode(mode)}
                                                     className={`text-[10px] px-2 py-0.5 rounded-full font-medium transition-all cursor-pointer ${transportMode === mode
                                                             ? 'bg-[#F44566] text-white shadow-sm'
-                                                            : 'bg-white text-slate-500 border border-rose-100 hover:border-rose-300'
+                                                            : 'bg-white dark:bg-[#1E2228] text-slate-500 dark:text-zinc-300 border border-rose-100 dark:border-zinc-700 hover:border-rose-300'
                                                         }`}
                                                 >
                                                     {mode}
@@ -1215,7 +1371,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                                 {/* Bitácora de ruta y consejos / Tips de movilidad local */}
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 mb-2">
+                                    <label className="block text-xs font-bold text-slate-700 dark:text-zinc-200 mb-2">
                                         {isHome
                                             ? 'Notas Libres de Movilidad Local (metro, ciclovías, atajos, transporte urbano)'
                                             : 'Bitácora de Ruta y Consejos'}
@@ -1230,7 +1386,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                 ? "Tips de movilidad urbana, estaciones cercanas, estacionamientos preferidos, rutas ciclistas y atajos de la ciudad..."
                                                 : "Notas sobre el estado de la carretera, desvíos, recomendaciones y precauciones..."
                                         }
-                                        className="w-full p-4 bg-[#FFFBFB] border border-rose-200 rounded-2xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F44566]/25 focus:border-[#F44566] leading-relaxed resize-y"
+                                        className="w-full p-4 bg-[#FFFBFB] dark:bg-[#282D35] border border-rose-200 dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566]/25 focus:border-[#F44566] leading-relaxed resize-y"
                                     />
                                 </div>
 
@@ -1250,21 +1406,21 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                         {/* TAB CONTENT: NO OLVIDAR */}
                         {activeTab === 'noolvidar' && (
-                            <div className="bg-white rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] space-y-4 animate-in fade-in">
+                            <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800 space-y-4 animate-in fade-in">
                                 <div className="flex items-center gap-2 text-[#F44566]">
                                     <BookMarked className="w-5 h-5" />
-                                    <h3 className="text-lg font-bold text-slate-800">
+                                    <h3 className="text-lg font-bold text-slate-800 dark:text-zinc-100">
                                         No Olvidar (Libreta Familiar)
                                     </h3>
                                 </div>
-                                <p className="text-xs text-slate-500">
+                                <p className="text-xs text-slate-500 dark:text-zinc-400">
                                     Chistes internos, hoteles recomendados, advertencias de clima o cosas para volver a hacer.
                                 </p>
                                 <textarea
                                     value={currentTrip.doNotForgetNotes}
                                     onChange={(e) => onSaveTrip({ ...currentTrip, doNotForgetNotes: e.target.value })}
                                     rows={8}
-                                    className="w-full p-5 bg-[#FFFBFB] border border-[#FAD2DA] rounded-2xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#F44566] leading-relaxed font-sans"
+                                    className="w-full p-5 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566] leading-relaxed font-sans"
                                     placeholder="Escribe aquí los recuerdos que nunca deben olvidarse..."
                                 />
                             </div>
@@ -1272,13 +1428,13 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                         {/* TAB CONTENT: RESUMEN */}
                         {activeTab === 'resumen' && (
-                            <div className="bg-white rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] space-y-6 animate-in fade-in">
-                                <h3 className="text-lg font-bold text-slate-800">
+                            <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800 space-y-6 animate-in fade-in">
+                                <h3 className="text-lg font-bold text-slate-800 dark:text-zinc-100">
                                     Calificación y Balance de la Visita
                                 </h3>
 
-                                <div className="flex items-center gap-3">
-                                    <span className="text-xs font-bold text-slate-700">Puntuación General:</span>
+                                <div className="flex items-center gap-3 flex-wrap">
+                                    <span className="text-xs font-bold text-slate-700 dark:text-zinc-200">Puntuación General:</span>
                                     <div className="flex items-center gap-1 text-amber-400">
                                         {[1, 2, 3, 4, 5].map((star) => (
                                             <button
@@ -1289,26 +1445,26 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                 <Star
                                                     className={`w-6 h-6 ${star <= currentTrip.rating
                                                             ? 'fill-amber-400 text-amber-400'
-                                                            : 'text-slate-300'
+                                                            : 'text-slate-300 dark:text-zinc-600'
                                                         }`}
                                                 />
                                             </button>
                                         ))}
                                     </div>
-                                    <span className="text-xs font-extrabold text-slate-800 ml-2">
+                                    <span className="text-xs font-extrabold text-slate-800 dark:text-zinc-100 ml-2">
                                         {currentTrip.rating} de 5 estrellas
                                     </span>
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 mb-2">
+                                    <label className="block text-xs font-bold text-slate-700 dark:text-zinc-200 mb-2">
                                         Balance Global del Destino
                                     </label>
                                     <textarea
                                         value={currentTrip.summary}
                                         onChange={(e) => onSaveTrip({ ...currentTrip, summary: e.target.value })}
                                         rows={4}
-                                        className="w-full p-4 bg-[#FFFBFB] border border-[#FAD2DA] rounded-2xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#F44566]"
+                                        className="w-full p-4 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566]"
                                     />
                                 </div>
                             </div>
@@ -1343,14 +1499,14 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
             {/* Add New Visit Modal */}
             {showNewVisitModal && (
                 <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-[#FFE4EA]">
+                    <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-[#FFE4EA] dark:border-zinc-800">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-bold text-slate-800">
+                            <h3 className="text-lg font-bold text-slate-800 dark:text-zinc-100">
                                 Añadir Nueva Visita a {municipality.name}
                             </h3>
                             <button
                                 onClick={() => setShowNewVisitModal(false)}
-                                className="text-slate-400 hover:text-slate-600"
+                                className="text-slate-400 dark:text-zinc-400 hover:text-slate-600 dark:hover:text-zinc-200 cursor-pointer"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -1358,7 +1514,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-slate-700 mb-1">
+                                <label className="block text-xs font-bold text-slate-700 dark:text-zinc-200 mb-1">
                                     Fecha del Viaje
                                 </label>
                                 <input
@@ -1370,12 +1526,12 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                             (e.currentTarget as HTMLInputElement).showPicker?.();
                                         } catch { }
                                     }}
-                                    className="w-full px-4 py-2.5 rounded-2xl border border-rose-200 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-300 transition-all cursor-pointer"
+                                    className="w-full px-4 py-2.5 rounded-2xl border border-rose-200 dark:border-zinc-700 bg-white dark:bg-[#282D35] text-gray-700 dark:text-zinc-100 dark:[color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-rose-300 transition-all cursor-pointer"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-slate-700 mb-1">
+                                <label className="block text-xs font-bold text-slate-700 dark:text-zinc-200 mb-1">
                                     Resumen o Motivo del Viaje
                                 </label>
                                 <textarea
@@ -1383,7 +1539,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                     onChange={(e) => setNewVisitSummary(e.target.value)}
                                     rows={3}
                                     placeholder="Ej: Vacaciones de mitad de año con los primos..."
-                                    className="w-full p-3 bg-[#FFFBFB] border border-[#FAD2DA] rounded-2xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#F44566]"
+                                    className="w-full p-3 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566]"
                                 />
                             </div>
 
@@ -1391,7 +1547,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                 <button
                                     type="button"
                                     onClick={() => setShowNewVisitModal(false)}
-                                    className="flex-1 py-2.5 rounded-full border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                                    className="flex-1 py-2.5 rounded-full border border-slate-200 dark:border-zinc-700 text-xs font-medium text-slate-600 dark:text-zinc-200 hover:bg-slate-50 dark:hover:bg-zinc-800 cursor-pointer"
                                 >
                                     Cancelar
                                 </button>
@@ -1415,15 +1571,15 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
             {/* MODAL HISTORIAS DE INSTAGRAM (9:16 Shareable Card) */}
             {showStoryModal && currentTrip && (
                 <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
-                    <div className="bg-white/95 rounded-3xl p-6 max-w-md w-full shadow-2xl border border-[#FFE4EA] flex flex-col items-center">
+                    <div className="bg-white/95 dark:bg-zinc-900/95 rounded-3xl p-6 max-w-md w-full shadow-2xl border border-[#FFE4EA] dark:border-zinc-800 flex flex-col items-center">
                         <div className="w-full flex items-center justify-between mb-3">
-                            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                            <h3 className="text-sm font-bold text-slate-800 dark:text-zinc-100 flex items-center gap-1.5">
                                 <Sparkles className="w-4 h-4 text-[#F44566]" />
                                 <span>Tarjeta para Historias de Instagram (9:16)</span>
                             </h3>
                             <button
                                 onClick={() => setShowStoryModal(false)}
-                                className="text-slate-400 hover:text-slate-600 p-1"
+                                className="text-slate-400 dark:text-zinc-400 hover:text-slate-600 dark:hover:text-zinc-200 p-1 cursor-pointer"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -1519,7 +1675,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                             <button
                                 type="button"
                                 onClick={() => setShowStoryModal(false)}
-                                className="flex-1 py-2.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 cursor-pointer"
+                                className="flex-1 py-2.5 rounded-full border border-slate-200 dark:border-zinc-700 text-xs font-semibold text-slate-600 dark:text-zinc-200 hover:bg-slate-50 dark:hover:bg-zinc-800 cursor-pointer"
                             >
                                 Cerrar
                             </button>
@@ -1619,7 +1775,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                                 <td className="p-2">{exp.date}</td>
                                                 <td className="p-2">{exp.category}</td>
                                                 <td className="p-2">{exp.notes || '—'}</td>
-                                                <td className="p-2 text-right font-bold">$ {exp.amountCop.toLocaleString('es-CO')}</td>
+                                                <td className="p-2 text-right font-bold">$ {(Number(exp.amountCop) || 0).toLocaleString('es-CO')}</td>
                                             </tr>
                                         ))}
                                         <tr className="bg-slate-50 font-bold">
@@ -1644,15 +1800,15 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
             {/* Confirmation Modal for Delete Trip */}
             {showDeleteConfirm && (
                 <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-rose-100 text-center space-y-4">
-                        <div className="w-14 h-14 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto text-2xl">
+                    <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-rose-100 dark:border-zinc-800 text-center space-y-4">
+                        <div className="w-14 h-14 rounded-full bg-rose-50 dark:bg-zinc-800 text-rose-500 flex items-center justify-center mx-auto text-2xl">
                             🗑️
                         </div>
                         <div>
-                            <h4 className="text-base font-bold text-slate-800">
+                            <h4 className="text-base font-bold text-slate-800 dark:text-zinc-100">
                                 ¿Eliminar registro de visita?
                             </h4>
-                            <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                            <p className="text-xs text-slate-500 dark:text-zinc-400 mt-2 leading-relaxed">
                                 ¿Seguro que deseas eliminar el registro de esta visita ({currentTrip?.tripDate}) en {municipality.name}?
                             </p>
                         </div>
@@ -1660,7 +1816,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                             <button
                                 type="button"
                                 onClick={() => setShowDeleteConfirm(false)}
-                                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full text-xs font-semibold transition-colors cursor-pointer"
+                                className="px-4 py-2 bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 rounded-full text-xs font-semibold transition-colors cursor-pointer"
                             >
                                 Cancelar
                             </button>
@@ -1680,16 +1836,16 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
             {/* Confirmation Modal for Changing/Unsetting Home Municipality */}
             {showHomeChangeConfirm && (
                 <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-rose-100 text-center space-y-4">
-                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFF5F7] to-[#FFE8ED] text-rose-500 flex items-center justify-center mx-auto text-2xl shadow-inner">
+                    <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-rose-100 dark:border-zinc-800 text-center space-y-4">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFF5F7] to-[#FFE8ED] dark:from-zinc-800 dark:to-zinc-800 text-rose-500 flex items-center justify-center mx-auto text-2xl shadow-inner">
                             🏠
                         </div>
                         <div>
-                            <h4 className="text-base font-bold text-slate-800">
+                            <h4 className="text-base font-bold text-slate-800 dark:text-zinc-100">
                                 ¿Cambiar tu ciudad de residencia?
                             </h4>
-                            <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                                <span className="font-bold text-slate-800">{municipality.name}</span> está configurada actualmente como tu ciudad hogar / residencia base. Si te has mudado o deseas cambiarla, puedes desmarcarla aquí o seleccionar cualquier otro municipio como tu nuevo hogar.
+                            <p className="text-xs text-slate-600 dark:text-zinc-300 mt-2 leading-relaxed">
+                                <span className="font-bold text-slate-800 dark:text-zinc-100">{municipality.name}</span> está configurada actualmente como tu ciudad hogar / residencia base. Si te has mudado o deseas cambiarla, puedes desmarcarla aquí o seleccionar cualquier otro municipio como tu nuevo hogar.
                             </p>
                         </div>
                         <div className="flex flex-col gap-2 pt-2">
@@ -1707,7 +1863,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                             <button
                                 type="button"
                                 onClick={() => setShowHomeChangeConfirm(false)}
-                                className="w-full px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full text-xs font-semibold transition-colors cursor-pointer"
+                                className="w-full px-4 py-2 bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 rounded-full text-xs font-semibold transition-colors cursor-pointer"
                             >
                                 Mantener {municipality.name} como mi hogar
                             </button>

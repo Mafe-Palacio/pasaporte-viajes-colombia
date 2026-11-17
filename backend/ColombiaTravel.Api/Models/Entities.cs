@@ -108,6 +108,13 @@ public class TripEntry
     public string? TransportNotes { get; set; }
     public int TollCount { get; set; }
 
+    // Clima
+    [MaxLength(20)]
+    public string? ClimateFeeling { get; set; }   // "caliente" | "templado" | "frio" | "paramo"
+
+    [MaxLength(1000)]
+    public string? ClimateNotes { get; set; }
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<ExpenseLog> Expenses { get; set; } = new List<ExpenseLog>();

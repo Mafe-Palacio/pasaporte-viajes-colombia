@@ -69,6 +69,9 @@ public class TripWriteRequest
     public string? RoadCondition { get; set; }
     public string? TransportNotes { get; set; }
     [Range(0, 100)] public int TollCount { get; set; }
+
+    [MaxLength(20)] public string? ClimateFeeling { get; set; }
+    [MaxLength(1000)] public string? ClimateNotes { get; set; }
 }
 
 public class ExpenseWriteRequest
@@ -109,6 +112,9 @@ public class TripDto
     public string? RoadCondition { get; set; }
     public string? TransportNotes { get; set; }
     public int TollCount { get; set; }
+
+    public string? ClimateFeeling { get; set; }
+    public string? ClimateNotes { get; set; }
     public decimal TotalSpentCop { get; set; }
     public List<ExpenseDto> Expenses { get; set; } = new();
     public List<PhotoDto> Photos { get; set; } = new();
@@ -132,6 +138,8 @@ public class TripDto
         RoadCondition = t.RoadCondition,
         TransportNotes = t.TransportNotes,
         TollCount = t.TollCount,
+        ClimateFeeling = t.ClimateFeeling,
+        ClimateNotes = t.ClimateNotes,
         TotalSpentCop = t.Expenses.Sum(e => (decimal?)e.AmountCop) ?? 0m,
         Expenses = t.Expenses
             .OrderBy(e => e.Date)

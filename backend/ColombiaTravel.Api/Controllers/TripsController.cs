@@ -254,5 +254,7 @@ public class TripsController : ApiControllerBase
         trip.RoadCondition = req.RoadCondition;
         trip.TransportNotes = req.TransportNotes;
         trip.TollCount = req.TollCount;
+        trip.ClimateFeeling = req.ClimateFeeling;
+        trip.ClimateNotes = req.ClimateNotes;
     }
 }

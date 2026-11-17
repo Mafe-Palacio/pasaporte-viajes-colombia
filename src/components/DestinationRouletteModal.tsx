@@ -230,8 +230,8 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
   const getTextClass = (count: number) => {
     if (count <= 8) return 'text-[9px] font-bold fill-slate-700';
     if (count <= 12) return 'text-[8px] font-bold fill-slate-700';
-    if (count <= 20) return 'text-[7px] font-extrabold fill-slate-800';
-    return 'text-[6px] font-black fill-slate-800';
+    if (count <= 20) return 'text-[7px] font-bold fill-slate-800';
+    return 'text-[6px] font-bold fill-slate-800';
   };
 
   return (
@@ -262,11 +262,11 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
 
         {/* Header */}
         <div className="mb-3 pr-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#FFF0F3] dark:bg-zinc-800 text-accent-primary border border-rose-200 dark:border-zinc-700 mb-1.5">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FFF0F3] dark:bg-zinc-800 text-accent-primary border border-rose-200 dark:border-zinc-700 mb-1.5">
             <span>🎲</span>
             <span>Destino Aleatorio</span>
           </div>
-          <h2 className="text-lg sm:text-xl font-black text-slate-800 dark:text-zinc-100">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-zinc-100">
             {modalTitle}
           </h2>
           <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-0.5">
@@ -525,7 +525,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
               style={{ borderColor: 'var(--color-accent, #F44566)' }}
             >
               <RotateCw className={`w-4 h-4 text-accent-primary transition-transform ${isSpinning ? 'animate-spin' : 'group-hover:rotate-45'}`} />
-              <span className="text-[8px] font-extrabold uppercase tracking-wider text-slate-700 dark:text-zinc-200 mt-0.5">
+              <span className="text-[8px] font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-200 mt-0.5">
                 {isSpinning ? '...' : 'Girar'}
               </span>
             </button>
@@ -550,7 +550,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
                   backgroundColor: 'var(--color-accent, #F44566)',
                   color: '#ffffff'
                 }}
-                className="w-full py-2.5 px-4 rounded-full text-xs sm:text-sm font-black shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-2.5 px-4 rounded-full text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>{isSpinning ? 'Girando la ruleta...' : '¡Girar Ruleta!'}</span>
@@ -563,12 +563,12 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
             id="roulette-winner-card"
             className="mt-4 p-4 rounded-2xl bg-gradient-to-b from-rose-50/80 to-pink-50/30 dark:from-zinc-800/80 dark:to-[#1E2228]/90 border border-rose-200 dark:border-rose-900/40 text-center animate-in zoom-in-95 duration-300 shadow-sm"
           >
-            <div className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-accent-primary mb-1">
+            <div className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-accent-primary mb-1">
               <Award className="w-3.5 h-3.5" />
               <span>¡Destino Seleccionado!</span>
             </div>
 
-            <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-zinc-100 truncate">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-zinc-100 truncate">
               {winner.name}
             </h3>
 
@@ -603,7 +603,7 @@ export const DestinationRouletteModal: React.FC<DestinationRouletteModalProps> =
                   backgroundColor: 'var(--color-accent, #F44566)',
                   color: '#ffffff'
                 }}
-                className="w-full py-2.5 px-4 rounded-full text-xs sm:text-sm font-extrabold shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-full text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Compass className="w-4 h-4" />
                 <span>✨ ¡Vamos a explorar {winner.name}!</span>

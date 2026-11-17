@@ -493,7 +493,7 @@ export function apiTripToFront(
         expenses: t.expenses.map((e) => ({
             id: e.id,
             tripEntryId: e.tripEntryId,
-            category: e.category as ExpenseLog['category'],
+            category: e.category,
             amountCop: e.amountCop,
             date: isoToPassport(e.date),
             notes: e.notes ?? ''

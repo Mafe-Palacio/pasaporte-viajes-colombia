@@ -144,6 +144,17 @@ export function applyAccentColor(hex: string) {
   const hoverHex = `rgba(${Math.max(0, rgb.r - 20)}, ${Math.max(0, rgb.g - 20)}, ${Math.max(0, rgb.b - 20)}, 1)`;
   const ringHex = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.35)`;
 
+  const relativeLuminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+  let readableHex = selectedHex;
+  if (relativeLuminance > 0.62) {
+    const scale = 0.44 / relativeLuminance;
+    readableHex = rgbToHex(
+      Math.round(rgb.r * scale),
+      Math.round(rgb.g * scale),
+      Math.round(rgb.b * scale)
+    );
+  }
+
   const root = document.documentElement;
 
   // Exact names requested by USER_REQUEST
@@ -151,6 +162,7 @@ export function applyAccentColor(hex: string) {
   root.style.setProperty('--color-accent-soft', softHex);
   root.style.setProperty('--color-accent-light', lightHex);
   root.style.setProperty('--color-accent-hover', hoverHex);
+  root.style.setProperty('--color-accent-readable', readableHex);
 
   // Backward-compat aliases
   root.style.setProperty('--accent-primary', selectedHex);

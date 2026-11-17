@@ -350,7 +350,7 @@ export const ThemeFloatingMenu: React.FC = () => {
           <div className="mb-3.5 space-y-1">
             <div className="flex justify-between items-center text-[10px] text-slate-500 dark:text-zinc-400 font-semibold px-0.5">
               <span>Matiz</span>
-              <span className="font-mono">{hsv.h}°</span>
+              <span className="tabular-nums">{hsv.h}°</span>
             </div>
             <div className="relative flex items-center">
               <input
@@ -403,7 +403,7 @@ export const ThemeFloatingMenu: React.FC = () => {
             {inputFormat === 'HEX' ? (
               /* Input Hexadecimal */
               <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-xl px-2.5 py-1.5">
-                <span className="text-slate-400 dark:text-zinc-500 font-mono font-bold text-xs">#</span>
+                <span className="text-slate-400 dark:text-zinc-500 font-bold text-xs">#</span>
                 <input
                   id="color-picker-hex-input"
                   type="text"
@@ -423,7 +423,7 @@ export const ThemeFloatingMenu: React.FC = () => {
                       setHexInputString(currentHex.replace('#', ''));
                     }
                   }}
-                  className="w-full bg-transparent font-mono font-bold text-slate-800 dark:text-white uppercase outline-none text-xs"
+                  className="w-full bg-transparent font-bold tabular-nums text-slate-800 dark:text-white uppercase outline-none text-xs"
                   placeholder="F44566"
                 />
                 <span
@@ -443,7 +443,7 @@ export const ThemeFloatingMenu: React.FC = () => {
                     max={255}
                     value={rgb.r}
                     onChange={(e) => updateColorFromRgb('r', Number(e.target.value))}
-                    className="w-full text-center bg-transparent font-mono font-bold text-slate-800 dark:text-white outline-none text-xs"
+                    className="w-full text-center bg-transparent font-bold tabular-nums text-slate-800 dark:text-white outline-none text-xs"
                   />
                 </div>
                 {/* G */}
@@ -455,7 +455,7 @@ export const ThemeFloatingMenu: React.FC = () => {
                     max={255}
                     value={rgb.g}
                     onChange={(e) => updateColorFromRgb('g', Number(e.target.value))}
-                    className="w-full text-center bg-transparent font-mono font-bold text-slate-800 dark:text-white outline-none text-xs"
+                    className="w-full text-center bg-transparent font-bold tabular-nums text-slate-800 dark:text-white outline-none text-xs"
                   />
                 </div>
                 {/* B */}
@@ -467,7 +467,7 @@ export const ThemeFloatingMenu: React.FC = () => {
                     max={255}
                     value={rgb.b}
                     onChange={(e) => updateColorFromRgb('b', Number(e.target.value))}
-                    className="w-full text-center bg-transparent font-mono font-bold text-slate-800 dark:text-white outline-none text-xs"
+                    className="w-full text-center bg-transparent font-bold tabular-nums text-slate-800 dark:text-white outline-none text-xs"
                   />
                 </div>
               </div>

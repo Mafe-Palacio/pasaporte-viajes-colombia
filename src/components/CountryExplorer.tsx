@@ -242,12 +242,12 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
                     backgroundColor: 'var(--color-accent-light)',
                     color: 'var(--color-accent)'
                   }}
-                  className="text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap"
+                  className="text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap tabular-nums"
                 >
                   {visitedCount}/{totalCount} visitados
                 </span>
               </div>
-              <h1 className="text-xs sm:text-sm font-extrabold text-slate-800 dark:text-zinc-100 truncate">
+              <h1 className="text-xs sm:text-sm font-bold text-slate-800 dark:text-zinc-100 truncate">
                 Explorador Nacional
               </h1>
             </div>
@@ -544,7 +544,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
               className="text-white p-4 sm:p-5 rounded-3xl shadow-md mb-3 text-center relative overflow-hidden flex-shrink-0"
             >
               <div className="relative z-10">
-                <span className="block text-2xl sm:text-4xl font-extrabold tracking-tight">
+                <span className="block text-2xl sm:text-4xl font-bold tracking-tight tabular-nums">
                   {visitedCount} / {totalCount}
                 </span>
                 <span className="text-[11px] sm:text-xs font-semibold tracking-wide uppercase opacity-95">
@@ -637,7 +637,7 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
                       <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-zinc-100 truncate group-hover:text-accent-primary transition-colors flex items-center gap-1.5">
                         <span className="truncate">{dept.name}</span>
                         {homeDepartmentId === dept.id && (
-                          <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex items-center gap-0.5 flex-shrink-0">
+                          <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex items-center gap-0.5 flex-shrink-0">
                             🏠 Hogar
                           </span>
                         )}

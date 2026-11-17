@@ -42,7 +42,7 @@ export interface Municipality {
 export interface ExpenseLog {
   id: string;
   tripEntryId: string;
-  category: 'Comida' | 'Transporte' | 'Peajes' | 'Transporte/Peajes' | 'Hospedaje' | 'Otros';
+  category: string;
   amountCop: number;
   date: string;
   notes: string;

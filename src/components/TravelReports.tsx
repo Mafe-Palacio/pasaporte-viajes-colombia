@@ -17,7 +17,14 @@ import {
   Download,
   FileSpreadsheet
 } from 'lucide-react';
-import { Department, Municipality, TripEntry, ExpenseLog } from '../types';
+import { Department, Municipality, TripEntry } from '../types';
+import {
+  FIXED_EXPENSE_CATEGORIES,
+  isFixedCategory,
+  normalizeCategory,
+  getCategoryVisual,
+  type CategoryVisual
+} from '../utils/expenseCategories';
 
 interface TravelReportsProps {
   departments: Department[];
@@ -37,7 +44,7 @@ interface FlattenedExpense {
   municipalityName: string;
   departmentId: string;
   departmentName: string;
-  category: 'Comida' | 'Transporte' | 'Peajes' | 'Transporte/Peajes' | 'Hospedaje' | 'Otros';
+  category: string;
   amountCop: number;
   notes: string;
 }
@@ -60,7 +67,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
   // Table 1 sorting: 'desc' (highest advance first) or 'asc' or 'name'
   const [sortOrder, setSortOrder] = useState<'desc' | 'asc' | 'name'>('desc');
 
-  // Extract all flattened expenses with department and municipality context
+  // Extract all flattened expenses with normalized categories and location context
   const allExpenses: FlattenedExpense[] = useMemo(() => {
     const list: FlattenedExpense[] = [];
     trips.forEach((trip) => {
@@ -78,8 +85,8 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
             municipalityName: trip.municipalityName,
             departmentId: deptId,
             departmentName: deptName,
-            category: exp.category,
-            amountCop: exp.amountCop,
+            category: normalizeCategory(exp.category),
+            amountCop: Number(exp.amountCop) || 0,
             notes: exp.notes
           });
         });
@@ -93,6 +100,29 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
       return dateB - dateA;
     });
   }, [trips, municipalities]);
+
+  // Dynamic category filter options: Todas + 3 fixed + distinct custom categories sorted by total COP desc
+  const categoryFilterOptions = useMemo(() => {
+    const customTotals = new Map<string, number>();
+    allExpenses.forEach((item) => {
+      if (!isFixedCategory(item.category)) {
+        customTotals.set(
+          item.category,
+          (customTotals.get(item.category) || 0) + (Number(item.amountCop) || 0)
+        );
+      }
+    });
+
+    const sortedCustom = Array.from(customTotals.entries())
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'es'))
+      .map(([category]) => category);
+
+    return ['all', ...FIXED_EXPENSE_CATEGORIES, ...sortedCustom];
+  }, [allExpenses]);
+
+  const effectiveSelectedCategory = categoryFilterOptions.includes(selectedCategory)
+    ? selectedCategory
+    : 'all';
 
   // Filter expenses reactively
   const filteredExpenses = useMemo(() => {
@@ -122,29 +152,100 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
         if (!matchesDept) return false;
       }
 
-      // Category filtering
-      if (selectedCategory !== 'all') {
-        if (selectedCategory === 'Transporte') {
-          if (
-            item.category !== 'Transporte' &&
-            item.category !== 'Peajes' &&
-            item.category !== 'Transporte/Peajes'
-          ) {
-            return false;
-          }
-        } else if (item.category !== selectedCategory) {
-          return false;
-        }
+      // Category filtering (all categories normalized, including Peajes -> Transporte)
+      if (effectiveSelectedCategory !== 'all' && item.category !== effectiveSelectedCategory) {
+        return false;
       }
 
       return true;
     });
-  }, [allExpenses, startDate, endDate, selectedDeptFilter, selectedCategory]);
+  }, [allExpenses, startDate, endDate, selectedDeptFilter, effectiveSelectedCategory]);
 
   // Total filtered expense amount
   const totalFilteredBudget = useMemo(() => {
     return filteredExpenses.reduce((acc, curr) => acc + curr.amountCop, 0);
   }, [filteredExpenses]);
+
+  // Full ungrouped breakdown by normalized category
+  const categoryBreakdown = useMemo(() => {
+    const grouped = new Map<string, { total: number; count: number }>();
+    filteredExpenses.forEach((item) => {
+      const prev = grouped.get(item.category) || { total: 0, count: 0 };
+      grouped.set(item.category, {
+        total: prev.total + (Number(item.amountCop) || 0),
+        count: prev.count + 1
+      });
+    });
+
+    const grandTotal = Array.from(grouped.values()).reduce((acc, val) => acc + val.total, 0);
+
+    return Array.from(grouped.entries())
+      .map(([category, stats]): {
+        category: string;
+        total: number;
+        count: number;
+        pct: number;
+        visual: CategoryVisual;
+      } => ({
+        category,
+        total: stats.total,
+        count: stats.count,
+        pct: grandTotal > 0 ? Math.round((stats.total / grandTotal) * 100) : 0,
+        visual: getCategoryVisual(category)
+      }))
+      .sort(
+        (a, b) =>
+          b.total - a.total ||
+          b.count - a.count ||
+          a.category.localeCompare(b.category, 'es')
+      );
+  }, [filteredExpenses]);
+
+  // Chart-only breakdown: if more than 6 categories have spend, keep top 5 + group the rest into "Otras"
+  const positiveCategoryCount = useMemo(
+    () => categoryBreakdown.filter((item) => item.total > 0).length,
+    [categoryBreakdown]
+  );
+
+  const chartCategoryBreakdown = useMemo(() => {
+    const positive = categoryBreakdown.filter((item) => item.total > 0);
+    if (positive.length <= 6) {
+      return positive;
+    }
+
+    const top5 = positive.slice(0, 5);
+    const rest = positive.slice(5);
+    const restTotal = rest.reduce((acc, item) => acc + item.total, 0);
+    const restCount = rest.reduce((acc, item) => acc + item.count, 0);
+    const grandTotal = positive.reduce((acc, item) => acc + item.total, 0);
+
+    return [
+      ...top5,
+      {
+        category: 'Otras',
+        total: restTotal,
+        count: restCount,
+        pct: grandTotal > 0 ? Math.round((restTotal / grandTotal) * 100) : 0,
+        visual: getCategoryVisual('Otras')
+      }
+    ];
+  }, [categoryBreakdown]);
+
+  const chartSegments = useMemo(() => {
+    const chartTotal = chartCategoryBreakdown.reduce((acc, item) => acc + item.total, 0);
+    if (chartTotal <= 0) return [];
+    let accumulated = 0;
+    return chartCategoryBreakdown.map((item) => {
+      const length = (item.total / chartTotal) * 100;
+      const offset = accumulated;
+      accumulated += length;
+      return {
+        ...item,
+        length,
+        offset
+      };
+    });
+  }, [chartCategoryBreakdown]);
 
   // KPI 1: Progreso Nacional
   // Colombia has 1,122 municipalities across 32 departments
@@ -290,7 +391,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
         Fecha: exp.date,
         Municipio: exp.municipalityName,
         Departamento: exp.departmentName,
-        Categoría: exp.category,
+        Categoría: normalizeCategory(exp.category),
         'Gasto (COP)': exp.amountCop,
         Notas: exp.notes || ''
       }));
@@ -300,6 +401,20 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
           : [{ Mensaje: 'Aún no hay gastos registrados en el periodo seleccionado.' }]
       );
       XLSX.utils.book_append_sheet(wb, ws2, 'Desglose Financiero');
+
+      // Hoja 3: Totales por categoría normalizada (sin agrupar)
+      const categorySummaryData = categoryBreakdown.map((item) => ({
+        Categoría: item.category,
+        Movimientos: item.count,
+        'Gasto Total (COP)': item.total,
+        '% del Total': `${item.pct}%`
+      }));
+      const ws3 = XLSX.utils.json_to_sheet(
+        categorySummaryData.length > 0
+          ? categorySummaryData
+          : [{ Mensaje: 'Sin gastos registrados para resumir por categoría.' }]
+      );
+      XLSX.utils.book_append_sheet(wb, ws3, 'Resumen por Categoría');
 
       const today = new Date().toISOString().split('T')[0];
       XLSX.writeFile(wb, `Reporte_Viajes_Colombia_${today}.xlsx`);
@@ -320,7 +435,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
     startDate !== '' ||
     endDate !== '' ||
     selectedDeptFilter !== 'all' ||
-    selectedCategory !== 'all';
+    effectiveSelectedCategory !== 'all';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FFF7EE] via-[#FFF0F4] to-[#FFDEE9] dark:from-[#121417] dark:via-[#121417] dark:to-[#181B20] text-slate-800 dark:text-zinc-100 pt-24 md:pt-8 pb-28 sm:pb-24 px-4 sm:px-6 lg:px-8 transition-colors">
@@ -338,7 +453,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
               <span className="hidden sm:inline">Explorador</span>
             </button>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 dark:text-zinc-100 tracking-tight flex items-center gap-2.5 flex-wrap">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-zinc-100 tracking-tight flex items-center gap-2.5 flex-wrap">
                 <span>Reportes Globales</span>
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#FFE8ED] dark:bg-zinc-800 text-[#F44566] border border-rose-200 dark:border-zinc-700">
                   Métricas de Viaje
@@ -418,25 +533,27 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
               </div>
             </div>
 
-            {/* Categorías de Gasto: Cápsulas */}
+            {/* Categorías de Gasto: Cápsulas dinámicas */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-semibold text-slate-600 dark:text-zinc-300 whitespace-nowrap mr-1">
                 Categoría:
               </span>
-              {(['all', 'Comida', 'Transporte', 'Hospedaje', 'Otros'] as const).map((cat) => {
-                const isActive = selectedCategory === cat;
+              {categoryFilterOptions.map((cat) => {
+                const isActive = effectiveSelectedCategory === cat;
                 const label = cat === 'all' ? 'Todas' : cat;
+                const slug = cat.toLowerCase().replace(/[^a-z0-9]+/gi, '-');
                 return (
                   <button
                     key={cat}
-                    id={`filter-cat-${cat.toLowerCase()}`}
+                    id={`filter-cat-${slug}`}
                     type="button"
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer max-w-[200px] truncate ${
                       isActive
                         ? 'bg-[#F44566] text-white shadow-sm shadow-[#F44566]/30'
                         : 'bg-[#F6EBD0]/60 dark:bg-[#282D35] hover:bg-[#F6EBD0] dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 border border-[#EEDBBA] dark:border-zinc-700'
                     }`}
+                    title={label}
                   >
                     {label}
                   </button>
@@ -484,7 +601,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                   d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                 />
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center text-sm font-extrabold text-slate-800 dark:text-zinc-100">
+              <div className="absolute inset-0 flex items-center justify-center text-sm font-bold text-slate-800 dark:text-zinc-100 tabular-nums">
                 {nationalProgressPct}%
               </div>
             </div>
@@ -496,7 +613,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
               <p className="text-xs font-bold text-slate-800 dark:text-zinc-100 leading-snug">
                 {nationalProgressPct}% total Colombia completado
               </p>
-              <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-1 font-medium">
+              <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-1 font-medium tabular-nums">
                 <strong className="text-slate-800 dark:text-zinc-100">{totalVisitedCount}</strong> / {nationalTotalMunicipalities} municipios visitados
               </p>
             </div>
@@ -508,11 +625,11 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
               <span className="text-xs font-bold text-amber-900/80 dark:text-amber-200 uppercase tracking-wider block mb-1">
                 Presupuesto Total Invertido
               </span>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-amber-50 tracking-tight my-1">
+              <div className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-amber-50 tracking-tight my-1 tabular-nums">
                 {formatCOP(totalFilteredBudget)} <span className="text-xs font-bold text-amber-900/70 dark:text-amber-200/80">COP</span>
               </div>
             </div>
-            <p className="text-[11px] text-amber-900/70 dark:text-amber-200/80 font-medium mt-2 flex items-center gap-1.5">
+            <p className="text-[11px] text-amber-900/70 dark:text-amber-200/80 font-medium mt-2 flex items-center gap-1.5 tabular-nums">
               <span>📊</span>
               <span>{filteredExpenses.length} movimientos financieros</span>
             </p>
@@ -524,7 +641,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
               <span className="text-xs font-bold text-[#F44566] uppercase tracking-wider block mb-1">
                 Departamentos Faltantes
               </span>
-              <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-zinc-100 tracking-tight my-1">
+              <div className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-zinc-100 tracking-tight my-1 tabular-nums">
                 {remainingDepartments}
               </div>
             </div>
@@ -559,7 +676,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-sm font-extrabold text-slate-800 dark:text-zinc-100 truncate">
+                    <h4 className="text-sm font-bold text-slate-800 dark:text-zinc-100 truncate">
                       {topRatedDestination.name}
                     </h4>
                     <p className="text-xs text-slate-500 dark:text-zinc-400 truncate font-medium">
@@ -600,10 +717,182 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
           </div>
         </section>
 
+        {/* 2.5. TOTALES Y GRÁFICA POR CATEGORÍA */}
+        <section
+          aria-label="Totales y Gráfica por Categoría"
+          className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 sm:p-6 border border-rose-100 dark:border-zinc-800 shadow-[0_10px_25px_-5px_rgba(244,69,102,0.12)]"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+            <div>
+              <h2 className="text-base sm:text-lg font-bold text-slate-800 dark:text-zinc-100 flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-[#F44566]" />
+                <span>Gastos por Categoría</span>
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-zinc-400 font-medium mt-0.5">
+                Totales individuales por cada tipo de gasto según los filtros activos
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-1.5 rounded-full bg-[#FFF5F7] dark:bg-[#282D35] border border-rose-100 dark:border-zinc-700 text-xs font-bold text-slate-700 dark:text-zinc-200 tabular-nums">
+              <span>{categoryBreakdown.length} {categoryBreakdown.length === 1 ? 'categoría' : 'categorías'}</span>
+              <span className="text-slate-300 dark:text-zinc-600">•</span>
+              <span className="text-[#F44566]">{formatCOP(totalFilteredBudget)}</span>
+            </div>
+          </div>
+
+          {categoryBreakdown.length === 0 ? (
+            <div className="py-8 px-4 text-center rounded-2xl border border-dashed border-rose-100 dark:border-zinc-800 bg-[#FFFBFB] dark:bg-[#181B20]">
+              <p className="text-xs font-bold text-slate-700 dark:text-zinc-200">
+                No hay gastos que coincidan con los filtros seleccionados
+              </p>
+              <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-1">
+                Registra gastos en tus visitas o ajusta los filtros para ver el desglose por categoría.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              {/* Gráfica circular (solo agrupa en "Otras" cuando hay > 6 categorías con gasto) */}
+              <div className="lg:col-span-5 bg-[#FFFBFB] dark:bg-[#181B20] rounded-2xl p-4 sm:p-5 border border-rose-100/70 dark:border-zinc-800 flex flex-col gap-4">
+                {chartSegments.length > 0 ? (
+                  <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center gap-5">
+                    <div className="relative w-36 h-36 sm:w-40 sm:h-40 flex-shrink-0 flex items-center justify-center">
+                      <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36" role="img" aria-label="Distribución porcentual de gastos por categoría">
+                        <circle
+                          cx="18"
+                          cy="18"
+                          r="15.91549430918954"
+                          fill="transparent"
+                          stroke="currentColor"
+                          strokeWidth="4.2"
+                          className="text-rose-100/80 dark:text-zinc-800"
+                        />
+                        {chartSegments.map((seg) => (
+                          <circle
+                            key={seg.category}
+                            cx="18"
+                            cy="18"
+                            r="15.91549430918954"
+                            fill="transparent"
+                            stroke={seg.visual.chartColor}
+                            strokeWidth="4.2"
+                            strokeDasharray={`${seg.length} ${Math.max(0, 100 - seg.length)}`}
+                            strokeDashoffset={-seg.offset}
+                            className="transition-all duration-500"
+                          />
+                        ))}
+                      </svg>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-3 pointer-events-none">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-400">
+                          Total
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-zinc-100 leading-tight mt-0.5 tabular-nums">
+                          {formatCOP(totalFilteredBudget)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="w-full flex-1 min-w-0 space-y-2">
+                      {chartCategoryBreakdown.map((item) => (
+                        <div key={item.category} className="flex items-center justify-between gap-2 text-xs">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span
+                              className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                              style={{ backgroundColor: item.visual.chartColor }}
+                            />
+                            <span className="font-semibold text-slate-700 dark:text-zinc-200 truncate" title={item.category}>
+                              {item.category}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 flex-shrink-0 text-[11px]">
+                            <span className="font-bold text-slate-800 dark:text-zinc-100">
+                              {item.pct}%
+                            </span>
+                            <span className="text-slate-500 dark:text-zinc-400 font-medium hidden sm:inline">
+                              {formatCOP(item.total)}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-xs text-slate-500 dark:text-zinc-400 text-center py-6">
+                    Todos los movimientos filtrados tienen monto $ 0 COP.
+                  </p>
+                )}
+
+                {positiveCategoryCount > 6 && (
+                  <p className="text-[11px] text-slate-500 dark:text-zinc-400 leading-snug border-t border-rose-100/70 dark:border-zinc-800 pt-2.5">
+                    En la gráfica se muestran las 5 categorías principales y las {positiveCategoryCount - 5} menores agrupadas en «Otras». A la derecha ves cada categoría por separado.
+                  </p>
+                )}
+              </div>
+
+              {/* Listado completo por categoría (sin agrupar) */}
+              <div className="lg:col-span-7 space-y-2.5 max-h-[340px] overflow-y-auto pr-1">
+                {categoryBreakdown.map((item) => {
+                  const isFiltered = effectiveSelectedCategory === item.category;
+                  return (
+                    <button
+                      key={item.category}
+                      type="button"
+                      onClick={() =>
+                        setSelectedCategory((prev) => (prev === item.category ? 'all' : item.category))
+                      }
+                      className={`w-full text-left rounded-2xl p-3 sm:p-3.5 border transition-all cursor-pointer ${
+                        isFiltered
+                          ? 'bg-[#FFF5F7] dark:bg-[#282D35] border-[#F44566]/50 shadow-xs'
+                          : 'bg-[#FFFBFB] dark:bg-[#181B20] hover:bg-[#FFF5F7] dark:hover:bg-[#282D35]/70 border-rose-100/70 dark:border-zinc-800'
+                      }`}
+                      title={
+                        isFiltered
+                          ? 'Haz clic para quitar el filtro de esta categoría'
+                          : `Filtrar por ${item.category}`
+                      }
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span
+                            style={item.visual.badgeStyle}
+                            className={`inline-block max-w-[180px] sm:max-w-[260px] truncate px-2.5 py-0.5 rounded-full text-[11px] font-bold ${item.visual.badgeClassName}`}
+                          >
+                            {item.category}
+                          </span>
+                          <span className="text-[11px] text-slate-500 dark:text-zinc-400 font-medium whitespace-nowrap">
+                            {item.count} {item.count === 1 ? 'mov.' : 'movs.'}
+                          </span>
+                        </div>
+
+                        <div className="flex items-baseline gap-2 flex-shrink-0 tabular-nums">
+                          <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-zinc-100">
+                            {formatCOP(item.total)}
+                          </span>
+                          <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 w-9 text-right">
+                            {item.pct}%
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="w-full h-2 rounded-full bg-rose-100/70 dark:bg-zinc-800 overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${item.total > 0 ? Math.max(3, item.pct) : 0}%`,
+                            backgroundColor: item.visual.chartColor
+                          }}
+                        />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </section>
+
         {/* 3. CABECERA DE TABLAS CON BOTÓN DE DESCARGA EXCEL */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
           <div>
-            <h2 className="text-lg sm:text-xl font-black text-slate-800 dark:text-zinc-100 tracking-tight">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-zinc-100 tracking-tight">
               Tablas de Reportes &amp; Métricas
             </h2>
             <p className="text-xs text-slate-500 dark:text-zinc-400 font-medium">
@@ -683,7 +972,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                         <td className="py-3 px-3.5 font-bold text-slate-800 dark:text-zinc-100 group-hover:text-[#F44566] flex items-center gap-2">
                           <span>{dept.name}</span>
                           {isHomeDept && (
-                            <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex items-center gap-0.5" title="Departamento con tu ciudad hogar">
+                            <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex items-center gap-0.5" title="Departamento con tu ciudad hogar">
                               🏠 Hogar
                             </span>
                           )}
@@ -691,9 +980,9 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
                           )}
                         </td>
-                        <td className="py-3 px-2 text-center text-slate-500 dark:text-zinc-400">{dept.totalMunicipalities}</td>
-                        <td className="py-3 px-2 text-center text-slate-800 dark:text-zinc-100 font-bold">{dept.visitedMunicipalities}</td>
-                        <td className="py-3 px-2 text-center text-slate-500 dark:text-zinc-400">{dept.pendingMunicipalities}</td>
+                        <td className="py-3 px-2 text-center text-slate-500 dark:text-zinc-400 tabular-nums">{dept.totalMunicipalities}</td>
+                        <td className="py-3 px-2 text-center text-slate-800 dark:text-zinc-100 font-bold tabular-nums">{dept.visitedMunicipalities}</td>
+                        <td className="py-3 px-2 text-center text-slate-500 dark:text-zinc-400 tabular-nums">{dept.pendingMunicipalities}</td>
                         <td className="py-3 px-3.5 text-right">
                           <div className="flex items-center justify-end gap-2">
                             <div className="w-16 h-2 rounded-full bg-[#FFE4EA] dark:bg-zinc-700 overflow-hidden flex-shrink-0">
@@ -702,7 +991,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                                 style={{ width: `${dept.advancePercentage}%` }}
                               />
                             </div>
-                            <span className="text-[11px] font-bold text-slate-700 dark:text-zinc-200 w-8 text-right">
+                            <span className="text-[11px] font-bold text-slate-700 dark:text-zinc-200 w-8 text-right tabular-nums">
                               {dept.advancePercentage}%
                             </span>
                           </div>
@@ -734,7 +1023,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                 </p>
               </div>
 
-              <span className="px-3 py-1 bg-[#F6EBD0] dark:bg-[#2A251D] text-amber-900 dark:text-amber-200 rounded-full text-xs font-bold border border-[#EEDBBA] dark:border-amber-900/50">
+              <span className="px-3 py-1 bg-[#F6EBD0] dark:bg-[#2A251D] text-amber-900 dark:text-amber-200 rounded-full text-xs font-bold border border-[#EEDBBA] dark:border-amber-900/50 tabular-nums">
                 {formatCOP(totalFilteredBudget)}
               </span>
             </div>
@@ -766,7 +1055,7 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                           <div className="flex items-center gap-1">
                             <span>{expense.municipalityName}</span>
                             {expense.municipalityId === homeMunicipalityId && (
-                              <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60">
+                              <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60">
                                 🏠 Hogar
                               </span>
                             )}
@@ -776,21 +1065,20 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                           </span>
                         </td>
                         <td className="py-3 px-2.5">
-                          <span
-                            className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                              expense.category === 'Comida'
-                                ? 'bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300'
-                                : expense.category === 'Transporte' || expense.category === 'Peajes' || expense.category === 'Transporte/Peajes'
-                                ? 'bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300'
-                                : expense.category === 'Hospedaje'
-                                ? 'bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300'
-                                : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300'
-                            }`}
-                          >
-                            {expense.category}
-                          </span>
+                          {(() => {
+                            const visual = getCategoryVisual(expense.category);
+                            return (
+                              <span
+                                style={visual.badgeStyle}
+                                className={`inline-block max-w-[150px] truncate px-2.5 py-0.5 rounded-full text-[10px] font-bold ${visual.badgeClassName}`}
+                                title={expense.category}
+                              >
+                                {expense.category}
+                              </span>
+                            );
+                          })()}
                         </td>
-                        <td className="py-3 px-3 text-right font-bold text-slate-900 dark:text-zinc-100 whitespace-nowrap">
+                        <td className="py-3 px-3 text-right font-bold text-slate-900 dark:text-zinc-100 whitespace-nowrap tabular-nums">
                           {formatCOP(expense.amountCop)}
                         </td>
                         <td className="py-3 px-3 text-slate-500 dark:text-zinc-400 text-[11px] max-w-[180px] truncate" title={expense.notes}>
@@ -817,14 +1105,14 @@ export const TravelReports: React.FC<TravelReportsProps> = ({
                   )}
                 </tbody>
                 <tfoot>
-                  <tr className="bg-[#FFF8FA] dark:bg-[#282D35] font-extrabold text-slate-900 dark:text-zinc-100 border-t-2 border-[#FAD2DA] dark:border-zinc-700">
+                  <tr className="bg-[#FFF8FA] dark:bg-[#282D35] font-bold text-slate-900 dark:text-zinc-100 border-t-2 border-[#FAD2DA] dark:border-zinc-700">
                     <td colSpan={3} className="py-3.5 px-3 text-xs uppercase tracking-wider text-slate-700 dark:text-zinc-200">
                       Total
                     </td>
-                    <td className="py-3.5 px-3 text-right text-sm text-[#F44566]">
+                    <td className="py-3.5 px-3 text-right text-sm text-[#F44566] tabular-nums">
                       {formatCOP(totalFilteredBudget)}
                     </td>
-                    <td className="py-3.5 px-3 text-[11px] text-slate-500 dark:text-zinc-400 font-normal">
+                    <td className="py-3.5 px-3 text-[11px] text-slate-500 dark:text-zinc-400 font-normal tabular-nums">
                       {filteredExpenses.length} movimientos
                     </td>
                   </tr>

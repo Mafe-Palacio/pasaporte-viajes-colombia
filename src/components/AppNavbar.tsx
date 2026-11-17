@@ -84,12 +84,12 @@ export const PassportDesktopHeader: React.FC<PassportDesktopHeaderProps> = ({
                   backgroundColor: 'var(--color-accent-light)',
                   color: 'var(--color-accent)'
                 }}
-                className="text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap leading-none"
+                className="text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap leading-none tabular-nums"
               >
                 {visitedCount}/{totalCount} visitados
               </span>
             </div>
-            <TitleTag className="text-sm font-extrabold text-slate-800 dark:text-zinc-100 truncate leading-tight mt-0.5">
+            <TitleTag className="text-sm font-bold text-slate-800 dark:text-zinc-100 truncate leading-tight mt-0.5">
               {sectionTitle}
             </TitleTag>
           </div>

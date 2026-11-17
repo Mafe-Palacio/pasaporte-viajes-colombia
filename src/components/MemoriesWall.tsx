@@ -166,7 +166,7 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
               <span className="text-xs font-semibold text-slate-400 dark:text-zinc-500">•</span>
               <span className="text-xs font-medium text-slate-500 dark:text-zinc-400">Fototeca &amp; Muro de Recuerdos</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-zinc-100 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-zinc-100 tracking-tight">
               Muro Visual de Viajes Familiares
             </h1>
             <p className="text-sm text-slate-600 dark:text-zinc-300 mt-1.5 max-w-2xl">
@@ -178,7 +178,7 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
           <div className="flex items-center gap-3 flex-wrap">
             <div className="flex items-center gap-3 bg-white/90 dark:bg-[#282D35]/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-[#FFE4EA] dark:border-zinc-700 shadow-sm">
               <div className="text-center">
-                <span className="block text-lg font-black text-[#F44566] leading-none">
+                <span className="block text-lg font-bold text-[#F44566] leading-none tabular-nums">
                   {allMemories.length}
                 </span>
                 <span className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
@@ -187,7 +187,7 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
               </div>
               <div className="h-6 w-px bg-slate-200 dark:bg-zinc-700" />
               <div className="text-center">
-                <span className="block text-lg font-black text-slate-800 dark:text-zinc-100 leading-none">
+                <span className="block text-lg font-bold text-slate-800 dark:text-zinc-100 leading-none tabular-nums">
                   {new Set(allMemories.map((m) => m.municipalityId)).size}
                 </span>
                 <span className="text-[10px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
@@ -198,13 +198,17 @@ export const MemoriesWall: React.FC<MemoriesWallProps> = ({
 
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 px-4 py-2.5 bg-white dark:bg-[#282D35] rounded-2xl border border-[#FFE4EA] dark:border-zinc-700 text-xs font-bold text-slate-700 dark:text-zinc-200 hover:text-[#F44566] hover:border-[#F44566] shadow-sm transition-all cursor-pointer"
+              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-sm transition-all cursor-pointer ${
+                copiedLink
+                  ? 'accent-feedback-badge'
+                  : 'bg-white dark:bg-[#282D35] border border-[#FFE4EA] dark:border-zinc-700 text-slate-700 dark:text-zinc-200 hover:text-[#F44566] hover:border-[#F44566]'
+              }`}
               title="Copiar enlace de los recuerdos"
             >
               {copiedLink ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span className="text-emerald-600 dark:text-emerald-400">¡Copiado!</span>
+                  <Check className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>¡Copiado!</span>
                 </>
               ) : (
                 <>

@@ -333,9 +333,22 @@ jobs:
             </div>
             <button
               onClick={() => handleCopy(currentSection.code)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-sans text-xs transition-colors"
+              style={
+                copied
+                  ? {
+                      backgroundColor: 'color-mix(in srgb, var(--color-accent) 18%, transparent)',
+                      color: 'var(--color-accent)',
+                      borderColor: 'color-mix(in srgb, var(--color-accent) 40%, transparent)'
+                    }
+                  : undefined
+              }
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-sans text-xs transition-colors border cursor-pointer ${
+                copied
+                  ? 'font-bold'
+                  : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-transparent'
+              }`}
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 flex-shrink-0" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Copiado' : 'Copiar Código'}</span>
             </button>
           </div>

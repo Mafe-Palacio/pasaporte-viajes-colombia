@@ -96,7 +96,7 @@ const MunicipalityPhotoCard: React.FC<MunicipalityPhotoCardProps> = ({
               style={{ backgroundColor: 'var(--color-accent)' }}
             />
             <span
-              className="text-7xl sm:text-8xl font-black tracking-tight opacity-25 -translate-y-8 transition-transform duration-500 ease-out group-hover:scale-105"
+              className="text-7xl sm:text-8xl font-bold tracking-tight opacity-25 -translate-y-8 transition-transform duration-500 ease-out group-hover:scale-105"
               style={{ color: 'var(--color-accent)' }}
               aria-hidden="true"
             >
@@ -115,7 +115,7 @@ const MunicipalityPhotoCard: React.FC<MunicipalityPhotoCardProps> = ({
       {/* Top-right status pill */}
       <div className="absolute top-3 right-3 z-10 flex flex-col items-end gap-1">
         {isHome ? (
-          <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow-md bg-gradient-to-r from-rose-500 to-pink-500 text-white flex items-center gap-1">
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gradient-to-r from-rose-500 to-pink-500 text-white flex items-center gap-1">
             <span>🏠</span> Hogar
           </span>
         ) : (
@@ -140,7 +140,7 @@ const MunicipalityPhotoCard: React.FC<MunicipalityPhotoCardProps> = ({
       <div className="absolute inset-x-0 bottom-0 z-10 p-3.5 sm:p-4 flex flex-col">
         {/* Title + visits count pill */}
         <div className="flex items-center justify-between gap-1.5">
-          <h3 className="font-extrabold text-white text-sm sm:text-lg leading-tight truncate drop-shadow-sm">
+          <h3 className="font-bold text-white text-sm sm:text-lg leading-tight truncate drop-shadow-sm">
             {muni.name}
           </h3>
           <span className="shrink-0 text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/20 whitespace-nowrap">
@@ -233,7 +233,7 @@ const MunicipalityDirectoryCard: React.FC<MunicipalityDirectoryCardProps> = ({
       <div>
         <div className="flex items-start justify-between gap-3 mb-2.5">
           <div className="min-w-0">
-            <h3 className="text-base font-extrabold text-slate-800 dark:text-zinc-100 group-hover:text-accent-primary transition-colors truncate flex items-center gap-1.5">
+            <h3 className="text-base font-bold text-slate-800 dark:text-zinc-100 group-hover:text-accent-primary transition-colors truncate flex items-center gap-1.5">
               <span className="truncate">{muni.name}</span>
               {isHome && (
                 <span className="text-xs" title="Tu Ciudad Hogar">🏠</span>
@@ -565,8 +565,8 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
       });
 
       marker.bindTooltip(
-        `<div style="font-family: system-ui, -apple-system, sans-serif; padding: 2px 4px;">
-          <div style="font-weight: 800; font-size: 12px;">${isMuniHome ? '🏠 ' : ''}${muni.name}</div>
+        `<div style="font-family: var(--font-sans); padding: 2px 4px;">
+          <div style="font-weight: 700; font-size: 12px;">${isMuniHome ? '🏠 ' : ''}${muni.name}</div>
           <div style="font-size: 10px; font-weight: 600; margin-top: 1px; color: ${muni.isVisited || isMuniHome ? '#F44566' : '#64748b'};">
             ${isMuniHome ? '★ Ciudad Hogar / Residencia' : muni.isVisited ? '✓ Visitado' : '○ Pendiente'} • Ver bitácora
           </div>
@@ -628,12 +628,12 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                     backgroundColor: 'var(--color-accent-light)',
                     color: 'var(--color-accent)'
                   }}
-                  className="text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap"
+                  className="text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap tabular-nums"
                 >
                   {visitedCount}/{totalCount} visitados
                 </span>
               </div>
-              <h1 className="text-base sm:text-xl md:text-2xl font-extrabold text-slate-800 dark:text-zinc-100 truncate">
+              <h1 className="text-base sm:text-xl md:text-2xl font-bold text-slate-800 dark:text-zinc-100 truncate">
                 {department.name}
               </h1>
             </div>
@@ -917,7 +917,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                 className="text-white p-4 rounded-3xl shadow-md mb-3 text-center relative overflow-hidden flex-shrink-0"
               >
                 <div className="relative z-10">
-                  <span className="block text-2xl sm:text-4xl font-extrabold tracking-tight">
+                  <span className="block text-2xl sm:text-4xl font-bold tracking-tight tabular-nums">
                     {visitedMunicipalitiesCount} / {totalMunicipalitiesCount}
                   </span>
                   <span className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase opacity-95 block mt-0.5">
@@ -1044,7 +1044,7 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
                               {muni.name}
                             </span>
                             {(muni.isHome || (homeMunicipalityId && (homeMunicipalityId === muni.id || homeMunicipalityId === muni.code))) && (
-                              <span className="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex-shrink-0">
+                              <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-200 border border-rose-200 dark:border-rose-700/60 flex-shrink-0">
                                 Hogar
                               </span>
                             )}

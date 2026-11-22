@@ -23,6 +23,28 @@ import {
 import { Municipality, TripEntry, TripPhoto } from './types';
 import * as api from './services/api';
 import { TripSync } from './services/tripSync';
+import { toUrl, fromLocation } from './utils/routing';
+
+function isAuthenticatedAppRoute(route: string): boolean {
+    if (route === '/explorador' || route === '/recuerdos' || route === '/reportes') {
+        return true;
+    }
+    if (route.startsWith('/departamento/')) {
+        return route.slice('/departamento/'.length).split('/')[0].length > 0;
+    }
+    if (route.startsWith('/municipio/')) {
+        return route.slice('/municipio/'.length).split('/')[0].length > 0;
+    }
+    return false;
+}
+
+function safeDecodeSegment(value: string): string {
+    try {
+        return decodeURIComponent(value);
+    } catch {
+        return value;
+    }
+}
 
 // Catálogo oficial (DIVIPOLA) embebido. El front usa "id" (a veces un nombre corto como "salento")
 // y el backend usa el código de 5 dígitos, así que guardamos la equivalencia en ambos sentidos.
@@ -37,8 +59,12 @@ const ID_BY_CODE = new Map<string, string>(MUNICIPALITIES_MOCK.map((m) => [m.cod
 type AuthPhase = 'checking' | 'offline' | 'anon' | 'authed';
 
 export default function App() {
-    // Navigation Route State: starts strictly at '/login' unless already authenticated
-    const [currentRoute, setCurrentRoute] = useState<string>('/login');
+    // Navigation Route State: reads initial route relative to BASE (falls back to '/login' when unauthenticated)
+    const [currentRoute, setCurrentRoute] = useState<string>(() => {
+        if (!api.hasSession()) return '/login';
+        const initial = fromLocation();
+        return isAuthenticatedAppRoute(initial) ? initial : '/explorador';
+    });
     // La sesión real la valida el servidor (JWT). Si hay un token guardado se verifica antes de entrar.
     const [phase, setPhase] = useState<AuthPhase>(() => (api.hasSession() ? 'checking' : 'anon'));
     const isAuthenticated = phase === 'authed';
@@ -79,9 +105,28 @@ export default function App() {
         authRef.current = isAuthenticated;
     }, [isAuthenticated]);
 
-    // Selected entities
-    const [selectedDepartmentId, setSelectedDepartmentId] = useState<string>('quindio');
-    const [selectedMunicipalityId, setSelectedMunicipalityId] = useState<string>('salento');
+    // Selected entities (initialized from current URL when reloading directly on a department or municipality)
+    const [selectedDepartmentId, setSelectedDepartmentId] = useState<string>(() => {
+        const initial = fromLocation();
+        if (initial.startsWith('/departamento/')) {
+            const deptId = safeDecodeSegment(initial.slice('/departamento/'.length).split('/')[0] || '');
+            if (deptId) return deptId;
+        }
+        if (initial.startsWith('/municipio/')) {
+            const muniId = safeDecodeSegment(initial.slice('/municipio/'.length).split('/')[0] || '');
+            const found = MUNICIPALITIES_MOCK.find((item) => item.id === muniId);
+            if (found) return found.departmentId;
+        }
+        return 'quindio';
+    });
+    const [selectedMunicipalityId, setSelectedMunicipalityId] = useState<string>(() => {
+        const initial = fromLocation();
+        if (initial.startsWith('/municipio/')) {
+            const muniId = safeDecodeSegment(initial.slice('/municipio/'.length).split('/')[0] || '');
+            if (muniId) return muniId;
+        }
+        return 'salento';
+    });
 
     // ───────────── Datos: viven en el servidor, aquí solo hay una copia en memoria ─────────────
     const [trips, setTrips] = useState<TripEntry[]>([]);
@@ -180,13 +225,13 @@ export default function App() {
         currentRoute === 'regional';
 
     // Navigation router with strict authentication guard
-    const navigateTo = (targetRoute: string, bypassAuthCheck = false) => {
+    const navigateTo = (targetRoute: string, bypassAuthCheck = false, replace = false) => {
         const isUserAuth = bypassAuthCheck || authRef.current;
 
         if (!isUserAuth && targetRoute !== '/login') {
             setCurrentRoute('/login');
             setAuthNotice('Debes iniciar sesión para acceder al mapa y bitácora.');
-            window.history.replaceState(null, '', '/login');
+            window.history.replaceState(null, '', toUrl('/login'));
             return;
         }
 
@@ -203,7 +248,11 @@ export default function App() {
         }
 
         setCurrentRoute(normalized);
-        window.history.pushState(null, '', normalized);
+        if (replace || fromLocation() === normalized) {
+            window.history.replaceState(null, '', toUrl(normalized));
+        } else {
+            window.history.pushState(null, '', toUrl(normalized));
+        }
     };
 
     // ───────────── Sesión ─────────────
@@ -221,7 +270,9 @@ export default function App() {
             await loadServerData();
             authRef.current = true;
             setPhase('authed');
-            navigateTo('/explorador', true);
+            const requested = fromLocation();
+            const targetRoute = isAuthenticatedAppRoute(requested) ? requested : '/explorador';
+            navigateTo(targetRoute, true, true);
         } catch (err) {
             if (err instanceof api.ApiError && err.isNetwork) {
                 setPhase('offline'); // hay sesión guardada pero el servidor no responde
@@ -240,12 +291,34 @@ export default function App() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // Sincronizar navegación con los botones Atrás / Adelante del navegador
+    useEffect(() => {
+        const handlePopState = () => {
+            const route = fromLocation();
+            if (!authRef.current) {
+                setCurrentRoute('/login');
+                if (route !== '/login') {
+                    window.history.replaceState(null, '', toUrl('/login'));
+                }
+                return;
+            }
+            if (isAuthenticatedAppRoute(route)) {
+                setCurrentRoute(route);
+            } else {
+                setCurrentRoute('/explorador');
+                window.history.replaceState(null, '', toUrl('/explorador'));
+            }
+        };
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, []);
+
     // Guard: sin sesión siempre se ve el login
     useEffect(() => {
         if (phase === 'anon') {
             setCurrentRoute('/login');
-            if (window.location.pathname !== '/login') {
-                window.history.replaceState(null, '', '/login');
+            if (fromLocation() !== '/login') {
+                window.history.replaceState(null, '', toUrl('/login'));
             }
         }
     }, [phase]);
@@ -351,12 +424,12 @@ export default function App() {
     // Synchronize route if user hits a direct link or goes back
     useEffect(() => {
         if (currentRoute.startsWith('/departamento/')) {
-            const deptId = currentRoute.replace('/departamento/', '').split('/')[0];
+            const deptId = safeDecodeSegment(currentRoute.slice('/departamento/'.length).split('/')[0] || '');
             if (deptId && deptId !== selectedDepartmentId) {
                 setSelectedDepartmentId(deptId);
             }
         } else if (currentRoute.startsWith('/municipio/')) {
-            const muniId = currentRoute.replace('/municipio/', '').split('/')[0];
+            const muniId = safeDecodeSegment(currentRoute.slice('/municipio/'.length).split('/')[0] || '');
             if (muniId && muniId !== selectedMunicipalityId) {
                 setSelectedMunicipalityId(muniId);
                 const m = municipalities.find((item) => item.id === muniId);

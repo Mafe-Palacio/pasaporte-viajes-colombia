@@ -5,15 +5,23 @@ import html2canvas from 'html2canvas';
 import {
     ArrowLeft, Plus, Camera, DollarSign,
     BookMarked, Star, X, Check, Upload, ChevronLeft, ChevronRight,
-    Sparkles, MapPin, Calendar, Heart, BarChart3, FileText, Share2, Download, Printer, Trash2,
-    Image as ImageIcon
+    Sparkles, MapPin, Calendar, Heart, FileText, Share2, Download, Printer, Trash2,
+    Image as ImageIcon, Sun, CloudSun, Cloud, CloudFog, CloudDrizzle, CloudRain, Snowflake, CloudLightning,
+    Droplets, Wind, Thermometer, RefreshCw
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Municipality, TripEntry, ExpenseLog, TripPhoto } from '../types';
 import { useMunicipalityImage } from '../hooks/useMunicipalityImage';
+import { useTripWeather } from '../hooks/useTripWeather';
+import {
+    getThermalFloorLabel,
+    suggestThermalFloor,
+    type ThermalFloor,
+    type WeatherIconName
+} from '../services/weather';
 import { DoneButton } from './DoneButton';
 import { ConfirmDialog } from './ConfirmDialog';
-import { CarIcon, PlateIcon, MoneyIcon, NotebookIcon } from './summaryIcons';
+import { CarIcon, PlateIcon, MoneyIcon, NotebookIcon, WeatherIcon } from './summaryIcons';
 import {
     FIXED_EXPENSE_CATEGORIES,
     isTransportCategory as isTransportExpenseCategory,
@@ -21,14 +29,45 @@ import {
     normalizeCategory as normalizeExpenseCategoryName
 } from '../utils/expenseCategories';
 
-type EditableVisitTab = 'gastos' | 'fotos' | 'comida' | 'transporte' | 'noolvidar';
+type EditableVisitTab = 'gastos' | 'fotos' | 'comida' | 'transporte' | 'clima' | 'noolvidar';
 
 const EMPTY_DIRTY_TABS: Record<EditableVisitTab, boolean> = {
     gastos: false,
     fotos: false,
     comida: false,
     transporte: false,
+    clima: false,
     noolvidar: false
+};
+
+const THERMAL_FLOOR_OPTIONS: Array<{ value: ThermalFloor; label: string; rangeHint: string }> = [
+    { value: 'caliente', label: 'Tierra caliente', rangeHint: '< 1.000 m' },
+    { value: 'templado', label: 'Tierra templada', rangeHint: '1.000 – 2.000 m' },
+    { value: 'frio', label: 'Tierra fría', rangeHint: '2.000 – 3.000 m' },
+    { value: 'paramo', label: 'Páramo', rangeHint: '> 3.000 m' }
+];
+
+const renderWeatherConditionIcon = (icon: WeatherIconName, className = 'w-7 h-7') => {
+    switch (icon) {
+        case 'sun':
+            return <Sun className={className} />;
+        case 'cloud-sun':
+            return <CloudSun className={className} />;
+        case 'cloud':
+            return <Cloud className={className} />;
+        case 'cloud-fog':
+            return <CloudFog className={className} />;
+        case 'cloud-drizzle':
+            return <CloudDrizzle className={className} />;
+        case 'cloud-rain':
+            return <CloudRain className={className} />;
+        case 'snowflake':
+            return <Snowflake className={className} />;
+        case 'cloud-lightning':
+            return <CloudLightning className={className} />;
+        default:
+            return <CloudSun className={className} />;
+    }
 };
 
 interface MunicipalityDetailProps {
@@ -39,7 +78,6 @@ interface MunicipalityDetailProps {
     onBack: () => void;
     onSaveTrip: (trip: TripEntry) => void;
     onDeleteTrip?: (municipalityId: string, tripId: string) => void;
-    onNavigateToReportes?: () => void;
     isSaving?: boolean;
     hasSyncProblem?: boolean;
     onRetrySync?: () => void;
@@ -216,7 +254,6 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
     onBack,
     onSaveTrip,
     onDeleteTrip,
-    onNavigateToReportes,
     isSaving = false,
     hasSyncProblem = false,
     onRetrySync
@@ -229,7 +266,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
     const [selectedTripIndex, setSelectedTripIndex] = useState(
         trips.length > 0 ? trips.length - 1 : 0
     );
-    const [activeTab, setActiveTab] = useState<'resumen' | 'gastos' | 'comida' | 'transporte' | 'noolvidar' | 'fotos'>('resumen');
+    const [activeTab, setActiveTab] = useState<'resumen' | 'gastos' | 'comida' | 'transporte' | 'clima' | 'noolvidar' | 'fotos'>('resumen');
     const [lightboxPhoto, setLightboxPhoto] = useState<string | null>(null);
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
     const [dirtyTabs, setDirtyTabs] = useState<Record<EditableVisitTab, boolean>>(EMPTY_DIRTY_TABS);
@@ -325,6 +362,16 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
     // Clamp index safely
     const safeIndex = trips.length > 0 ? Math.min(selectedTripIndex, trips.length - 1) : 0;
     const currentTrip = trips[safeIndex];
+
+    const {
+        data: weatherData,
+        loading: weatherLoading,
+        error: weatherError,
+        retry: retryWeather,
+        isFuture: weatherIsFuture,
+        hasCoordinates: weatherHasCoords
+    } = useTripWeather(municipality, currentTrip?.tripDate);
+    const suggestedThermalFloor = suggestThermalFloor(weatherData?.elevationM);
 
     const firstTripPhotoUrl = useMemo(() => {
         if (currentTrip?.photos && currentTrip.photos.length > 0 && currentTrip.photos[0]?.url) {
@@ -761,6 +808,8 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                 notes: ''
             },
             doNotForgetNotes: '',
+            climateFeeling: '',
+            climateNotes: '',
             expenses: [
                 {
                     id: newId(),
@@ -1170,6 +1219,21 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                     Transporte
                                 </button>
                                 <button
+                                    id="tab-clima-btn"
+                                    onClick={() => setActiveTab('clima')}
+                                    style={
+                                        activeTab === 'clima'
+                                            ? { backgroundColor: 'var(--color-accent)', borderColor: 'var(--color-accent-soft)' }
+                                            : undefined
+                                    }
+                                    className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap cursor-pointer ${activeTab === 'clima'
+                                            ? 'text-white shadow-md'
+                                            : 'text-slate-700 dark:text-zinc-300 hover:text-accent-primary'
+                                        }`}
+                                >
+                                    Clima
+                                </button>
+                                <button
                                     id="tab-noolvidar-btn"
                                     onClick={() => setActiveTab('noolvidar')}
                                     style={
@@ -1199,17 +1263,6 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                 >
                                     Fotos
                                 </button>
-                                {onNavigateToReportes && (
-                                    <button
-                                        id="tab-global-reportes-btn"
-                                        onClick={onNavigateToReportes}
-                                        className="px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap text-rose-600 bg-rose-50 hover:bg-rose-100 dark:hover:bg-zinc-800 flex items-center gap-1.5 cursor-pointer border border-rose-200 dark:border-zinc-700"
-                                        title="Ver Balance Financiero y Reportes Globales"
-                                    >
-                                        <BarChart3 className="w-3.5 h-3.5 text-rose-500" />
-                                        <span>Reportes</span>
-                                    </button>
-                                )}
                             </div>
                         </div>
 
@@ -2375,6 +2428,260 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                             </div>
                         )}
 
+                        {/* TAB CONTENT: CLIMA */}
+                        {activeTab === 'clima' && (
+                            <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-5 sm:p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800 space-y-6 animate-in fade-in">
+                                <div>
+                                    <h3 className="text-lg font-bold text-slate-800 dark:text-zinc-100">
+                                        Clima &amp; Piso Térmico de la Visita
+                                    </h3>
+                                    <p className="text-xs text-slate-500 dark:text-zinc-400">
+                                        Cómo se sintió el ambiente en {municipality.name} el {currentTrip.tripDate}
+                                    </p>
+                                </div>
+
+                                {/* a) Tarjeta Clima de ese día (internet) */}
+                                <div className="rounded-2xl border border-slate-200/80 dark:border-zinc-700/80 bg-[#FFFBFB] dark:bg-[#282D35]/70 p-4 sm:p-5 space-y-3">
+                                    <div className="flex flex-wrap items-center justify-between gap-2">
+                                        <span className="text-xs font-bold text-slate-700 dark:text-zinc-200 flex items-center gap-1.5">
+                                            <Sun className="w-4 h-4 text-accent-readable" />
+                                            <span>Clima de ese día (internet)</span>
+                                        </span>
+                                        <span className="text-[11px] font-medium text-slate-500 dark:text-zinc-400">
+                                            {currentTrip.tripDate}
+                                        </span>
+                                    </div>
+
+                                    {weatherLoading ? (
+                                        <div className="space-y-3 animate-pulse" aria-label="Cargando clima">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-11 h-11 rounded-2xl bg-slate-200 dark:bg-zinc-700" />
+                                                <div className="space-y-1.5 flex-1">
+                                                    <div className="h-4 w-44 rounded-lg bg-slate-200 dark:bg-zinc-700" />
+                                                    <div className="h-3 w-28 rounded-lg bg-slate-200 dark:bg-zinc-700" />
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-3 gap-2.5">
+                                                <div className="h-12 rounded-xl bg-slate-200 dark:bg-zinc-700" />
+                                                <div className="h-12 rounded-xl bg-slate-200 dark:bg-zinc-700" />
+                                                <div className="h-12 rounded-xl bg-slate-200 dark:bg-zinc-700" />
+                                            </div>
+                                        </div>
+                                    ) : weatherIsFuture ? (
+                                        <div className="rounded-2xl border border-dashed border-slate-200 dark:border-zinc-700 bg-white/70 dark:bg-[#1E2228]/60 p-4 text-center space-y-1">
+                                            <p className="text-sm font-semibold text-slate-700 dark:text-zinc-200">
+                                                Aún no disponible
+                                            </p>
+                                            <p className="text-xs text-slate-500 dark:text-zinc-400">
+                                                Los datos climáticos de ese día se mostrarán cuando llegue la fecha de la visita.
+                                            </p>
+                                        </div>
+                                    ) : !weatherHasCoords ? (
+                                        <div className="rounded-2xl border border-dashed border-slate-200 dark:border-zinc-700 bg-white/70 dark:bg-[#1E2228]/60 p-4 text-center">
+                                            <p className="text-xs text-slate-500 dark:text-zinc-400">
+                                                No hay coordenadas registradas para consultar el clima de este municipio.
+                                            </p>
+                                        </div>
+                                    ) : weatherError || !weatherData ? (
+                                        <div className="rounded-2xl border border-slate-200 dark:border-zinc-700 bg-white/70 dark:bg-[#1E2228]/60 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                            <p className="text-xs font-medium text-slate-600 dark:text-zinc-300">
+                                                No se pudo obtener el clima
+                                            </p>
+                                            <button
+                                                type="button"
+                                                onClick={retryWeather}
+                                                className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border border-slate-200 dark:border-zinc-600 bg-white dark:bg-[#282D35] text-slate-700 dark:text-zinc-100 hover:bg-slate-50 dark:hover:bg-zinc-700 transition-colors cursor-pointer self-start sm:self-auto"
+                                            >
+                                                <RefreshCw className="w-3.5 h-3.5" />
+                                                <span>Reintentar</span>
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-12 h-12 rounded-2xl bg-accent-soft-tint text-accent-readable flex items-center justify-center shrink-0">
+                                                        {renderWeatherConditionIcon(weatherData.icon, 'w-6 h-6')}
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-base font-bold text-slate-900 dark:text-zinc-100 leading-snug">
+                                                            {weatherData.description}
+                                                        </p>
+                                                        <p className="text-xs text-slate-500 dark:text-zinc-400 tabular-nums">
+                                                            Media del día: {Math.round(weatherData.tempMean)} °C
+                                                            {weatherData.elevationM !== null
+                                                                ? ` · Altitud ${formatThousands(weatherData.elevationM)} m`
+                                                                : ''}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                                                <div className="rounded-xl bg-white dark:bg-[#1E2228] border border-slate-200/70 dark:border-zinc-700/70 px-3.5 py-2.5 flex items-center gap-2.5">
+                                                    <Thermometer className="w-4 h-4 text-accent-readable shrink-0" />
+                                                    <div className="min-w-0">
+                                                        <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">
+                                                            Temp. máx / mín
+                                                        </span>
+                                                        <span className="text-xs font-bold text-slate-800 dark:text-zinc-100 tabular-nums">
+                                                            {Math.round(weatherData.tempMax)} °C / {Math.round(weatherData.tempMin)} °C
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="rounded-xl bg-white dark:bg-[#1E2228] border border-slate-200/70 dark:border-zinc-700/70 px-3.5 py-2.5 flex items-center gap-2.5">
+                                                    <Droplets className="w-4 h-4 text-sky-500 shrink-0" />
+                                                    <div className="min-w-0">
+                                                        <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">
+                                                            Lluvia
+                                                        </span>
+                                                        <span className="text-xs font-bold text-slate-800 dark:text-zinc-100 tabular-nums">
+                                                            {weatherData.precipitationMm} mm
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="rounded-xl bg-white dark:bg-[#1E2228] border border-slate-200/70 dark:border-zinc-700/70 px-3.5 py-2.5 flex items-center gap-2.5">
+                                                    <Wind className="w-4 h-4 text-teal-500 shrink-0" />
+                                                    <div className="min-w-0">
+                                                        <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-400 dark:text-zinc-500">
+                                                            Viento máx.
+                                                        </span>
+                                                        <span className="text-xs font-bold text-slate-800 dark:text-zinc-100 tabular-nums">
+                                                            {Math.round(weatherData.windMax)} km/h
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+
+                                    <p className="text-[11px] text-slate-400 dark:text-zinc-500">
+                                        Fuente: Open-Meteo · datos de modelo, pueden diferir de lo que viviste
+                                    </p>
+                                </div>
+
+                                {/* b) Piso térmico */}
+                                <div className="space-y-3">
+                                    <div className="flex flex-wrap items-center justify-between gap-2">
+                                        <label className="block text-xs font-bold text-slate-700 dark:text-zinc-200">
+                                            Piso térmico
+                                        </label>
+                                        {!currentTrip.climateFeeling && suggestedThermalFloor && (
+                                            <div className="flex flex-wrap items-center gap-2">
+                                                <span className="text-xs text-slate-500 dark:text-zinc-400">
+                                                    Sugerido: <strong className="text-slate-700 dark:text-zinc-200">{getThermalFloorLabel(suggestedThermalFloor)}</strong>
+                                                    {weatherData?.elevationM !== null && weatherData?.elevationM !== undefined
+                                                        ? ` (${formatThousands(weatherData.elevationM)} m)`
+                                                        : ''}
+                                                </span>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        markTabDirty('clima');
+                                                        onSaveTrip({
+                                                            ...currentTrip,
+                                                            climateFeeling: suggestedThermalFloor
+                                                        });
+                                                    }}
+                                                    className="px-3 py-1 rounded-full text-[11px] font-bold accent-feedback-badge hover:brightness-95 transition-all cursor-pointer"
+                                                >
+                                                    Usar sugerencia
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                                        {THERMAL_FLOOR_OPTIONS.map((opt) => {
+                                            const isSelected = currentTrip.climateFeeling === opt.value;
+                                            return (
+                                                <button
+                                                    key={opt.value}
+                                                    type="button"
+                                                    aria-pressed={isSelected}
+                                                    onClick={() => {
+                                                        markTabDirty('clima');
+                                                        onSaveTrip({
+                                                            ...currentTrip,
+                                                            climateFeeling: isSelected ? '' : opt.value
+                                                        });
+                                                    }}
+                                                    style={
+                                                        isSelected
+                                                            ? {
+                                                                  backgroundColor: 'var(--color-accent)',
+                                                                  borderColor: 'var(--color-accent)',
+                                                                  color: '#ffffff'
+                                                              }
+                                                            : undefined
+                                                    }
+                                                    className={`px-3.5 py-2.5 rounded-2xl text-left border transition-all cursor-pointer ${
+                                                        isSelected
+                                                            ? 'shadow-md'
+                                                            : 'bg-[#FFFBFB] dark:bg-[#282D35] border-slate-200 dark:border-zinc-700 text-slate-700 dark:text-zinc-200 hover:border-slate-300 dark:hover:border-zinc-600'
+                                                    }`}
+                                                >
+                                                    <span className="block text-xs font-bold leading-snug">
+                                                        {opt.label}
+                                                    </span>
+                                                    <span
+                                                        className={`block text-[10px] mt-0.5 tabular-nums ${
+                                                            isSelected
+                                                                ? 'text-white/85'
+                                                                : 'text-slate-400 dark:text-zinc-400'
+                                                        }`}
+                                                    >
+                                                        {opt.rangeHint}
+                                                    </span>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                {/* c) Cómo estuvo el clima */}
+                                <div className="space-y-1.5">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <label
+                                            htmlFor="climate-notes-textarea"
+                                            className="block text-xs font-bold text-slate-700 dark:text-zinc-200"
+                                        >
+                                            Cómo estuvo el clima
+                                        </label>
+                                        <span className="text-[11px] font-medium text-slate-400 dark:text-zinc-500 tabular-nums">
+                                            {(currentTrip.climateNotes || '').length} / 1000
+                                        </span>
+                                    </div>
+                                    <textarea
+                                        id="climate-notes-textarea"
+                                        value={currentTrip.climateNotes || ''}
+                                        maxLength={1000}
+                                        onChange={(e) => {
+                                            markTabDirty('clima');
+                                            onSaveTrip({
+                                                ...currentTrip,
+                                                climateNotes: e.target.value.slice(0, 1000)
+                                            });
+                                        }}
+                                        rows={5}
+                                        placeholder="Cuenta si hizo sol todo el día, si llovió en la tarde, si refrescó en la noche..."
+                                        className="w-full p-4 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566] leading-relaxed font-sans resize-y"
+                                    />
+                                </div>
+
+                                {/* d) Botón Listo */}
+                                <DoneButton
+                                    dirty={dirtyTabs.clima}
+                                    isSaving={isSaving}
+                                    hasSyncProblem={hasSyncProblem}
+                                    onDone={() => handleTabDone('clima')}
+                                    onRetry={() => onRetrySync?.()}
+                                />
+                            </div>
+                        )}
+
                         {/* TAB CONTENT: NO OLVIDAR */}
                         {activeTab === 'noolvidar' && (
                             <div className="bg-white dark:bg-[#1E2228] rounded-3xl p-8 shadow-[0_15px_35px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800 space-y-4 animate-in fade-in">
@@ -2410,7 +2717,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                         {/* TAB CONTENT: RESUMEN (Tablero de lectura rápida + accesos) */}
                         {activeTab === 'resumen' && (() => {
-                            const goToTab = (tab: 'resumen' | 'gastos' | 'comida' | 'transporte' | 'noolvidar' | 'fotos') => {
+                            const goToTab = (tab: 'resumen' | 'gastos' | 'comida' | 'transporte' | 'clima' | 'noolvidar' | 'fotos') => {
                                 setActiveTab(tab);
                                 requestAnimationFrame(() => {
                                     tabsBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2453,6 +2760,13 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                             const tNotes = (currentTrip.transport?.notes ?? currentTrip.transportNotes ?? '').trim();
                             const hasTransportData = Boolean(roadCond || tMode || tTolls > 0 || tNotes);
 
+                            // Clima
+                            const chosenFloor = currentTrip.climateFeeling || '';
+                            const activeFloor = chosenFloor || suggestedThermalFloor || '';
+                            const activeFloorLabel = getThermalFloorLabel(activeFloor);
+                            const climateNotesText = (currentTrip.climateNotes || '').trim();
+                            const meanTempRounded = weatherData ? Math.round(weatherData.tempMean) : null;
+
                             // No Olvidar
                             const notesText = (currentTrip.doNotForgetNotes || '').trim();
                             const hasDoNotForget = notesText.length > 0;
@@ -2465,7 +2779,7 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
 
                             const handleCardKeyDown = (
                                 e: React.KeyboardEvent<HTMLDivElement>,
-                                tab: 'gastos' | 'comida' | 'transporte' | 'noolvidar' | 'fotos'
+                                tab: 'gastos' | 'comida' | 'transporte' | 'clima' | 'noolvidar' | 'fotos'
                             ) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                     e.preventDefault();
@@ -2818,25 +3132,69 @@ export const MunicipalityDetail: React.FC<MunicipalityDetailProps> = ({
                                             </div>
                                         </div>
 
-                                        {/* 8) TARJETA QUICK NOTES (edición rápida directa) */}
-                                        <div className="md:col-span-2 lg:col-span-1 lg:col-start-3 lg:row-start-3 bg-white dark:bg-[#1E2228] rounded-3xl p-5 shadow-[0_12px_30px_-10px_rgba(244,69,102,0.12)] border border-[#FFF0F3] dark:border-zinc-800 flex flex-col justify-between gap-3">
-                                            <div className="flex items-center justify-between">
-                                                <h4 className="text-sm font-bold text-slate-800 dark:text-zinc-100">
-                                                    Quick notes
-                                                </h4>
-                                                <span className="text-[10px] font-semibold text-slate-400 dark:text-zinc-500">
-                                                    Guardado automático
-                                                </span>
+                                        {/* 8) TARJETA CLIMA (reemplaza Quick notes con el mismo diseño minimalista) */}
+                                        <div
+                                            role="button"
+                                            tabIndex={0}
+                                            onClick={() => goToTab('clima')}
+                                            onKeyDown={(e) => handleCardKeyDown(e, 'clima')}
+                                            className="md:col-span-2 lg:col-span-1 lg:col-start-3 lg:row-start-3 relative overflow-hidden rounded-[28px] bg-white dark:bg-[#1E2228] border border-slate-900/[0.06] dark:border-white/[0.05] hover:border-slate-900/[0.12] dark:hover:border-white/[0.12] transition-colors cursor-pointer min-h-[210px] pt-5 pb-6 pr-5 pl-0 group"
+                                        >
+                                            <div
+                                                aria-hidden="true"
+                                                style={summaryIconMaskStyle}
+                                                className="absolute left-0 top-0 bottom-0 w-[34%] md:w-[40%] flex items-center justify-center text-zinc-400/70 dark:text-zinc-400 pointer-events-none select-none"
+                                            >
+                                                <WeatherIcon />
                                             </div>
-                                            <textarea
-                                                value={currentTrip.doNotForgetNotes}
-                                                onChange={(e) => {
-                                                    onSaveTrip({ ...currentTrip, doNotForgetNotes: e.target.value });
-                                                }}
-                                                rows={3}
-                                                placeholder="Quick notes..."
-                                                className="flex-1 w-full p-3 bg-[#FFFBFB] dark:bg-[#282D35] border border-[#FAD2DA] dark:border-zinc-700 rounded-2xl text-xs text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#F44566] resize-none leading-relaxed"
-                                            />
+
+                                            <div className="relative z-10 ml-[36%] md:ml-[44%] flex flex-col justify-start gap-3 min-w-0">
+                                                <div className="flex items-baseline justify-between gap-2">
+                                                    <h4 className="text-xl font-semibold text-slate-900 dark:text-zinc-100 leading-tight truncate">
+                                                        Clima
+                                                    </h4>
+                                                    <span className="text-xs font-semibold flex items-center gap-0.5 shrink-0 group-hover:underline text-accent-readable whitespace-nowrap">
+                                                        <span>Ver detalle</span>
+                                                        <span aria-hidden="true">›</span>
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex flex-col gap-2 min-w-0">
+                                                    {(activeFloorLabel || weatherData) && (
+                                                        <div className="flex flex-wrap gap-1.5">
+                                                            {activeFloorLabel && (
+                                                                <span className={`${minimalChipClass} max-w-full`}>
+                                                                    <span className="truncate">
+                                                                        {activeFloorLabel}
+                                                                        {meanTempRounded !== null ? ` · ${meanTempRounded} °C` : ''}
+                                                                        {!chosenFloor && suggestedThermalFloor ? ' (sugerido)' : ''}
+                                                                    </span>
+                                                                </span>
+                                                            )}
+                                                            {weatherData && (
+                                                                <span className="inline-flex items-center rounded-full border border-slate-900/[0.08] dark:border-white/[0.08] bg-slate-900/[0.02] dark:bg-white/[0.03] px-2 py-0.5 text-[10.5px] leading-snug text-slate-400 dark:text-zinc-500 max-w-full">
+                                                                    <span className="truncate">
+                                                                        Internet: {Math.round(weatherData.tempMean)} °C · {weatherData.description}
+                                                                    </span>
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    )}
+
+                                                    {climateNotesText ? (
+                                                        <p className="text-xs text-slate-500 dark:text-zinc-400 line-clamp-3 whitespace-pre-line leading-relaxed text-left">
+                                                            {climateNotesText}
+                                                        </p>
+                                                    ) : (
+                                                        <p className="text-xs text-slate-500 dark:text-zinc-400 leading-relaxed text-left">
+                                                            Cuéntanos cómo estuvo el clima.{' '}
+                                                            <span className="font-semibold text-accent-readable group-hover:underline whitespace-nowrap">
+                                                                Agregar ›
+                                                            </span>
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

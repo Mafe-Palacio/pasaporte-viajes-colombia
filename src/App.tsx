@@ -524,7 +524,6 @@ export default function App() {
                         onBack={() => navigateTo(`/departamento/${selectedDepartmentId}`)}
                         onSaveTrip={handleSaveTrip}
                         onDeleteTrip={handleDeleteTrip}
-                        onNavigateToReportes={() => navigateTo('/reportes')}
                         isSaving={pendingChanges > 0 && serverOnline}
                         hasSyncProblem={!serverOnline || (Boolean(errorMessage) && pendingChanges > 0)}
                         onRetrySync={() => sync.retryAll()}

@@ -84,6 +84,8 @@ export interface TripEntry {
   transportMode?: string;
   transport?: TripTransport;
   doNotForgetNotes: string;
+  climateFeeling?: 'caliente' | 'templado' | 'frio' | 'paramo' | '';
+  climateNotes?: string;
   expenses: ExpenseLog[];
   photos: TripPhoto[];
 }

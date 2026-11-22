@@ -331,6 +331,8 @@ export interface ApiTrip {
     roadCondition?: string | null;
     transportNotes?: string | null;
     tollCount: number;
+    climateFeeling?: string | null;
+    climateNotes?: string | null;
     expenses: ApiExpense[];
     photos: ApiPhoto[];
 }
@@ -349,6 +351,8 @@ export interface TripWrite {
     roadCondition: string;
     transportNotes: string;
     tollCount: number;
+    climateFeeling: string | null;
+    climateNotes: string | null;
 }
 
 export interface ExpenseWrite {
@@ -424,8 +428,16 @@ export function resolvePhotoUrl(url: string): string {
 
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 
+const VALID_CLIMATE_FEELINGS = new Set(['caliente', 'templado', 'frio', 'paramo']);
+
 export function tripToWrite(trip: TripEntry, codeById: Map<string, string>): TripWrite {
     const tollCount = trip.transport?.tollCount ?? trip.tollCount ?? 0;
+    const rawClimateFeeling = (trip.climateFeeling ?? '').trim();
+    const climateFeeling = VALID_CLIMATE_FEELINGS.has(rawClimateFeeling) ? rawClimateFeeling : null;
+    const climateNotes =
+        trip.climateNotes && trip.climateNotes.trim().length > 0
+            ? trip.climateNotes.slice(0, 1000)
+            : null;
     return {
         municipalityId: codeById.get(trip.municipalityId) ?? trip.municipalityId,
         tripDate: passportToIso(trip.tripDate),
@@ -438,7 +450,9 @@ export function tripToWrite(trip: TripEntry, codeById: Map<string, string>): Tri
         transportMode: trip.transport?.transportMode ?? trip.transportMode ?? 'Carro propio',
         roadCondition: trip.transport?.roadCondition ?? trip.roadCondition ?? 'Buena',
         transportNotes: trip.transport?.notes ?? trip.transportNotes ?? '',
-        tollCount: clamp(Math.round(tollCount || 0), 0, 100)
+        tollCount: clamp(Math.round(tollCount || 0), 0, 100),
+        climateFeeling,
+        climateNotes
     };
 }
 
@@ -471,6 +485,9 @@ export function apiTripToFront(
     const roadCondition = t.roadCondition ?? 'Buena';
     const transportMode = t.transportMode ?? 'Carro propio';
     const transportNotes = t.transportNotes ?? '';
+    const climateFeeling = (
+        t.climateFeeling && VALID_CLIMATE_FEELINGS.has(t.climateFeeling) ? t.climateFeeling : ''
+    ) as TripEntry['climateFeeling'];
     return {
         id: t.id,
         municipalityId: idByCode.get(t.municipalityId) ?? t.municipalityId,
@@ -490,6 +507,8 @@ export function apiTripToFront(
         transportMode,
         transport: { roadCondition, tollCount, hasTolls: tollCount > 0, transportMode, notes: transportNotes },
         doNotForgetNotes: t.doNotForgetNotes ?? '',
+        climateFeeling,
+        climateNotes: t.climateNotes ?? '',
         expenses: t.expenses.map((e) => ({
             id: e.id,
             tripEntryId: e.tripEntryId,

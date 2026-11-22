@@ -78,3 +78,26 @@ export const NotebookIcon: React.FC<SummaryIconProps> = ({ className, ...props }
         <path d="M52 30H76M52 44H76M52 58H68" />
     </svg>
 );
+
+export const WeatherIcon: React.FC<SummaryIconProps> = ({ className, ...props }) => (
+    <svg
+        viewBox="0 0 120 100"
+        {...BASE_SVG_PROPS}
+        className={className || BASE_ICON_CLASS}
+        {...props}
+    >
+        {/* Sol con rayos detrás de la nube */}
+        <path d="M27 38 A9 9 0 1 1 43 34" />
+        <path d="M35 14V18M22 19L25 22M17 31H21M22 43L25 40M48 19L45 22" />
+
+        {/* Nube en primer plano */}
+        <path d="M32 68H72A10 10 0 0 0 73 48A13.5 13.5 0 0 0 46 48A12.5 12.5 0 0 0 32 68Z" />
+
+        {/* Montaña detrás */}
+        <path d="M64 46L83 24Q86 21 89 24L112 78" />
+        <path d="M79 40L86 44L93 39" />
+        <path d="M14 78L25 63L31 68" />
+        <path d="M12 78H112" />
+    </svg>
+);
+

@@ -1,10 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import L from 'leaflet';
 import { Search, MapPin, Compass, AlertCircle, RefreshCw, ChevronRight, Heart, LogOut, BarChart3 } from 'lucide-react';
 import { Department } from '../types';
-import { COLOMBIA_GEOJSON } from '../data/geoJsonData';
-import { DestinationRouletteModal, RouletteItem } from './DestinationRouletteModal';
+import { DestinationRouletteModal } from './DestinationRouletteModal';
 import { PassportDesktopHeader, syncPassportVisitStats } from './AppNavbar';
+import {
+  ColombiaDeptFeature,
+  ColombiaDeptFeatureCollection,
+  getBundledColombiaGeoJson,
+  getGeometryLabelCenter,
+  loadColombiaDepartmentsGeoJson,
+  mapPolygonCodeToDepartmentCode,
+  MapThemeColors,
+  readMapThemeColors
+} from '../utils/colombiaGeo';
 
 interface CountryExplorerProps {
   departments: Department[];
@@ -29,13 +38,35 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
   const [mapFailed, setMapFailed] = useState(false);
   const [hoveredDept, setHoveredDept] = useState<Department | null>(null);
   const [isRouletteOpen, setIsRouletteOpen] = useState(false);
+  const [usingFallbackPoints, setUsingFallbackPoints] = useState(false);
+  const [themeTick, setThemeTick] = useState(0);
+  const [isDesktopViewport, setIsDesktopViewport] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth >= 768 : true
+  );
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const geoJsonLayerRef = useRef<L.GeoJSON | null>(null);
+  const labelsLayerRef = useRef<L.LayerGroup | null>(null);
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
+  const sanAndresHitRef = useRef<L.CircleMarker | null>(null);
+  const deptFeatureLayersRef = useRef<
+    Array<{
+      layer: L.Path;
+      polygonCode: string;
+      mappedCode: string;
+      bounds: L.LatLngBounds;
+      labelCenter: [number, number] | null;
+    }>
+  >([]);
+
   const onSelectDeptRef = useRef(onSelectDepartment);
   onSelectDeptRef.current = onSelectDepartment;
+  const departmentsRef = useRef(departments);
+  departmentsRef.current = departments;
+  const homeDepartmentIdRef = useRef(homeDepartmentId);
+  homeDepartmentIdRef.current = homeDepartmentId;
+  const hoveredPolygonCodeRef = useRef<string | null>(null);
 
   const visitedCount = departments.filter((d) => d.isVisited).length;
   const totalCount = departments.length;
@@ -54,27 +85,237 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
   const displayedDepartments = filteredDepartments.filter((d) => {
     if (filterTab === 'visited') return d.isVisited;
     if (filterTab === 'pending') return !d.isVisited;
-    return true; // Default: show all 32 departments of Colombia
+    return true;
   });
 
-  // Initialize Leaflet Map (only on desktop/tablet screens >= 768px)
+  const displayedDeptIdsRef = useRef<Set<string>>(new Set());
+  displayedDeptIdsRef.current = new Set(displayedDepartments.map((d) => d.id));
+
+  const sanAndresDept = departments.find((d) => d.code === '88' || d.id === 'san-andres');
+
+  // Observe theme mode (.dark) and accent CSS variable (--color-accent) changes
   useEffect(() => {
-    if (viewMode !== 'map' || mapFailed || !mapContainerRef.current) return;
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      return;
+    if (typeof document === 'undefined') return;
+    const handleThemeChange = () => setThemeTick((t) => t + 1);
+    window.addEventListener('theme-mode-changed', handleThemeChange);
+
+    const observer = new MutationObserver(() => {
+      handleThemeChange();
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class', 'style']
+    });
+
+    return () => {
+      window.removeEventListener('theme-mode-changed', handleThemeChange);
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mql = window.matchMedia('(min-width: 768px)');
+    const updateViewport = () => setIsDesktopViewport(mql.matches);
+    updateViewport();
+    mql.addEventListener('change', updateViewport);
+    return () => mql.removeEventListener('change', updateViewport);
+  }, []);
+
+  const findDepartmentByPolygonCode = useCallback((polygonCode: string): Department | undefined => {
+    const mappedCode = mapPolygonCodeToDepartmentCode(polygonCode);
+    return departmentsRef.current.find((d) => d.code === mappedCode);
+  }, []);
+
+  const getPolygonStyle = useCallback(
+    (polygonCode: string, isHovered: boolean, themeColors: MapThemeColors): L.PathOptions => {
+      const dept = findDepartmentByPolygonCode(polygonCode);
+      if (!dept) {
+        return {
+          fillColor: themeColors.pendingFill,
+          fillOpacity: isHovered ? 0.42 : 0.24,
+          color: themeColors.baseBorder,
+          weight: 1,
+          opacity: 0.9
+        };
+      }
+
+      const isFilteredOut = !displayedDeptIdsRef.current.has(dept.id);
+      const isHome = homeDepartmentIdRef.current === dept.id;
+      const isVisited = dept.isVisited || dept.visitedMunicipalities > 0;
+
+      if (isHome) {
+        return {
+          fillColor: themeColors.accent,
+          fillOpacity: isFilteredOut ? 0.14 : isHovered ? 0.96 : 0.86,
+          color: themeColors.homeBorder,
+          weight: isHovered ? 2.8 : 2.2,
+          opacity: isFilteredOut ? 0.45 : 1
+        };
+      }
+
+      if (isVisited) {
+        const ratio =
+          dept.totalMunicipalities > 0
+            ? Math.min(1, dept.visitedMunicipalities / dept.totalMunicipalities)
+            : Math.min(1, Math.max(0, (dept.progressPercentage || 0) / 100));
+        const baseFillOpacity = 0.48 + ratio * 0.28;
+        return {
+          fillColor: themeColors.accent,
+          fillOpacity: isFilteredOut ? 0.12 : isHovered ? Math.min(0.94, baseFillOpacity + 0.22) : baseFillOpacity,
+          color: isHovered ? (themeColors.isDark ? '#FFFFFF' : themeColors.accentDarker) : themeColors.baseBorder,
+          weight: isHovered ? 2.1 : 1,
+          opacity: isFilteredOut ? 0.4 : 0.95
+        };
+      }
+
+      return {
+        fillColor: themeColors.pendingFill,
+        fillOpacity: isFilteredOut ? 0.08 : isHovered ? 0.48 : 0.25,
+        color: isHovered ? themeColors.pendingHoverBorder : themeColors.baseBorder,
+        weight: isHovered ? 1.8 : 1,
+        opacity: isFilteredOut ? 0.35 : 0.92
+      };
+    },
+    [findDepartmentByPolygonCode]
+  );
+
+  const buildTooltipHtml = useCallback((polygonCode: string, dept: Department, isHome: boolean): string => {
+    const titleHtml =
+      polygonCode === '11'
+        ? `<strong>Bogotá D.C.</strong> <span style="opacity:0.75;font-weight:500;">(Cundinamarca)</span>`
+        : `<strong>${dept.name}</strong>`;
+    const homeLine = isHome
+      ? `<div style="margin-top:2px;font-weight:600;color:var(--color-accent-readable, var(--color-accent));">🏠 Tu departamento hogar</div>`
+      : '';
+    return `
+      <div>
+        ${titleHtml}
+        <div style="font-size:11px;opacity:0.85;margin-top:2px;">${dept.visitedMunicipalities} de ${dept.totalMunicipalities} municipios visitados</div>
+        ${homeLine}
+      </div>
+    `;
+  }, []);
+
+  const syncMapLabels = useCallback(
+    (map: L.Map) => {
+      const labelsGroup = labelsLayerRef.current;
+      if (!labelsGroup) return;
+
+      labelsGroup.clearLayers();
+
+      const zoom = map.getZoom();
+      if (zoom < 6) return;
+
+      for (const item of deptFeatureLayersRef.current) {
+        if (!item.labelCenter) continue;
+        // Skip Bogotá D.C. unless zoomed in closely so it never overlaps Cundinamarca
+        if (item.polygonCode === '11' && zoom < 8) continue;
+
+        const dept = findDepartmentByPolygonCode(item.polygonCode);
+        if (!dept || !displayedDeptIdsRef.current.has(dept.id)) continue;
+
+        const ne = map.latLngToContainerPoint(item.bounds.getNorthEast());
+        const sw = map.latLngToContainerPoint(item.bounds.getSouthWest());
+        const pxWidth = Math.abs(ne.x - sw.x);
+        const pxHeight = Math.abs(sw.y - ne.y);
+
+        const labelText = item.polygonCode === '11' ? 'Bogotá D.C.' : dept.name;
+        const minRequiredWidth = Math.max(46, labelText.length * 5.2);
+        if (pxWidth < minRequiredWidth || pxHeight < 24) continue;
+
+        const labelMarker = L.marker(item.labelCenter, {
+          interactive: false,
+          keyboard: false,
+          icon: L.divIcon({
+            className: 'dept-map-label',
+            html: `<span class="dept-map-label-text">${labelText}</span>`,
+            iconSize: [0, 0],
+            iconAnchor: [0, 0]
+          })
+        });
+        labelsGroup.addLayer(labelMarker);
+      }
+    },
+    [findDepartmentByPolygonCode]
+  );
+
+  const applyAllPolygonStyles = useCallback(() => {
+    const themeColors = readMapThemeColors();
+    const hoveredCode = hoveredPolygonCodeRef.current;
+
+    let bogotaLayer: L.Path | null = null;
+    const homeLayers: L.Path[] = [];
+
+    for (const item of deptFeatureLayersRef.current) {
+      const isHovered = hoveredCode === item.polygonCode;
+      item.layer.setStyle(getPolygonStyle(item.polygonCode, isHovered, themeColors));
+
+      const dept = findDepartmentByPolygonCode(item.polygonCode);
+      if (dept) {
+        const isHome = homeDepartmentIdRef.current === dept.id;
+        item.layer.setTooltipContent(buildTooltipHtml(item.polygonCode, dept, isHome));
+        if (isHome) homeLayers.push(item.layer);
+      }
+
+      if (item.polygonCode === '11') {
+        bogotaLayer = item.layer;
+      }
     }
 
-    let timer: NodeJS.Timeout | null = null;
+    // Keep home department borders crisp on top, and Bogotá ("11") above Cundinamarca ("25")
+    for (const homeLayer of homeLayers) {
+      homeLayer.bringToFront();
+    }
+    if (bogotaLayer) {
+      bogotaLayer.bringToFront();
+    }
+    if (hoveredCode) {
+      const hoveredItem = deptFeatureLayersRef.current.find((i) => i.polygonCode === hoveredCode);
+      if (hoveredItem) {
+        hoveredItem.layer.bringToFront();
+        if (hoveredCode === '25' && bogotaLayer) {
+          bogotaLayer.bringToFront();
+        }
+      }
+    }
+
+    // Sync San Andrés hit-target circle on the map
+    if (sanAndresHitRef.current) {
+      const sanDept = findDepartmentByPolygonCode('88');
+      const isHovered = hoveredCode === '88';
+      const isHome = sanDept ? homeDepartmentIdRef.current === sanDept.id : false;
+      const isVisited = sanDept ? sanDept.isVisited || sanDept.visitedMunicipalities > 0 : false;
+      const isFilteredOut = sanDept ? !displayedDeptIdsRef.current.has(sanDept.id) : false;
+
+      sanAndresHitRef.current.setStyle({
+        fillColor: isHome || isVisited ? themeColors.accent : themeColors.pendingFill,
+        fillOpacity: isFilteredOut ? 0.08 : isHovered ? 0.55 : isHome ? 0.45 : isVisited ? 0.35 : 0.2,
+        color: isHome ? themeColors.homeBorder : isVisited ? themeColors.accent : themeColors.pendingHoverBorder,
+        weight: isHovered ? 2 : 1.2,
+        opacity: isFilteredOut ? 0.35 : 0.75
+      });
+      if (sanDept) {
+        sanAndresHitRef.current.setTooltipContent(buildTooltipHtml('88', sanDept, isHome));
+      }
+    }
+  }, [buildTooltipHtml, findDepartmentByPolygonCode, getPolygonStyle]);
+
+  // Initialize Leaflet Map once (only on desktop/tablet screens >= 768px)
+  useEffect(() => {
+    if (viewMode !== 'map' || mapFailed || !isDesktopViewport || !mapContainerRef.current) return;
+
+    let isCancelled = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
     let resizeObserver: ResizeObserver | null = null;
 
     try {
-      // Clean up previous instance if any
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
 
-      // 3.5-second fallback timer if map fails or hangs
       timer = setTimeout(() => {
         if (!mapInstanceRef.current) {
           setMapFailed(true);
@@ -82,12 +323,16 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
         }
       }, 3500);
 
-      // Create map centered on Colombia with zoom moved to bottom-left to avoid top-left segmented toggle
       const map = L.map(mapContainerRef.current, {
         center: [4.5709, -74.2973],
         zoom: 6,
         minZoom: 5,
         maxZoom: 9,
+        maxBounds: [
+          [-10.0, -86.0],
+          [17.0, -62.0]
+        ],
+        maxBoundsViscosity: 0.65,
         zoomControl: false,
         attributionControl: false
       });
@@ -95,47 +340,161 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
       L.control.zoom({ position: 'bottomleft' }).addTo(map);
       mapInstanceRef.current = map;
 
-      // Ensure Leaflet resizes correctly when container bounds stabilize
+      const labelsGroup = L.layerGroup().addTo(map);
+      labelsLayerRef.current = labelsGroup;
+
+      const markersGroup = L.layerGroup().addTo(map);
+      markersLayerRef.current = markersGroup;
+
+      // Fit map to continental Colombia bounds cleanly
+      map.fitBounds(
+        [
+          [-4.3, -79.1],
+          [12.6, -66.8]
+        ],
+        { padding: [16, 16] }
+      );
+
+      const handleZoomEnd = () => {
+        if (mapInstanceRef.current) {
+          syncMapLabels(mapInstanceRef.current);
+        }
+      };
+      map.on('zoomend', handleZoomEnd);
+
       resizeObserver = new ResizeObserver(() => {
         if (mapInstanceRef.current) {
           mapInstanceRef.current.invalidateSize();
+          syncMapLabels(mapInstanceRef.current);
         }
       });
       resizeObserver.observe(mapContainerRef.current);
 
-      setTimeout(() => {
+      resizeTimeout = setTimeout(() => {
         if (mapInstanceRef.current) {
           mapInstanceRef.current.invalidateSize();
+          syncMapLabels(mapInstanceRef.current);
         }
-      }, 250);
+      }, 220);
 
-      // Clean, open OpenStreetMap tile layer (100% free and open, no API key required)
-      const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      });
+      const mountDepartmentGeoJson = (geoData: ColombiaDeptFeatureCollection) => {
+        if (isCancelled || !mapInstanceRef.current) return;
 
-      tileLayer.addTo(map);
+        setUsingFallbackPoints(false);
+        const collectedLayers: typeof deptFeatureLayersRef.current = [];
+        const initialColors = readMapThemeColors();
 
-      // Eliminar polígonos GeoJSON / Bounding boxes visuales para conservar exclusivamente centroides circulares
-      const geoLayer = L.geoJSON(COLOMBIA_GEOJSON, {
-        style: {
-          opacity: 0,
-          fillOpacity: 0,
-          stroke: false
-        }
-      });
-      geoJsonLayerRef.current = geoLayer;
+        const geoLayer = L.geoJSON(geoData, {
+          style: (feature) => {
+            const code = String((feature as ColombiaDeptFeature | undefined)?.properties?.code || '');
+            return getPolygonStyle(code, false, initialColors);
+          },
+          onEachFeature: (feature, layer) => {
+            const deptFeature = feature as ColombiaDeptFeature;
+            const polygonCode = deptFeature.properties.code;
+            const mappedCode = mapPolygonCodeToDepartmentCode(polygonCode);
+            const pathLayer = layer as L.Polygon;
 
-      // Layer group for reactive centroid markers
-      const markersGroup = L.layerGroup().addTo(map);
-      markersLayerRef.current = markersGroup;
+            pathLayer.bindTooltip('', {
+              sticky: true,
+              direction: 'top',
+              offset: [0, -10]
+            });
 
-      // Fit map to Colombia bounds safely
-      map.fitBounds([
-        [-4.2, -79.0],
-        [12.5, -67.0]
-      ]);
+            pathLayer.on('mouseover', () => {
+              hoveredPolygonCodeRef.current = polygonCode;
+              const dept = findDepartmentByPolygonCode(polygonCode);
+              if (dept) setHoveredDept(dept);
+              applyAllPolygonStyles();
+            });
+
+            pathLayer.on('mouseout', () => {
+              if (hoveredPolygonCodeRef.current === polygonCode) {
+                hoveredPolygonCodeRef.current = null;
+              }
+              setHoveredDept(null);
+              applyAllPolygonStyles();
+            });
+
+            pathLayer.on('click', () => {
+              const dept = findDepartmentByPolygonCode(polygonCode);
+              if (dept) {
+                onSelectDeptRef.current(dept.id);
+              }
+            });
+
+            const bounds = pathLayer.getBounds();
+            const labelCenter = getGeometryLabelCenter(deptFeature.geometry) || [
+              bounds.getCenter().lat,
+              bounds.getCenter().lng
+            ];
+
+            collectedLayers.push({
+              layer: pathLayer,
+              polygonCode,
+              mappedCode,
+              bounds,
+              labelCenter
+            });
+          }
+        }).addTo(map);
+
+        geoJsonLayerRef.current = geoLayer;
+        deptFeatureLayersRef.current = collectedLayers;
+
+        // Add generous clickable hit-target circle for San Andrés archipelago ("88") on the map
+        const sanAndresHit = L.circleMarker([12.56, -81.71], {
+          radius: 13,
+          weight: 1.2,
+          fillOpacity: 0.25,
+          opacity: 0.7
+        }).addTo(map);
+
+        sanAndresHit.bindTooltip('', {
+          sticky: true,
+          direction: 'top',
+          offset: [0, -10]
+        });
+
+        sanAndresHit.on('mouseover', () => {
+          hoveredPolygonCodeRef.current = '88';
+          const dept = findDepartmentByPolygonCode('88');
+          if (dept) setHoveredDept(dept);
+          applyAllPolygonStyles();
+        });
+
+        sanAndresHit.on('mouseout', () => {
+          if (hoveredPolygonCodeRef.current === '88') {
+            hoveredPolygonCodeRef.current = null;
+          }
+          setHoveredDept(null);
+          applyAllPolygonStyles();
+        });
+
+        sanAndresHit.on('click', () => {
+          const dept = findDepartmentByPolygonCode('88');
+          if (dept) onSelectDeptRef.current(dept.id);
+        });
+
+        sanAndresHitRef.current = sanAndresHit;
+
+        applyAllPolygonStyles();
+        syncMapLabels(map);
+      };
+
+      const bundled = getBundledColombiaGeoJson();
+      if (bundled) {
+        mountDepartmentGeoJson(bundled);
+      } else {
+        void loadColombiaDepartmentsGeoJson().then((remoteGeo) => {
+          if (isCancelled || !mapInstanceRef.current) return;
+          if (remoteGeo) {
+            mountDepartmentGeoJson(remoteGeo);
+          } else {
+            setUsingFallbackPoints(true);
+          }
+        });
+      }
 
       if (timer) clearTimeout(timer);
     } catch (err) {
@@ -145,20 +504,53 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
     }
 
     return () => {
+      isCancelled = true;
       if (resizeObserver) resizeObserver.disconnect();
       if (timer) clearTimeout(timer);
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+
+      for (const item of deptFeatureLayersRef.current) {
+        item.layer.off();
+      }
+      deptFeatureLayersRef.current = [];
+
+      if (sanAndresHitRef.current) {
+        sanAndresHitRef.current.off();
+        sanAndresHitRef.current = null;
+      }
+
+      geoJsonLayerRef.current = null;
+      labelsLayerRef.current = null;
       markersLayerRef.current = null;
+
       if (mapInstanceRef.current) {
+        mapInstanceRef.current.off();
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
     };
-  }, [viewMode, mapFailed]);
+  }, [
+    viewMode,
+    mapFailed,
+    isDesktopViewport,
+    applyAllPolygonStyles,
+    findDepartmentByPolygonCode,
+    getPolygonStyle,
+    syncMapLabels
+  ]);
 
-  // Update map centroid markers dynamically whenever filters, search query, or departments change
+  // Update polygon styles & tooltips in place (or emergency fallback centroid dots) when data/filters/theme change
   useEffect(() => {
+    if (viewMode !== 'map' || mapFailed || !isDesktopViewport || !mapInstanceRef.current) return;
+
+    if (!usingFallbackPoints) {
+      applyAllPolygonStyles();
+      syncMapLabels(mapInstanceRef.current);
+      return;
+    }
+
     const markersGroup = markersLayerRef.current;
-    if (viewMode !== 'map' || mapFailed || !markersGroup) return;
+    if (!markersGroup) return;
 
     markersGroup.clearLayers();
 
@@ -205,7 +597,18 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
 
       markersGroup.addLayer(marker);
     });
-  }, [displayedDepartments, homeDepartmentId, viewMode, mapFailed]);
+  }, [
+    departments,
+    displayedDepartments,
+    homeDepartmentId,
+    viewMode,
+    mapFailed,
+    isDesktopViewport,
+    themeTick,
+    usingFallbackPoints,
+    applyAllPolygonStyles,
+    syncMapLabels
+  ]);
 
   return (
     <div
@@ -374,10 +777,11 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
           </div>
 
           {viewMode === 'map' && !mapFailed ? (
-            <div 
+            <div
               id="colombia-leaflet-map"
-              ref={mapContainerRef} 
-              className="w-full h-full z-10 map-pastel-filter dark:invert-[0.88] dark:hue-rotate-180 dark:contrast-[0.95] dark:brightness-[0.9]"
+              ref={mapContainerRef}
+              data-hovered-dept={hoveredDept?.id ?? ''}
+              className="w-full h-full z-10"
               style={{ minHeight: '100%' }}
             />
           ) : (
@@ -475,30 +879,65 @@ export const CountryExplorer: React.FC<CountryExplorerProps> = ({
             </div>
           )}
 
+          {/* Recuadro político inferior izquierdo para San Andrés y Providencia */}
+          {viewMode === 'map' && !mapFailed && !usingFallbackPoints && sanAndresDept && (
+            <button
+              id="map-san-andres-inset-btn"
+              type="button"
+              onClick={() => onSelectDepartment(sanAndresDept.id)}
+              onMouseEnter={() => setHoveredDept(sanAndresDept)}
+              onMouseLeave={() => setHoveredDept(null)}
+              title={`${sanAndresDept.name} (${sanAndresDept.visitedMunicipalities} de ${sanAndresDept.totalMunicipalities} municipios visitados)`}
+              className={`absolute bottom-[92px] left-3 z-20 flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md border border-[#FFE4EA] dark:border-zinc-700 shadow-md hover:shadow-lg transition-all cursor-pointer text-xs font-semibold text-slate-700 dark:text-zinc-200 ${
+                displayedDeptIdsRef.current.has(sanAndresDept.id) ? 'opacity-100' : 'opacity-50'
+              }`}
+            >
+              {homeDepartmentId === sanAndresDept.id ? (
+                <span className="text-xs leading-none" aria-hidden="true">🏠</span>
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${
+                    sanAndresDept.isVisited || sanAndresDept.visitedMunicipalities > 0
+                      ? ''
+                      : 'bg-slate-300 dark:bg-zinc-600'
+                  }`}
+                  style={
+                    sanAndresDept.isVisited || sanAndresDept.visitedMunicipalities > 0
+                      ? { backgroundColor: 'var(--color-accent)' }
+                      : undefined
+                  }
+                />
+              )}
+              <span className="whitespace-nowrap">San Andrés</span>
+            </button>
+          )}
+
           {/* Map Legend at bottom-left, offset beside the zoom control */}
           {viewMode === 'map' && !mapFailed && (
-            <div className="absolute bottom-3 left-14 right-3 sm:right-auto w-fit max-w-[calc(100%-4.5rem)] z-20 bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md px-3 py-2 rounded-2xl shadow-md border border-[#FFE4EA] dark:border-zinc-700 flex flex-wrap items-center gap-2.5 text-xs pointer-events-none">
+            <div className="absolute bottom-3 left-14 right-3 sm:right-auto w-fit max-w-[calc(100%-4.5rem)] z-20 bg-white/95 dark:bg-[#1E2228]/95 backdrop-blur-md px-3 py-2 rounded-2xl shadow-md border border-[#FFE4EA] dark:border-zinc-700 flex flex-wrap items-center gap-3 text-xs pointer-events-none">
               <div className="flex items-center gap-1.5">
-                <span className="w-3.5 h-3.5 rounded-full bg-[#FEA38E] border border-white inline-block shadow-sm" />
+                <span
+                  className="w-3.5 h-3.5 rounded-sm border border-white/80 dark:border-zinc-800 inline-block shadow-2xs"
+                  style={{ backgroundColor: 'var(--color-accent)', opacity: 0.72 }}
+                />
                 <span className="text-slate-600 dark:text-zinc-200 font-medium">Explorado</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-3.5 h-3.5 rounded-full bg-[#E2E8F0] dark:bg-zinc-600 border border-white inline-block shadow-sm" />
+                <span className="w-3.5 h-3.5 rounded-sm bg-slate-400/30 dark:bg-slate-500/35 border border-white/80 dark:border-zinc-800 inline-block shadow-2xs" />
                 <span className="text-slate-600 dark:text-zinc-200 font-medium">Pendiente</span>
               </div>
-              <div className="hidden lg:flex items-center gap-1.5">
-                <span
-                  className="w-3.5 h-3.5 rounded-full bg-white border-2 inline-block shadow-sm"
-                  style={{ borderColor: 'var(--color-accent)' }}
-                />
-                <span className="text-slate-600 dark:text-zinc-200 font-medium">Centroide interactivo</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs leading-none" aria-hidden="true">🏠</span>
+                <span className="text-slate-700 dark:text-zinc-200 font-semibold">Hogar</span>
               </div>
-              {homeDepartmentId && (
-                <div className="flex items-center gap-1.5">
-                  <span className="w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] flex items-center justify-center border border-white shadow-sm">
-                    🏠
-                  </span>
-                  <span className="text-rose-600 dark:text-rose-400 font-bold">Hogar</span>
+              {usingFallbackPoints && (
+                <div className="hidden lg:flex items-center gap-1.5">
+                  <span
+                    className="w-3.5 h-3.5 rounded-full bg-white border-2 inline-block shadow-sm"
+                    style={{ borderColor: 'var(--color-accent)' }}
+                  />
+                  <span className="text-slate-600 dark:text-zinc-200 font-medium">Centroide interactivo</span>
                 </div>
               )}
             </div>

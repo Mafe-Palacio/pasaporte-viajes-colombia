@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import L from 'leaflet';
 import { Search, ArrowLeft, CheckCircle2, Clock, MapPin, ChevronRight, Heart, LogOut, AlertCircle, RefreshCw, Compass, BarChart3 } from 'lucide-react';
 import { Department, Municipality, TripEntry } from '../types';
-import { QUINDIO_MUNICIPALITIES_GEOJSON, ANTIOQUIA_MUNICIPALITIES_GEOJSON } from '../data/geoJsonData';
 import { getMunicipalitiesForDepartment } from '../data/colombiaData';
 import { DestinationRouletteModal, RouletteItem } from './DestinationRouletteModal';
 import { PassportDesktopHeader, syncPassportVisitStats } from './AppNavbar';
@@ -468,42 +467,20 @@ export const RegionalExplorer: React.FC<RegionalExplorerProps> = ({
 
       tileLayer.addTo(map);
 
-      // Calculate bounds if GeoJSON is available, but NEVER add polygon visually to map
-      const geojsonData = department.id === 'quindio'
-        ? QUINDIO_MUNICIPALITIES_GEOJSON
-        : department.id === 'antioquia'
-        ? ANTIOQUIA_MUNICIPALITIES_GEOJSON
-        : null;
+      // Fit bounds using the department's municipality coordinates
+      const validPoints = effectiveMunisRef.current
+        .map((m) => [m.latitude ?? m.lat, m.longitude ?? m.lng])
+        .filter((pt): pt is [number, number] => pt[0] !== undefined && pt[1] !== undefined);
 
-      if (geojsonData) {
+      if (validPoints.length > 0) {
         try {
-          const geoLayer = L.geoJSON(geojsonData, {
-            style: {
-              opacity: 0,
-              fillOpacity: 0,
-              stroke: false
-            }
-          });
-          map.fitBounds(geoLayer.getBounds(), { padding: [30, 30] });
+          const bounds = L.latLngBounds(validPoints);
+          map.fitBounds(bounds, { padding: [50, 50], maxZoom: 11 });
         } catch {
-          map.setView([department.latitude, department.longitude], 10);
-        }
-      } else {
-        // If no geojson available, fit bounds using the municipality coordinates
-        const validPoints = effectiveMunisRef.current
-          .map((m) => [m.latitude ?? m.lat, m.longitude ?? m.lng])
-          .filter((pt): pt is [number, number] => pt[0] !== undefined && pt[1] !== undefined);
-
-        if (validPoints.length > 0) {
-          try {
-            const bounds = L.latLngBounds(validPoints);
-            map.fitBounds(bounds, { padding: [50, 50], maxZoom: 11 });
-          } catch {
-            map.setView([department.latitude, department.longitude], 9);
-          }
-        } else {
           map.setView([department.latitude, department.longitude], 9);
         }
+      } else {
+        map.setView([department.latitude, department.longitude], 9);
       }
 
       // Layer group for reactive municipality markers
